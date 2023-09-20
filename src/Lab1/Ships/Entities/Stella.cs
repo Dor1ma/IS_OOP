@@ -8,6 +8,7 @@ public class Stella : Ship
     private readonly JumpEngine _jumpEngine = new JumpEngine("Omega");
     public Stella()
     {
+        DeflectorClass = 1;
         AsteroidsLimit = 1;
         MeteorsLimit = 0;
         DestroyedAsteroids = 2;

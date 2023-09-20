@@ -7,6 +7,7 @@ public class Meredian : Ship
     private readonly ImpulseEngine _impulseEngine = new ImpulseEngine('E');
     public Meredian()
     {
+        DeflectorClass = 2;
         AsteroidsLimit = 5;
         MeteorsLimit = 2;
         DestroyedAsteroids = 10;
@@ -15,6 +16,7 @@ public class Meredian : Ship
         IsActive = true;
     }
 
+    // DON'T FORGET TO ADD ANTI-NITRINIUM EMITTER!!!
     public override void Defence()
     {
         throw new System.NotImplementedException();

@@ -8,6 +8,7 @@ public class Avgur : Ship
     private readonly JumpEngine _jumpEngine = new JumpEngine("Alpha");
     public Avgur()
     {
+        DeflectorClass = 3;
         AsteroidsLimit = 20;
         MeteorsLimit = 5;
         DestroyedAsteroids = 40;

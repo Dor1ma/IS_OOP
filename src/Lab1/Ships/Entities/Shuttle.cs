@@ -8,6 +8,7 @@ public class Shuttle : Ship
     private readonly ImpulseEngine _impulseEngine = new ImpulseEngine('C');
     public Shuttle()
     {
+        DeflectorClass = 0;
         AsteroidsLimit = 1;
         MeteorsLimit = 0;
         DestroyedAsteroids = 0;

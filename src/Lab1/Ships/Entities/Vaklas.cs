@@ -8,6 +8,7 @@ public class Vaklas : Ship
     private readonly JumpEngine _jumpEngine = new JumpEngine("Gamma");
     public Vaklas()
     {
+        DeflectorClass = 1;
         AsteroidsLimit = 5;
         MeteorsLimit = 2;
         DestroyedAsteroids = 2;
