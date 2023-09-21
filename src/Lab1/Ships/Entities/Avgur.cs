@@ -7,20 +7,7 @@ public class Avgur : Ship
     private readonly ImpulseEngine _impulseEngine = new ImpulseEngine('E');
     private readonly JumpEngine _jumpEngine = new JumpEngine("Alpha");
     public Avgur()
-    {
-        DeflectorClass = 3;
-        AsteroidsLimit = 20;
-        MeteorsLimit = 5;
-        DestroyedAsteroids = 40;
-        DestroyedAsteroids = 10;
-        ReflectedWhales = 1;
-        IsActive = true;
-    }
-
-    public override void Defence()
-    {
-        throw new System.NotImplementedException();
-    }
+        : base(3, 3) { }
 
     // TEMP FUNCTION
     public void Temp()

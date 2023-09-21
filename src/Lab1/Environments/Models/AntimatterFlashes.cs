@@ -1,19 +1,19 @@
-using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models;
+using Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environments.Models;
 
 public class AntimatterFlashes : IObstacle
 {
-    public void DoDamage(IDeflector deflector)
+    public void DoDamage(Ship ship)
     {
-        if (deflector != null)
+        if (ship != null)
         {
-            if (deflector.IsPhoton)
+            if (ship.IsPhoton)
             {
-                deflector.ReflectedFlashes--;
-                if (deflector.ReflectedFlashes == 0)
+                ship.ReflectedFlashes--;
+                if (ship.ReflectedFlashes == 0)
                 {
-                    deflector.IsActive = false;
+                    ship.IsActive = false;
                 }
             } // DON'T FORGET TO IMPLEMENT ELSE CONDTIONS!!!
         }

@@ -7,19 +7,7 @@ public class Stella : Ship
     private readonly ImpulseEngine _impulseEngine = new ImpulseEngine('C');
     private readonly JumpEngine _jumpEngine = new JumpEngine("Omega");
     public Stella()
-    {
-        DeflectorClass = 1;
-        AsteroidsLimit = 1;
-        MeteorsLimit = 0;
-        DestroyedAsteroids = 2;
-        DestroyedMeteors = 1;
-        IsActive = true;
-    }
-
-    public override void Defence()
-    {
-        throw new System.NotImplementedException();
-    }
+        : base(1, 1) { }
 
     // TEMP FUNCTION
     public void Temp()

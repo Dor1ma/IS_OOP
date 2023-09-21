@@ -7,17 +7,9 @@ public class Shuttle : Ship
 {
     private readonly ImpulseEngine _impulseEngine = new ImpulseEngine('C');
     public Shuttle()
-    {
-        DeflectorClass = 0;
-        AsteroidsLimit = 1;
-        MeteorsLimit = 0;
-        DestroyedAsteroids = 0;
-        DestroyedMeteors = 0;
-        ReflectedWhales = 0;
-        IsActive = false;
-    }
+        : base(0, 1) { }
 
-    public override void Defence()
+    public void Temp()
     {
         Console.WriteLine(_impulseEngine.EngineType);
     }

@@ -1,19 +1,19 @@
-using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models;
+using Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environments.Models;
 
 public class Asteroid : IObstacle
 {
-    public void DoDamage(IDeflector deflector)
+    public void DoDamage(Ship ship)
     {
-        if (deflector != null)
+        if (ship != null)
         {
-            if (deflector.IsActive)
+            if (ship.IsActive)
             {
-                deflector.DestroyedAsteroids--;
-                if (deflector.DestroyedAsteroids == 0)
+                ship.DestroyedAsteroids--;
+                if (ship.DestroyedAsteroids == 0)
                 {
-                    deflector.IsActive = false;
+                    ship.IsActive = false;
                 }
             } // DON'T FORGET TO IMPLEMENT ELSE CONDITIONS!!!
         }

@@ -9,5 +9,4 @@ public interface IDeflector
     int ReflectedFlashes { get; set; }
     bool IsActive { get; set; }
     bool IsPhoton { get; set; }
-    void Defence();
 }

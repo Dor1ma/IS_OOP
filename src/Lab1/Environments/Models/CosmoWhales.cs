@@ -1,19 +1,19 @@
-using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models;
+using Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environments.Models;
 
 public class CosmoWhales : IObstacle
 {
-    public void DoDamage(IDeflector deflector)
+    public void DoDamage(Ship ship)
     {
-        if (deflector != null)
+        if (ship != null)
         {
-            if (deflector.DeflectorClass == 3)
+            if (ship.DeflectorClass == 3)
             {
-                deflector.ReflectedWhales--;
-                if (deflector.ReflectedFlashes == 0)
+                ship.ReflectedWhales--;
+                if (ship.ReflectedFlashes == 0)
                 {
-                    deflector.IsActive = false;
+                    ship.IsActive = false;
                 }
             } // DON'T FORGET TO IMPLEMENT ELSE CONDTIONS!!!
         }
