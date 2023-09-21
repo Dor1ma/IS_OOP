@@ -6,10 +6,11 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Environments.Entities;
 public class HighDensityNebulae : Environment
 {
     private AntimatterFlashes flash = new AntimatterFlashes();
-    public HighDensityNebulae(int flashesCount)
+    public HighDensityNebulae(int flashesCount, int length)
     {
         EngineRequired = "Jump";
-        ChanelLength = 300; // temp value
+        ChanelLength = length; // temp value
+        EnvironmentLength = ChanelLength;
         FlashesCount = flashesCount;
     }
 

@@ -6,11 +6,12 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Environments.Entities;
 public class NitrinoParticleNebulae : Environment
 {
     private readonly CosmoWhales _cosmoWhale = new CosmoWhales();
-    public NitrinoParticleNebulae(int cosmoWhalesCount)
+    public NitrinoParticleNebulae(int cosmoWhalesCount, int length)
     {
         EngineRequired = "Impulse";
         ExtraRequirenment = "E";
         CosmoWhalesCount = cosmoWhalesCount;
+        EnvironmentLength = length;
     }
 
     private int CosmoWhalesCount { get; set; }
