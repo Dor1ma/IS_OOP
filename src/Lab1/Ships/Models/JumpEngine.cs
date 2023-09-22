@@ -21,11 +21,16 @@ public class JumpEngine : IEngine
                 FuelConsumption = 2 * 2; // Square multiplier, temp value, need to be changed
                 Range = 1000; // temp value
                 break;
+            case "-":
+                EngineType = '-';
+                FuelConsumption = 0;
+                Range = 0;
+                break;
         }
     }
 
     public char EngineType { get; set; }
     public string FuelType { get; set; } = "GravityMatter";
     public int FuelConsumption { get; set; }
-    private int Range { get; set; }
+    public int Range { get; set; }
 }

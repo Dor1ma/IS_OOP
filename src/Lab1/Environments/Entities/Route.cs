@@ -1,11 +1,11 @@
 using System;
-using System.Collections.Generic;
+using System.Collections;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environments.Entities;
 
 public class Route
 {
-    private List<Environment> segments = new List<Environment>();
+    public ArrayList Segments { get; } = new ArrayList();
 
     public void CreateRoute(int segmentsCount)
     {
@@ -26,20 +26,22 @@ public class Route
                     Console.Write(meteors);
                     Console.Write(segmentLength);
                     newEnvironment = new Space(asteroids, meteors, segmentLength);
-                    segments.Add(newEnvironment);
+                    Segments.Add(newEnvironment);
                     break;
                 case "nebula1":
                     Console.Write(flashes);
                     Console.Write(segmentLength);
                     newEnvironment = new HighDensityNebulae(flashes, segmentLength);
-                    segments.Add(newEnvironment);
+                    Segments.Add(newEnvironment);
                     break;
                 case "nebula2":
                     Console.Write(whales);
                     Console.Write(segmentLength);
                     newEnvironment = new NitrinoParticleNebulae(whales, segmentLength);
-                    segments.Add(newEnvironment);
+                    Segments.Add(newEnvironment);
                     break;
+                default:
+                    throw new ArgumentException("Unknown environment type");
             }
         }
     }

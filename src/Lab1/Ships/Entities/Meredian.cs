@@ -4,15 +4,11 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
 
 public class Meredian : Ship
 {
-    private readonly ImpulseEngine _impulseEngine = new ImpulseEngine('E');
     public Meredian()
-        : base(2, 2) { }
-
-    // DON'T FORGET TO ADD ANTI-NITRINIUM EMITTER!!!
-
-    // TEMP FUNCTION
-    public void Temp()
+        : base(2, 2)
     {
-        _impulseEngine.EngineType = 'E';
+        ImpulseEngine = new ImpulseEngine('E');
+        EngineTypes = "Impulse";
+        AntiNitriniumEmitter = true;
     }
 }

@@ -2,9 +2,9 @@ using Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environments.Models;
 
-public class AntimatterFlashes : IObstacle
+public class AntimatterFlashes : Obstacle
 {
-    public void DoDamage(Ship ship)
+    public override void DoDamage(Ship ship)
     {
         if (ship != null)
         {

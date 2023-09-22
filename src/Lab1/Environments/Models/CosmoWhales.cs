@@ -2,20 +2,27 @@ using Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environments.Models;
 
-public class CosmoWhales : IObstacle
+public class CosmoWhales : Obstacle
 {
-    public void DoDamage(Ship ship)
+    public override void DoDamage(Ship ship)
     {
         if (ship != null)
         {
-            if (ship.DeflectorClass == 3)
+            if (!ship.AntiNitriniumEmitter)
             {
-                ship.ReflectedWhales--;
-                if (ship.ReflectedFlashes == 0)
+                if (ship.DeflectorClass == 3)
                 {
-                    ship.IsActive = false;
+                    ship.ReflectedWhales--;
+                    if (ship.ReflectedFlashes == 0)
+                    {
+                        ship.IsActive = false;
+                    }
                 }
-            } // DON'T FORGET TO IMPLEMENT ELSE CONDTIONS!!!
+                else
+                {
+                    ship.IsBroken = true;
+                }
+            }
         }
     }
 }

@@ -2,7 +2,7 @@ using Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environments.Models;
 
-public interface IObstacle
+public abstract class Obstacle
 {
-    public void DoDamage(Ship ship);
+    public abstract void DoDamage(Ship ship);
 }

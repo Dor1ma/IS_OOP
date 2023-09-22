@@ -6,7 +6,11 @@ public abstract class Ship : IArmor, IDeflector
 {
     protected Ship(int deflectorClass, int armorClass)
     {
+        ImpulseEngine = new ImpulseEngine('-');
+        JumpEngine = new JumpEngine("-");
+        EngineTypes = "None";
         CrewStatus = true;
+        AntiNitriniumEmitter = false;
         switch (deflectorClass)
         {
             case 0:
@@ -52,6 +56,9 @@ public abstract class Ship : IArmor, IDeflector
         }
     }
 
+    public ImpulseEngine ImpulseEngine { get; set; }
+    public JumpEngine JumpEngine { get; set; }
+    public string EngineTypes { get; set; }
     public int AsteroidsLimit { get; set; }
     public int MeteorsLimit { get; set; }
     public bool IsBroken { get; set; }
@@ -63,6 +70,7 @@ public abstract class Ship : IArmor, IDeflector
     public bool IsActive { get; set; }
     public bool IsPhoton { get; set; }
     public bool CrewStatus { get; set; }
+    public bool AntiNitriniumEmitter { get; set; }
 
     public bool[] GetStatus()
     {

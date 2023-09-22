@@ -16,6 +16,11 @@ public class ImpulseEngine : IEngine
                 FuelType = "ActivePlasma";
                 FuelConsumption = 5; // high multiplier
                 break;
+            case '-':
+                EngineType = '-';
+                FuelType = "-";
+                FuelConsumption = 0;
+                break;
         }
     }
 

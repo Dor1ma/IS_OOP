@@ -2,9 +2,9 @@ using Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environments.Models;
 
-public class Asteroid : IObstacle
+public class Asteroid : Obstacle
 {
-    public void DoDamage(Ship ship)
+    public override void DoDamage(Ship ship)
     {
         if (ship != null)
         {
@@ -15,7 +15,15 @@ public class Asteroid : IObstacle
                 {
                     ship.IsActive = false;
                 }
-            } // DON'T FORGET TO IMPLEMENT ELSE CONDITIONS!!!
+            }
+            else
+            {
+                ship.AsteroidsLimit--;
+                if (ship.AsteroidsLimit == 0)
+                {
+                    ship.IsBroken = true;
+                }
+            }
         }
     }
 }
