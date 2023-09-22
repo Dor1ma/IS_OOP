@@ -12,7 +12,7 @@ public class JumpEngine : IEngine
                 break;
             case "Omega":
                 EngineType = 'O';
-                Range = 300; // temp value
+                Range = 500; // temp value
                 break;
             case "Gamma":
                 EngineType = 'G';

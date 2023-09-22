@@ -7,7 +7,7 @@ internal class Program
 {
     public static void Main()
     {
-        var ship = new Vaklas();
+        var ship = new Vaklas(true);
         Console.WriteLine(ship.DestroyedAsteroids);
     }
 }

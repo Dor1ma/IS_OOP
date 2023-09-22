@@ -16,6 +16,10 @@ public class AntimatterFlashes : Obstacle
                     ship.IsActive = false;
                 }
             }
+            else
+            {
+                ship.CrewStatus = false;
+            }
         }
     }
 }

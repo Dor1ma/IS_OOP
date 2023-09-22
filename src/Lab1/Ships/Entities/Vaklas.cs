@@ -4,8 +4,8 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
 
 public class Vaklas : Ship
 {
-    public Vaklas()
-        : base(1, 2)
+    public Vaklas(bool isPhoton)
+        : base(1, 2, isPhoton)
     {
         ImpulseEngine = new ImpulseEngine('E');
         JumpEngine = new JumpEngine("Gamma");

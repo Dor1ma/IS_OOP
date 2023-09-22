@@ -4,13 +4,14 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
 
 public abstract class Ship : IArmor, IDeflector
 {
-    protected Ship(int deflectorClass, int armorClass)
+    protected Ship(int deflectorClass, int armorClass, bool isPhoton)
     {
         ImpulseEngine = new ImpulseEngine('-');
         JumpEngine = new JumpEngine("-");
         EngineTypes = "None";
         CrewStatus = true;
         AntiNitriniumEmitter = false;
+        IsPhoton = isPhoton;
         switch (deflectorClass)
         {
             case 0:
@@ -72,6 +73,7 @@ public abstract class Ship : IArmor, IDeflector
     public bool IsPhoton { get; set; }
     public bool CrewStatus { get; set; }
     public bool AntiNitriniumEmitter { get; set; }
+    public double Cost { get; set; }
 
     public bool[] GetStatus()
     {

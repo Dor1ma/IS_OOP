@@ -4,8 +4,8 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
 
 public class Stella : Ship
 {
-    public Stella()
-        : base(1, 1)
+    public Stella(bool isPhoton)
+        : base(1, 1, isPhoton)
     {
         ImpulseEngine = new ImpulseEngine('C');
         JumpEngine = new JumpEngine("Omega");
