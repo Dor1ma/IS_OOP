@@ -15,7 +15,7 @@ public class AntimatterFlashes : Obstacle
                 {
                     ship.IsActive = false;
                 }
-            } // DON'T FORGET TO IMPLEMENT ELSE CONDTIONS!!!
+            }
         }
     }
 }

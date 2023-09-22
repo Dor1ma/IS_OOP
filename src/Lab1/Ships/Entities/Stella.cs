@@ -10,5 +10,6 @@ public class Stella : Ship
         ImpulseEngine = new ImpulseEngine('C');
         JumpEngine = new JumpEngine("Omega");
         EngineTypes = "Both";
+        Mass = 1.1;
     }
 }

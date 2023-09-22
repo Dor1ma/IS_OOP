@@ -16,7 +16,7 @@ public class ShipChecker
         route.CreateRoute(segments);
     }
 
-    public void Check()
+    public void PermeabilityCheck()
     {
         foreach (Environment segment in route.Segments)
         {
@@ -55,8 +55,7 @@ public class ShipChecker
                 else
                 {
                     // Exponent acceleration engine required?
-                    if (ship.ImpulseEngine.EngineType != 'E' &&
-                        ship.EngineTypes != "Both")
+                    if (ship.ImpulseEngine.EngineType != 'E')
                     {
                         Console.WriteLine("NO!!!");
                     }
@@ -105,5 +104,63 @@ public class ShipChecker
                 }
             }
         }
+    }
+
+    public double CostCount(FuelExchange fuelExchange)
+    {
+        double cost = 0;
+        foreach (Environment segment in route.Segments)
+        {
+            if (segment.EngineRequired == "Impulse")
+            {
+                if (segment.ExtraRequirenment != "-")
+                {
+                    if (ship.ImpulseEngine.EngineType == 'C')
+                    {
+                        double accelerationDistance = segment.EnvironmentLength * 0.1 * 0.1;
+                        double constSpeed = segment.EnvironmentLength * 0.1;
+                        double time = segment.EnvironmentLength / (accelerationDistance + constSpeed);
+                        if (fuelExchange != null)
+                            cost += (time * fuelExchange.ActivePlasmaCost * ship.Mass) + ship.ImpulseEngine.StartCost;
+                    }
+                    else
+                    {
+                        double speed = double.Exp(segment.EnvironmentLength);
+                        double time = segment.EnvironmentLength / speed;
+                        if (fuelExchange != null)
+                            cost += (time * fuelExchange.ActivePlasmaCost * ship.Mass) + ship.ImpulseEngine.StartCost;
+                    }
+                }
+                else
+                {
+                    double speed = double.Exp(segment.EnvironmentLength);
+                    double time = segment.EnvironmentLength / speed;
+                    if (fuelExchange != null)
+                        cost += (time * fuelExchange.ActivePlasmaCost * ship.Mass) + ship.ImpulseEngine.StartCost;
+                }
+            }
+            else
+            {
+                if (ship.JumpEngine.EngineType == 'A')
+                {
+                    if (fuelExchange != null) cost += segment.EnvironmentLength * fuelExchange.GravityMatterCost;
+                }
+                else if (ship.JumpEngine.EngineType == 'O')
+                {
+                    if (fuelExchange != null)
+                    {
+                        cost += segment.EnvironmentLength * double.Log(segment.EnvironmentLength) *
+                                fuelExchange.GravityMatterCost;
+                    }
+                }
+                else
+                {
+                    if (fuelExchange != null)
+                        cost += double.Pow(segment.EnvironmentLength, 2) * fuelExchange.GravityMatterCost;
+                }
+            }
+        }
+
+        return cost;
     }
 }

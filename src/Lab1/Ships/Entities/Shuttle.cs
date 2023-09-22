@@ -9,5 +9,6 @@ public class Shuttle : Ship
     {
         ImpulseEngine = new ImpulseEngine('C');
         EngineTypes = "Impulse";
+        Mass = 1.1;
     }
 }

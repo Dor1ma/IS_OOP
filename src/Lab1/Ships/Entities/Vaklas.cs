@@ -10,6 +10,7 @@ public class Vaklas : Ship
         ImpulseEngine = new ImpulseEngine('E');
         JumpEngine = new JumpEngine("Gamma");
         EngineTypes = "Both";
+        Mass = 1.3;
     }
 
     public bool Active { get; set; } = true;

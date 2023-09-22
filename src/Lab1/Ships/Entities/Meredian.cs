@@ -10,5 +10,6 @@ public class Meredian : Ship
         ImpulseEngine = new ImpulseEngine('E');
         EngineTypes = "Impulse";
         AntiNitriniumEmitter = true;
+        Mass = 1.3;
     }
 }

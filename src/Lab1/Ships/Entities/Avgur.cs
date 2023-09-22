@@ -10,5 +10,6 @@ public class Avgur : Ship
         ImpulseEngine = new ImpulseEngine('E');
         JumpEngine = new JumpEngine("Alpha");
         EngineTypes = "Both";
+        Mass = 1.5;
     }
 }

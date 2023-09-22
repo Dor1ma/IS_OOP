@@ -8,24 +8,19 @@ public class ImpulseEngine : IEngine
         {
             case 'C':
                 EngineType = 'C';
-                FuelType = "ActivePlasma";
-                FuelConsumption = 2; // medium multiplier
+                StartCost = 10;
                 break;
             case 'E':
                 EngineType = 'E';
-                FuelType = "ActivePlasma";
-                FuelConsumption = 5; // high multiplier
+                StartCost = 25;
                 break;
             case '-':
                 EngineType = '-';
-                FuelType = "-";
-                FuelConsumption = 0;
                 break;
         }
     }
 
     public char EngineType { get; set; }
     public string FuelType { get; set; } = "ActivePlasma";
-    public int FuelConsumption { get; set; }
-    public int Speed { get; set; }
+    public int StartCost { get; set; }
 }

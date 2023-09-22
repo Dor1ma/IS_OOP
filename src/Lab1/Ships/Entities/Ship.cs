@@ -58,6 +58,7 @@ public abstract class Ship : IArmor, IDeflector
 
     public ImpulseEngine ImpulseEngine { get; set; }
     public JumpEngine JumpEngine { get; set; }
+    public double Mass { get; set; }
     public string EngineTypes { get; set; }
     public int AsteroidsLimit { get; set; }
     public int MeteorsLimit { get; set; }
