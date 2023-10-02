@@ -1,28 +1,27 @@
-using Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
+using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environments.Models;
 
-public class CosmoWhales : Obstacle
+public class CosmoWhales : Obstacle, IWhale
 {
-    public override void DoDamage(Ship ship)
+    public override void DoDamage(IDeflector deflector, IArmor armor)
     {
-        if (ship != null)
+        if (deflector.AntiNitriniumEmitter) return;
+    }
+
+    public void Attack(IAntiWhaleDeflector deflector, IArmor armor)
+    {
+        if (deflector.DeflectorClass == 3)
         {
-            if (!ship.AntiNitriniumEmitter)
+            deflector.ReflectedWhales--;
+            if (deflector.ReflectedFlashes == 0)
             {
-                if (ship.DeflectorClass == 3)
-                {
-                    ship.ReflectedWhales--;
-                    if (ship.ReflectedFlashes == 0)
-                    {
-                        ship.IsActive = false;
-                    }
-                }
-                else
-                {
-                    ship.IsBroken = true;
-                }
+                deflector.IsActive = false;
             }
+        }
+        else
+        {
+            armor.IsBroken = true;
         }
     }
 }

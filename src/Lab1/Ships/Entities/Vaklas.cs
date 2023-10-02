@@ -9,6 +9,7 @@ public class Vaklas : Ship
     {
         EngineTypes = "Both";
         Mass = 1.3;
+        DeflectorClass = 1;
         DestroyedAsteroids = 2;
         DestroyedMeteors = 1;
         AsteroidsLimit = 5;

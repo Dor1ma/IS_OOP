@@ -9,6 +9,7 @@ public class Shuttle : Ship
     {
         EngineTypes = "Impulse";
         Mass = 1.1;
+        DeflectorClass = 1;
         AsteroidsLimit = 1;
         MeteorsLimit = 0;
     }

@@ -15,15 +15,16 @@ public abstract class Ship : IArmor, IDeflector
 
     public double Mass { get; protected init; }
     public string EngineTypes { get; protected init; }
-    public int AsteroidsLimit { get; protected set; }
-    public int MeteorsLimit { get; protected set; }
-    public bool IsBroken { get; protected set; }
-    public int DestroyedAsteroids { get; protected set; }
-    public int DestroyedMeteors { get; protected set; }
-    public int ReflectedFlashes { get; protected set; }
-    public bool IsActive { get; protected set; }
+    public int DeflectorClass { get; set; }
+    public int AsteroidsLimit { get; set; }
+    public int MeteorsLimit { get; set; }
+    public bool IsBroken { get; set; }
+    public int DestroyedAsteroids { get; set; }
+    public int DestroyedMeteors { get; set; }
+    public int ReflectedFlashes { get; set; }
+    public bool IsActive { get; set; }
     public bool IsPhoton { get; }
     public bool CrewStatus { get; protected set; }
-    public bool AntiNitriniumEmitter { get; protected init; }
+    public bool AntiNitriniumEmitter { get; init; }
     public double Cost { get; set; }
 }

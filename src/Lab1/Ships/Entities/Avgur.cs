@@ -9,13 +9,14 @@ public class Avgur : Ship, IAntiWhaleDeflector
     {
         EngineTypes = "Both";
         Mass = 1.5;
+        DeflectorClass = 3;
         DestroyedAsteroids = 40;
         DestroyedMeteors = 10;
         AsteroidsLimit = 20;
         MeteorsLimit = 5;
     }
 
-    public int ReflectedWhales { get; } = 1;
+    public int ReflectedWhales { get; set; } = 1;
     public ImpulseEngineE ImpulseEngineE { get; } = new ImpulseEngineE();
     public JumpEngineAlpha JumpEngineAlpha { get; } = new JumpEngineAlpha();
 }

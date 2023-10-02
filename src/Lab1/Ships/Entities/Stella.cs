@@ -9,6 +9,7 @@ public class Stella : Ship
     {
         EngineTypes = "Both";
         Mass = 1.1;
+        DeflectorClass = 1;
         DestroyedAsteroids = 2;
         DestroyedMeteors = 1;
         AsteroidsLimit = 1;

@@ -10,6 +10,7 @@ public class Meredian : Ship
         EngineTypes = "Impulse";
         AntiNitriniumEmitter = true;
         Mass = 1.3;
+        DeflectorClass = 2;
         DestroyedAsteroids = 10;
         DestroyedMeteors = 3;
         AsteroidsLimit = 5;
