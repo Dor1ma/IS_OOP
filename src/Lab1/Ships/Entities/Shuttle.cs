@@ -5,10 +5,13 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
 public class Shuttle : Ship
 {
     public Shuttle(bool isPhoton)
-        : base(0, 1, isPhoton)
+        : base(isPhoton)
     {
-        ImpulseEngine = new ImpulseEngine('C');
         EngineTypes = "Impulse";
         Mass = 1.1;
+        AsteroidsLimit = 1;
+        MeteorsLimit = 0;
     }
+
+    public ImpulseEngineC ImpulseEngineC { get; } = new ImpulseEngineC();
 }

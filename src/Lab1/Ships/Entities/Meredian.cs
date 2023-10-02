@@ -5,11 +5,16 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
 public class Meredian : Ship
 {
     public Meredian(bool isPhoton)
-        : base(2, 2, isPhoton)
+        : base(isPhoton)
     {
-        ImpulseEngine = new ImpulseEngine('E');
         EngineTypes = "Impulse";
         AntiNitriniumEmitter = true;
         Mass = 1.3;
+        DestroyedAsteroids = 10;
+        DestroyedMeteors = 3;
+        AsteroidsLimit = 5;
+        MeteorsLimit = 2;
     }
+
+    public ImpulseEngineE ImpulseEngineE { get; } = new ImpulseEngineE();
 }

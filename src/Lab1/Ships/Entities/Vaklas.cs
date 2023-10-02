@@ -5,13 +5,16 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
 public class Vaklas : Ship
 {
     public Vaklas(bool isPhoton)
-        : base(1, 2, isPhoton)
+        : base(isPhoton)
     {
-        ImpulseEngine = new ImpulseEngine('E');
-        JumpEngine = new JumpEngine("Gamma");
         EngineTypes = "Both";
         Mass = 1.3;
+        DestroyedAsteroids = 2;
+        DestroyedMeteors = 1;
+        AsteroidsLimit = 5;
+        MeteorsLimit = 2;
     }
 
-    public bool Active { get; set; } = true;
+    public ImpulseEngineE ImpulseEngineE { get; } = new ImpulseEngineE();
+    public JumpEngineGamma JumpEngineGamma { get; } = new JumpEngineGamma();
 }

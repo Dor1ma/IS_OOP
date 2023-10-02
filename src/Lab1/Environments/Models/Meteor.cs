@@ -6,23 +6,20 @@ public class Meteor : Obstacle
 {
     public override void DoDamage(Ship ship)
     {
-        if (ship != null)
+        if (ship.IsActive)
         {
-            if (ship.IsActive)
+            ship.DestroyedMeteors--;
+            if (ship.DestroyedMeteors == 0)
             {
-                ship.DestroyedMeteors--;
-                if (ship.DestroyedMeteors == 0)
-                {
-                    ship.IsActive = false;
-                }
+                ship.IsActive = false;
             }
-            else
+        }
+        else
+        {
+            ship.MeteorsLimit--;
+            if (ship.MeteorsLimit == 0)
             {
-                ship.MeteorsLimit--;
-                if (ship.MeteorsLimit == 0)
-                {
-                    ship.IsBroken = true;
-                }
+                ship.IsBroken = true;
             }
         }
     }

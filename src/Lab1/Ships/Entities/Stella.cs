@@ -5,11 +5,16 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
 public class Stella : Ship
 {
     public Stella(bool isPhoton)
-        : base(1, 1, isPhoton)
+        : base(isPhoton)
     {
-        ImpulseEngine = new ImpulseEngine('C');
-        JumpEngine = new JumpEngine("Omega");
         EngineTypes = "Both";
         Mass = 1.1;
+        DestroyedAsteroids = 2;
+        DestroyedMeteors = 1;
+        AsteroidsLimit = 1;
+        MeteorsLimit = 0;
     }
+
+    public ImpulseEngineC ImpulseEngineC { get; } = new ImpulseEngineC();
+    public JumpEngineOmega JumpEngineOmega { get; } = new JumpEngineOmega();
 }

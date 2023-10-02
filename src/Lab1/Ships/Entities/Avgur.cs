@@ -2,14 +2,20 @@ using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
 
-public class Avgur : Ship
+public class Avgur : Ship, IAntiWhaleDeflector
 {
     public Avgur(bool isPhoton)
-        : base(3, 3, isPhoton)
+        : base(isPhoton)
     {
-        ImpulseEngine = new ImpulseEngine('E');
-        JumpEngine = new JumpEngine("Alpha");
         EngineTypes = "Both";
         Mass = 1.5;
+        DestroyedAsteroids = 40;
+        DestroyedMeteors = 10;
+        AsteroidsLimit = 20;
+        MeteorsLimit = 5;
     }
+
+    public int ReflectedWhales { get; } = 1;
+    public ImpulseEngineE ImpulseEngineE { get; } = new ImpulseEngineE();
+    public JumpEngineAlpha JumpEngineAlpha { get; } = new JumpEngineAlpha();
 }
