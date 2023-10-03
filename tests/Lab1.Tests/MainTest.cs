@@ -76,7 +76,7 @@ public class MainTest
 
     [Theory]
     [ClassData(typeof(FourthTestData))]
-    public void FourthCase(
+    public void ShuttleAndVaklasInSpaceCostCheck(
         Shuttle shuttle,
         Vaklas vaklas,
         Route route,
@@ -105,61 +105,73 @@ public class MainTest
         Assert.Equal(comparingResult, comparingTest);
     }
 
-    [Fact]
-    public void FifthCase()
+    [Theory]
+    [ClassData(typeof(FifthTestData))]
+    public void AvgurAndStellaInHighDensityNebulaeTest(
+        Avgur avgur,
+        Stella stella,
+        Route route,
+        int flashesCount,
+        int length,
+        string avgurResult,
+        string stellaResult)
     {
-        var avgur = new Avgur(false);
-        var stella = new Stella(false);
-        var route = new Route();
-
-        int[][] requirements = new int[1][];
-        requirements[0] = new[] { 2, 400, 0, 0, 0, 0 };
-        route.CreateRoute(1, requirements);
+        var highDensityNebulae = new HighDensityNebulae(flashesCount, length);
+        route.AddSegment(highDensityNebulae);
 
         string avgurMessage = ShipChecker.PermeabilityCheck(avgur, route);
-        string avgurResult = "Insufficient engines range";
         string stellaMessage = ShipChecker.PermeabilityCheck(stella, route);
-        string stellaResult = "OK";
+
         Assert.Equal(avgurResult, avgurMessage);
         Assert.Equal(stellaResult, stellaMessage);
     }
 
-    [Fact]
-    public void SixthCase()
+    [Theory]
+    [ClassData(typeof(SixthTestData))]
+    public void ShuttleAndVaklasInNitrinoParcticleNebulaeTest(
+        Shuttle shuttle,
+        Vaklas vaklas,
+        Route route,
+        int whalesCount,
+        int length,
+        string shuttleResult,
+        string vaklasResult)
     {
-        var shuttle = new Shuttle(false);
-        var vaklas = new Vaklas(false);
-        var route = new Route();
-
-        int[][] requirements = new int[1][];
-        requirements[0] = new[] { 3, 100, 0, 0, 0, 0 };
-        route.CreateRoute(1, requirements);
+        var nitrinoParticleNebulae = new NitrinoParticleNebulae(whalesCount, length);
+        route.AddSegment(nitrinoParticleNebulae);
 
         string shuttleMessage = ShipChecker.PermeabilityCheck(shuttle, route);
-        string shuttleResult = "Unsuitable engine";
         string vaklasMessage = ShipChecker.PermeabilityCheck(vaklas, route);
-        string vaklasResult = "OK";
         Assert.Equal(shuttleResult, shuttleMessage);
         Assert.Equal(vaklasResult, vaklasMessage);
     }
 
-    [Fact]
-    public void SeventhCase()
+    [Theory]
+    [ClassData(typeof(SeventhTestData))]
+    public void ShuttleAndVaklasInMultipleSegmentsRoute(
+        Shuttle shuttle,
+        Vaklas vaklas,
+        Route route,
+        int firstAsteroidsCount,
+        int firstMeteorsCount,
+        int secondAsteroidsCount,
+        int secondMeteorsCount,
+        int whalesCount,
+        int segmentOneLength,
+        int segmentTwoLength,
+        int segmentThreeLength,
+        string shuttleResult,
+        string vaklasResult)
     {
-        var shuttle = new Shuttle(false);
-        var vaklas = new Vaklas(false);
-        var route = new Route();
-
-        int[][] requirements = new int[3][];
-        requirements[0] = new[] { 1, 100, 4, 0, 0, 0 };
-        requirements[1] = new[] { 1, 200, 0, 2, 0, 0 };
-        requirements[2] = new[] { 3, 400, 0, 0, 0, 0 };
-        route.CreateRoute(1, requirements);
+        var spaceOne = new Space(firstAsteroidsCount, firstMeteorsCount, segmentOneLength);
+        var spaceTwo = new Space(secondAsteroidsCount, secondMeteorsCount, segmentTwoLength);
+        var nitrinoParticleNebulae = new NitrinoParticleNebulae(whalesCount, segmentThreeLength);
+        route.AddSegment(spaceOne);
+        route.AddSegment(spaceTwo);
+        route.AddSegment(nitrinoParticleNebulae);
 
         string shuttleMessage = ShipChecker.PermeabilityCheck(shuttle, route);
-        string shuttleResult = "Ship destroyed";
         string vaklasMessage = ShipChecker.PermeabilityCheck(vaklas, route);
-        string vaklasResult = "OK";
         Assert.Equal(shuttleResult, shuttleMessage);
         Assert.Equal(vaklasResult, vaklasMessage);
     }
@@ -269,6 +281,95 @@ public class MainTest
                 VaklasExpected,
                 ActivePlasmaCost,
                 GravityMatterCost,
+            },
+        };
+        public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    }
+
+    private class FifthTestData : IEnumerable<object[]>
+    {
+        private const bool WithoutPhotons = false;
+        private const int FlashesCount = 0;
+        private const int SegmentLength = 400;
+        private const string AvgurExpected = "Insufficient engines range";
+        private const string StellaExpected = "OK";
+        private readonly List<object[]> _data = new List<object[]>
+        {
+            new object[]
+            {
+                new Avgur(WithoutPhotons),
+                new Stella(WithoutPhotons),
+                new Route(),
+                FlashesCount,
+                SegmentLength,
+                AvgurExpected,
+                StellaExpected,
+            },
+        };
+        public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    }
+
+    private class SixthTestData : IEnumerable<object[]>
+    {
+        private const bool WithoutPhotons = false;
+        private const int WhalesCount = 0;
+        private const int SegmentLength = 100;
+        private const string ShuttleExpected = "Unsuitable engine";
+        private const string VaklasExpected = "OK";
+
+        private readonly List<object[]> _data = new List<object[]>
+        {
+            new object[]
+            {
+                new Shuttle(WithoutPhotons),
+                new Vaklas(WithoutPhotons),
+                new Route(),
+                WhalesCount,
+                SegmentLength,
+                ShuttleExpected,
+                VaklasExpected,
+            },
+        };
+        public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    }
+
+    private class SeventhTestData : IEnumerable<object[]>
+    {
+        private const bool WithoutPhotons = false;
+        private const int FirstSpaceAsteroidsCount = 4;
+        private const int FirstSpaceMeteorsCount = 0;
+        private const int SecondSpaceAsteroidsCount = 0;
+        private const int SecondSpaceMeteorsCount = 2;
+        private const int WhalesCount = 0;
+        private const int FirstSegmentLength = 100;
+        private const int SecondSegmentLength = 200;
+        private const int ThirdSegmentLength = 400;
+        private const string ShuttleExpected = "Ship destroyed";
+        private const string VaklasExpected = "OK";
+
+        private readonly List<object[]> _data = new List<object[]>
+        {
+            new object[]
+            {
+                new Shuttle(WithoutPhotons),
+                new Vaklas(WithoutPhotons),
+                new Route(),
+                FirstSpaceAsteroidsCount,
+                FirstSpaceMeteorsCount,
+                SecondSpaceAsteroidsCount,
+                SecondSpaceMeteorsCount,
+                WhalesCount,
+                FirstSegmentLength,
+                SecondSegmentLength,
+                ThirdSegmentLength,
+                ShuttleExpected,
+                VaklasExpected,
             },
         };
         public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
