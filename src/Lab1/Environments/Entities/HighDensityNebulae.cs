@@ -13,5 +13,5 @@ public class HighDensityNebulae : Environment
         FirstObstaclesCount = flashesCount;
     }
 
-    private int ChanelLength { get; set; }
+    private int ChanelLength { get; }
 }
