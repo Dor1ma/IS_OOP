@@ -2,7 +2,7 @@ using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
 
-public abstract class Ship : IArmor, IDeflector
+public abstract class Ship : IArmor, IDeflector, IImpulseEngine, IJumpEngine
 {
     protected Ship(bool isPhoton)
     {
@@ -11,6 +11,10 @@ public abstract class Ship : IArmor, IDeflector
         AntiNitriniumEmitter = false;
         IsPhoton = isPhoton;
         IsActive = true;
+        ImpulseEngineType = "-";
+        ImpulseEngineFuelType = "ActivePlasma";
+        JumpEngineType = "-";
+        JumpEngineFuelType = "GravityMatter";
     }
 
     public double Mass { get; protected init; }
@@ -27,4 +31,10 @@ public abstract class Ship : IArmor, IDeflector
     public bool CrewStatus { get; protected set; }
     public bool AntiNitriniumEmitter { get; init; }
     public double Cost { get; set; }
+    public string ImpulseEngineType { get; init; }
+    public string ImpulseEngineFuelType { get; init; }
+    public int StartCost { get; init; }
+    public string JumpEngineType { get; init; }
+    public string JumpEngineFuelType { get; init; }
+    public int Range { get; init; }
 }

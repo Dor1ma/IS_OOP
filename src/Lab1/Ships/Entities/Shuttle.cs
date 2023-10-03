@@ -1,5 +1,3 @@
-using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models;
-
 namespace Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
 
 public class Shuttle : Ship
@@ -11,7 +9,7 @@ public class Shuttle : Ship
         Mass = 1.1;
         AsteroidsLimit = 1;
         MeteorsLimit = 0;
+        ImpulseEngineType = "C";
+        StartCost = 10;
     }
-
-    public ImpulseEngineC ImpulseEngineC { get; } = new ImpulseEngineC();
 }

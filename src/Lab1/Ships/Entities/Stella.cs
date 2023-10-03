@@ -1,5 +1,3 @@
-using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models;
-
 namespace Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
 
 public class Stella : Ship
@@ -14,8 +12,9 @@ public class Stella : Ship
         DestroyedMeteors = 1;
         AsteroidsLimit = 1;
         MeteorsLimit = 0;
+        ImpulseEngineType = "C";
+        StartCost = 10;
+        JumpEngineType = "Omega";
+        Range = 500;
     }
-
-    public ImpulseEngineC ImpulseEngineC { get; } = new ImpulseEngineC();
-    public JumpEngineOmega JumpEngineOmega { get; } = new JumpEngineOmega();
 }

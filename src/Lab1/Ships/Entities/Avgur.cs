@@ -14,9 +14,11 @@ public class Avgur : Ship, IAntiWhaleDeflector
         DestroyedMeteors = 10;
         AsteroidsLimit = 20;
         MeteorsLimit = 5;
+        ImpulseEngineType = "E";
+        StartCost = 25;
+        JumpEngineType = "Alpha";
+        Range = 100;
     }
 
     public int ReflectedWhales { get; set; } = 1;
-    public ImpulseEngineE ImpulseEngineE { get; } = new ImpulseEngineE();
-    public JumpEngineAlpha JumpEngineAlpha { get; } = new JumpEngineAlpha();
 }

@@ -1,5 +1,3 @@
-using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models;
-
 namespace Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
 
 public class Vaklas : Ship
@@ -14,8 +12,9 @@ public class Vaklas : Ship
         DestroyedMeteors = 1;
         AsteroidsLimit = 5;
         MeteorsLimit = 2;
+        ImpulseEngineType = "E";
+        StartCost = 25;
+        JumpEngineType = "Gamma";
+        Range = 1000;
     }
-
-    public ImpulseEngineE ImpulseEngineE { get; } = new ImpulseEngineE();
-    public JumpEngineGamma JumpEngineGamma { get; } = new JumpEngineGamma();
 }

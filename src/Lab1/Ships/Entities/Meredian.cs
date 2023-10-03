@@ -1,5 +1,3 @@
-using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models;
-
 namespace Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
 
 public class Meredian : Ship
@@ -15,7 +13,7 @@ public class Meredian : Ship
         DestroyedMeteors = 3;
         AsteroidsLimit = 5;
         MeteorsLimit = 2;
+        ImpulseEngineType = "E";
+        StartCost = 25;
     }
-
-    public ImpulseEngineE ImpulseEngineE { get; } = new ImpulseEngineE();
 }
