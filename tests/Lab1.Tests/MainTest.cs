@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab1.Environments.Entities;
 using Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
 using Itmo.ObjectOrientedProgramming.Lab1.Ships.Services;
@@ -7,23 +9,22 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
 
 public class MainTest
 {
-    [Fact]
-    public void FirstCase()
+    [Theory]
+    [ClassData(typeof(FirstTestData))]
+    public void ShuttleAndAvgurInHighDensityNebulaeTest(
+        Shuttle shuttle,
+        Avgur avgur,
+        Route route,
+        int flashesCount,
+        int length,
+        string shuttleResult,
+        string avgurResult)
     {
-        var shuttle = new Shuttle(false);
-        var avgur = new Avgur(false);
-        var route = new Route();
-
-        int[][] requirements = new int[1][];
-
-        // { EnvType, SegmentLength, Asteroids, Meteors, Flashes, Whales }
-        requirements[0] = new[] { 2, 200, 0, 0, 0, 0 };
-        route.CreateRoute(1, requirements);
+        var space = new HighDensityNebulae(flashesCount, length);
+        route.AddSegment(space);
 
         string shuttleMessage = ShipChecker.PermeabilityCheck(shuttle, route);
-        string shuttleResult = "Unsuitable engine";
         string avgurMessage = ShipChecker.PermeabilityCheck(avgur, route);
-        string avgurResult = "Insufficient engines range";
         Assert.Equal(shuttleResult, shuttleMessage);
         Assert.Equal(avgurResult, avgurMessage);
     }
@@ -154,5 +155,32 @@ public class MainTest
         string vaklasResult = "OK";
         Assert.Equal(shuttleResult, shuttleMessage);
         Assert.Equal(vaklasResult, vaklasMessage);
+    }
+
+    private class FirstTestData : IEnumerable<object[]>
+    {
+        private const bool AreShuttleDeflectorsPhoton = false;
+        private const bool AreAvgurDeflectorsPhoton = false;
+        private const int FlashesCount = 0;
+        private const int SegmentLength = 200;
+        private const string ShuttleExpected = "Unsuitable engine";
+        private const string AvgurExpected = "Insufficient engines range";
+
+        private readonly List<object[]> _data = new List<object[]>
+        {
+            new object[]
+            {
+                new Shuttle(AreShuttleDeflectorsPhoton),
+                new Avgur(AreAvgurDeflectorsPhoton),
+                new Route(),
+                FlashesCount,
+                SegmentLength,
+                ShuttleExpected,
+                AvgurExpected,
+            },
+        };
+        public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }
