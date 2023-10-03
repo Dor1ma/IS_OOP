@@ -22,9 +22,11 @@ public class MainTest
     {
         var space = new HighDensityNebulae(flashesCount, length);
         route.AddSegment(space);
+        var shuttleChecker = new ShipChecker(shuttle);
+        var avgurChecker = new ShipChecker(avgur);
 
-        string shuttleMessage = ShipChecker.PermeabilityCheck(shuttle, route);
-        string avgurMessage = ShipChecker.PermeabilityCheck(avgur, route);
+        string shuttleMessage = shuttleChecker.PermeabilityCheck(route);
+        string avgurMessage = avgurChecker.PermeabilityCheck(route);
         Assert.Equal(shuttleResult, shuttleMessage);
         Assert.Equal(avgurResult, avgurMessage);
     }
@@ -42,9 +44,11 @@ public class MainTest
     {
         var highDensityNebulae = new HighDensityNebulae(flashesCount, length);
         route.AddSegment(highDensityNebulae);
+        var vaklasChecker = new ShipChecker(vaklas);
+        var vaklasWithPhotonsChecker = new ShipChecker(vaklasWithPhotons);
 
-        string vaklasMessage = ShipChecker.PermeabilityCheck(vaklas, route);
-        string vaklasWithPhotonsMessage = ShipChecker.PermeabilityCheck(vaklasWithPhotons, route);
+        string vaklasMessage = vaklasChecker.PermeabilityCheck(route);
+        string vaklasWithPhotonsMessage = vaklasWithPhotonsChecker.PermeabilityCheck(route);
 
         Assert.Equal(vaklasResult, vaklasMessage);
         Assert.Equal(vaklasWithPhotonsResult, vaklasWithPhotonsMessage);
@@ -65,10 +69,13 @@ public class MainTest
     {
         var nitrinoParticleNebulae = new NitrinoParticleNebulae(whalesCount, length);
         route.AddSegment(nitrinoParticleNebulae);
+        var vaklasChecker = new ShipChecker(vaklas);
+        var avgurChecker = new ShipChecker(avgur);
+        var meredianChecker = new ShipChecker(meredian);
 
-        string vaklasMessage = ShipChecker.PermeabilityCheck(vaklas, route);
-        ShipChecker.PermeabilityCheck(avgur, route);
-        string meredianMessage = ShipChecker.PermeabilityCheck(meredian, route);
+        string vaklasMessage = vaklasChecker.PermeabilityCheck(route);
+        avgurChecker.PermeabilityCheck(route);
+        string meredianMessage = meredianChecker.PermeabilityCheck(route);
         Assert.Equal(vaklasResult, vaklasMessage);
         Assert.Equal(avgurResult, avgur.IsBroken);
         Assert.Equal(meredianResult, meredianMessage);
@@ -90,15 +97,17 @@ public class MainTest
     {
         var space = new Space(asteroidsCount, meteorsCount, length);
         route.AddSegment(space);
+        var shuttleChecker = new ShipChecker(shuttle);
+        var vaklasChecker = new ShipChecker(vaklas);
 
-        string shuttleMessage = ShipChecker.PermeabilityCheck(shuttle, route);
-        string vaklasMessage = ShipChecker.PermeabilityCheck(vaklas, route);
+        string shuttleMessage = shuttleChecker.PermeabilityCheck(route);
+        string vaklasMessage = vaklasChecker.PermeabilityCheck(route);
         Assert.Equal(shuttleResult, shuttleMessage);
         Assert.Equal(vaklasResult, vaklasMessage);
 
         var fuelExchange = new FuelExchange(activePasmaCost, gravityMatterCost);
-        ShipChecker.CostCount(shuttle, route, fuelExchange);
-        ShipChecker.CostCount(vaklas, route, fuelExchange);
+        shuttleChecker.CostCount(shuttle, route, fuelExchange);
+        shuttleChecker.CostCount(vaklas, route, fuelExchange);
         Ship comparingResult = shuttle;
         var ships = new Ship[] { shuttle, vaklas };
         Ship comparingTest = ShipChecker.ShipsComparator(ships);
@@ -118,9 +127,11 @@ public class MainTest
     {
         var highDensityNebulae = new HighDensityNebulae(flashesCount, length);
         route.AddSegment(highDensityNebulae);
+        var avgurChecker = new ShipChecker(avgur);
+        var stellaChecker = new ShipChecker(stella);
 
-        string avgurMessage = ShipChecker.PermeabilityCheck(avgur, route);
-        string stellaMessage = ShipChecker.PermeabilityCheck(stella, route);
+        string avgurMessage = avgurChecker.PermeabilityCheck(route);
+        string stellaMessage = stellaChecker.PermeabilityCheck(route);
 
         Assert.Equal(avgurResult, avgurMessage);
         Assert.Equal(stellaResult, stellaMessage);
@@ -139,9 +150,11 @@ public class MainTest
     {
         var nitrinoParticleNebulae = new NitrinoParticleNebulae(whalesCount, length);
         route.AddSegment(nitrinoParticleNebulae);
+        var shuttleChecker = new ShipChecker(shuttle);
+        var vaklasChecker = new ShipChecker(vaklas);
 
-        string shuttleMessage = ShipChecker.PermeabilityCheck(shuttle, route);
-        string vaklasMessage = ShipChecker.PermeabilityCheck(vaklas, route);
+        string shuttleMessage = shuttleChecker.PermeabilityCheck(route);
+        string vaklasMessage = vaklasChecker.PermeabilityCheck(route);
         Assert.Equal(shuttleResult, shuttleMessage);
         Assert.Equal(vaklasResult, vaklasMessage);
     }
@@ -170,8 +183,11 @@ public class MainTest
         route.AddSegment(spaceTwo);
         route.AddSegment(nitrinoParticleNebulae);
 
-        string shuttleMessage = ShipChecker.PermeabilityCheck(shuttle, route);
-        string vaklasMessage = ShipChecker.PermeabilityCheck(vaklas, route);
+        var shuttleChecker = new ShipChecker(shuttle);
+        var vaklasChecker = new ShipChecker(vaklas);
+
+        string shuttleMessage = shuttleChecker.PermeabilityCheck(route);
+        string vaklasMessage = vaklasChecker.PermeabilityCheck(route);
         Assert.Equal(shuttleResult, shuttleMessage);
         Assert.Equal(vaklasResult, vaklasMessage);
     }
