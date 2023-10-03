@@ -135,14 +135,12 @@ public class ShipChecker
                     {
                         for (int i = 0; i < segment.FirstObstaclesCount; i++)
                         {
-                            if (_ship != null)
+                            if (_ship != null && _shipDeflector != null)
                             {
-                                if (_shipDeflector != null && _shipArmor != null)
-                                    segment.FirstObstacle?.DoDamage(_shipDeflector, _shipArmor);
-                                if (!_ship.CrewStatus)
-                                {
+                                if (!_shipDeflector.IsActive || !_shipDeflector.IsPhoton)
                                     return "Crew is dead";
-                                }
+                                if (_shipArmor != null)
+                                    segment.FirstObstacle?.DoDamage(_shipDeflector, _shipArmor);
                             }
                         }
                     }
