@@ -26,6 +26,7 @@ public abstract class Ship : IArmor, IDeflector, IImpulseEngine, IJumpEngine
     public int DestroyedAsteroids { get; set; }
     public int DestroyedMeteors { get; set; }
     public int ReflectedFlashes { get; set; }
+    public int ReflectedWhales { get; set; }
     public bool IsActive { get; set; }
     public bool IsPhoton { get; }
     public bool CrewStatus { get; protected set; }
