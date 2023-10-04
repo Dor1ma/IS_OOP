@@ -9,7 +9,7 @@ public class Asteroid : Obstacle
         if (deflector.IsActive)
         {
             deflector.DestroyedAsteroids--;
-            if (deflector.DestroyedAsteroids == 0)
+            if (deflector.DestroyedAsteroids <= 0)
             {
                 deflector.IsActive = false;
             }
@@ -17,7 +17,7 @@ public class Asteroid : Obstacle
         else
         {
             armor.AsteroidsLimit--;
-            if (armor.AsteroidsLimit == 0)
+            if (armor.AsteroidsLimit <= 0)
             {
                 armor.IsBroken = true;
             }

@@ -9,7 +9,7 @@ public class Meteor : Obstacle
         if (deflector.IsActive)
         {
             deflector.DestroyedMeteors--;
-            if (deflector.DestroyedMeteors == 0)
+            if (deflector.DestroyedMeteors <= 0)
             {
                 deflector.IsActive = false;
             }
@@ -17,7 +17,7 @@ public class Meteor : Obstacle
         else
         {
             armor.MeteorsLimit--;
-            if (armor.MeteorsLimit == 0)
+            if (armor.MeteorsLimit <= 0)
             {
                 armor.IsBroken = true;
             }

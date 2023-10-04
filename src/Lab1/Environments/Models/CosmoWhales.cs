@@ -10,7 +10,7 @@ public class CosmoWhales : Obstacle
         if (deflector.DeflectorClass == 3)
         {
             deflector.ReflectedWhales--;
-            if (deflector.ReflectedWhales == 0)
+            if (deflector.ReflectedWhales <= 0)
             {
                 deflector.IsActive = false;
             }

@@ -9,7 +9,7 @@ public class AntimatterFlashes : Obstacle
         if (deflector.IsPhoton)
         {
             deflector.ReflectedFlashes--;
-            if (deflector.ReflectedFlashes == 0)
+            if (deflector.ReflectedFlashes <= 0)
             {
                 deflector.IsActive = false;
             }
