@@ -6,11 +6,11 @@ public class Shuttle : Ship
         : base(isPhoton)
     {
         EngineTypes = "Impulse";
-        Mass = 1.1;
+        Mass = ShipParameters.LowMass;
         IsActive = false;
-        AsteroidsLimit = 1;
-        MeteorsLimit = 0;
+        AsteroidsLimit = ShipParameters.ArmorClassOneAsteroidsLimit;
+        MeteorsLimit = ShipParameters.ArmorClassOneMeteorsLimit;
         ImpulseEngineType = "C";
-        StartCost = 10;
+        StartCost = ShipParameters.ImpulseEngineTypeCStartCost;
     }
 }

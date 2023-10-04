@@ -6,15 +6,15 @@ public class Vaklas : Ship
         : base(isPhoton)
     {
         EngineTypes = "Both";
-        Mass = 1.3;
+        Mass = ShipParameters.MediumMass;
         DeflectorClass = 1;
-        DestroyedAsteroids = 2;
-        DestroyedMeteors = 1;
-        AsteroidsLimit = 5;
-        MeteorsLimit = 2;
+        DestroyedAsteroids = ShipParameters.FirstDeflectorsAsteroidsLimit;
+        DestroyedMeteors = ShipParameters.FirstDeflectorsMeteorsLimit;
+        AsteroidsLimit = ShipParameters.ArmorClassTwoAsteroidsLimit;
+        MeteorsLimit = ShipParameters.ArmorClassTwoMeteorsLimit;
         ImpulseEngineType = "E";
-        StartCost = 25;
+        StartCost = ShipParameters.ImpulseEngineTypeEStartCost;
         JumpEngineType = "Gamma";
-        Range = 1000;
+        Range = ShipParameters.JumpEngineTypeGammaRange;
     }
 }

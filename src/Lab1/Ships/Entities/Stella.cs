@@ -6,15 +6,15 @@ public class Stella : Ship
         : base(isPhoton)
     {
         EngineTypes = "Both";
-        Mass = 1.1;
+        Mass = ShipParameters.LowMass;
         DeflectorClass = 1;
-        DestroyedAsteroids = 2;
-        DestroyedMeteors = 1;
-        AsteroidsLimit = 1;
-        MeteorsLimit = 0;
+        DestroyedAsteroids = ShipParameters.FirstDeflectorsAsteroidsLimit;
+        DestroyedMeteors = ShipParameters.FirstDeflectorsMeteorsLimit;
+        AsteroidsLimit = ShipParameters.ArmorClassOneAsteroidsLimit;
+        MeteorsLimit = ShipParameters.ArmorClassOneMeteorsLimit;
         ImpulseEngineType = "C";
-        StartCost = 10;
+        StartCost = ShipParameters.ImpulseEngineTypeCStartCost;
         JumpEngineType = "Omega";
-        Range = 500;
+        Range = ShipParameters.JumpEngineTypeOmegaRange;
     }
 }

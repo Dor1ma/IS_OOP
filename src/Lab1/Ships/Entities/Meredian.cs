@@ -6,14 +6,14 @@ public class Meredian : Ship
         : base(isPhoton)
     {
         EngineTypes = "Impulse";
-        AntiNitriniumEmitter = true;
-        Mass = 1.3;
+        AntiNitriniumEmitter = ShipParameters.WithAntiNitriniumEmitter;
+        Mass = ShipParameters.MediumMass;
         DeflectorClass = 2;
-        DestroyedAsteroids = 10;
-        DestroyedMeteors = 3;
-        AsteroidsLimit = 5;
-        MeteorsLimit = 2;
+        DestroyedAsteroids = ShipParameters.SecondDeflectorsAsteroidsLimit;
+        DestroyedMeteors = ShipParameters.SecondDeflectorsMeteorsLimit;
+        AsteroidsLimit = ShipParameters.ArmorClassTwoAsteroidsLimit;
+        MeteorsLimit = ShipParameters.ArmorClassTwoMeteorsLimit;
         ImpulseEngineType = "E";
-        StartCost = 25;
+        StartCost = ShipParameters.ImpulseEngineTypeEStartCost;
     }
 }

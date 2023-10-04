@@ -7,14 +7,17 @@ public abstract class Ship : IArmor, IDeflector, IImpulseEngine, IJumpEngine
     protected Ship(bool isPhoton)
     {
         EngineTypes = "None";
-        CrewStatus = true;
-        AntiNitriniumEmitter = false;
+        AntiNitriniumEmitter = ShipParameters.NoAntiNitriniumEmitter;
         IsPhoton = isPhoton;
         IsActive = true;
         ImpulseEngineType = "-";
         ImpulseEngineFuelType = "ActivePlasma";
         JumpEngineType = "-";
         JumpEngineFuelType = "GravityMatter";
+        if (isPhoton)
+        {
+            ReflectedFlashes = ShipParameters.PhotonDeflectorLimit;
+        }
     }
 
     public double Mass { get; protected init; }
@@ -29,8 +32,7 @@ public abstract class Ship : IArmor, IDeflector, IImpulseEngine, IJumpEngine
     public int ReflectedWhales { get; set; }
     public bool IsActive { get; set; }
     public bool IsPhoton { get; }
-    public bool CrewStatus { get; protected set; }
-    public bool AntiNitriniumEmitter { get; init; }
+    public bool AntiNitriniumEmitter { get; protected init; }
     public double Cost { get; set; }
     public string ImpulseEngineType { get; init; }
     public string ImpulseEngineFuelType { get; init; }

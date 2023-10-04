@@ -6,16 +6,16 @@ public class Avgur : Ship
         : base(isPhoton)
     {
         EngineTypes = "Both";
-        Mass = 1.5;
+        Mass = ShipParameters.HighMass;
         DeflectorClass = 3;
-        DestroyedAsteroids = 40;
-        DestroyedMeteors = 10;
-        ReflectedWhales = 1;
-        AsteroidsLimit = 20;
-        MeteorsLimit = 5;
+        DestroyedAsteroids = ShipParameters.ThirdDeflectorsAsteroidsLimit;
+        DestroyedMeteors = ShipParameters.ThirdDeflectorsMeteorsLimit;
+        ReflectedWhales = ShipParameters.ThirdDeflectorsWhalesLimit;
+        AsteroidsLimit = ShipParameters.ArmorClassThreeAsteroidsLimit;
+        MeteorsLimit = ShipParameters.ArmorClassThreeMeteorsLimit;
         ImpulseEngineType = "E";
-        StartCost = 25;
+        StartCost = ShipParameters.ImpulseEngineTypeEStartCost;
         JumpEngineType = "Alpha";
-        Range = 100;
+        Range = ShipParameters.JumpEngineTypeAlphaRange;
     }
 }
