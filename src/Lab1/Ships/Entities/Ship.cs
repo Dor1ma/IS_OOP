@@ -37,6 +37,7 @@ public abstract class Ship : IArmor, IDeflector, IImpulseEngine, IJumpEngine
     public string ImpulseEngineType { get; init; }
     public string ImpulseEngineFuelType { get; init; }
     public int StartCost { get; init; }
+    public double Speed { get; set; }
     public string JumpEngineType { get; init; }
     public string JumpEngineFuelType { get; init; }
     public int Range { get; init; }

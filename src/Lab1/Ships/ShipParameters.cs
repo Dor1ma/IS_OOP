@@ -22,6 +22,7 @@ public static class ShipParameters
     public static bool NoAntiNitriniumEmitter => false;
     public static bool WithAntiNitriniumEmitter => true;
     public static int ImpulseEngineTypeCStartCost => 10;
+    public static double ImpulseEngineTypeCSpeed => 150;
     public static int ImpulseEngineTypeEStartCost => 25;
     public static int JumpEngineTypeAlphaRange => 100;
     public static int JumpEngineTypeOmegaRange => 500;

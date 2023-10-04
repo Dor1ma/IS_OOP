@@ -7,11 +7,11 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Ships.Services;
 
 public class ShipChecker
 {
-    private IDeflector _shipDeflector;
-    private IArmor _shipArmor;
+    private readonly IDeflector _shipDeflector;
+    private readonly IArmor _shipArmor;
+    private readonly IJumpEngine _jumpEngine;
+    private readonly Ship _ship;
     private IImpulseEngine _impulseEngine;
-    private IJumpEngine _jumpEngine;
-    private Ship _ship;
 
     public ShipChecker(Ship ship)
     {
@@ -164,9 +164,7 @@ public class ShipChecker
                         _impulseEngine = ship;
                         if (_impulseEngine.ImpulseEngineType == "C")
                         {
-                            double accelerationDistance = segment.EnvironmentLength * 0.1 * 0.1;
-                            double constSpeed = segment.EnvironmentLength * 0.1;
-                            double time = segment.EnvironmentLength / (accelerationDistance + constSpeed);
+                            double time = segment.EnvironmentLength / _impulseEngine.Speed;
                             if (fuelExchange != null)
                             {
                                 ship.Cost += (time * fuelExchange.ActivePlasmaCost * ship.Mass) + _impulseEngine.StartCost;

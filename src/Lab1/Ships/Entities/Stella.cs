@@ -13,6 +13,7 @@ public class Stella : Ship
         AsteroidsLimit = ShipParameters.ArmorClassOneAsteroidsLimit;
         MeteorsLimit = ShipParameters.ArmorClassOneMeteorsLimit;
         ImpulseEngineType = "C";
+        Speed = ShipParameters.ImpulseEngineTypeCSpeed;
         StartCost = ShipParameters.ImpulseEngineTypeCStartCost;
         JumpEngineType = "Omega";
         Range = ShipParameters.JumpEngineTypeOmegaRange;
