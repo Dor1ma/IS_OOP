@@ -361,7 +361,7 @@ public class MainTest
         private const int FirstSpaceAsteroidsCount = 4;
         private const int FirstSpaceMeteorsCount = 0;
         private const int SecondSpaceAsteroidsCount = 0;
-        private const int SecondSpaceMeteorsCount = 2;
+        private const int SecondSpaceMeteorsCount = 1;
         private const int WhalesCount = 0;
         private const int FirstSegmentLength = 100;
         private const int SecondSegmentLength = 200;
