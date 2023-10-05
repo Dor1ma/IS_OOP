@@ -27,6 +27,7 @@ public class MainTest
 
         string shuttleMessage = shuttleChecker.PermeabilityCheck(route);
         string avgurMessage = avgurChecker.PermeabilityCheck(route);
+
         Assert.Equal(shuttleResult, shuttleMessage);
         Assert.Equal(avgurResult, avgurMessage);
     }
@@ -76,6 +77,7 @@ public class MainTest
         string vaklasMessage = vaklasChecker.PermeabilityCheck(route);
         avgurChecker.PermeabilityCheck(route);
         string meredianMessage = meredianChecker.PermeabilityCheck(route);
+
         Assert.Equal(vaklasResult, vaklasMessage);
         Assert.Equal(avgurResult, avgur.IsBroken);
         Assert.Equal(meredianResult, meredianMessage);
@@ -99,18 +101,20 @@ public class MainTest
         route.AddSegment(space);
         var shuttleChecker = new ShipChecker(shuttle);
         var vaklasChecker = new ShipChecker(vaklas);
+        var fuelExchange = new FuelExchange(activePasmaCost, gravityMatterCost);
+        var ships = new Ship[2];
 
         string shuttleMessage = shuttleChecker.PermeabilityCheck(route);
         string vaklasMessage = vaklasChecker.PermeabilityCheck(route);
-        Assert.Equal(shuttleResult, shuttleMessage);
-        Assert.Equal(vaklasResult, vaklasMessage);
-
-        var fuelExchange = new FuelExchange(activePasmaCost, gravityMatterCost);
         shuttleChecker.CostCount(shuttle, route, fuelExchange);
         shuttleChecker.CostCount(vaklas, route, fuelExchange);
+        ships[0] = shuttle;
+        ships[1] = vaklas;
         Ship comparingResult = shuttle;
-        var ships = new Ship[] { shuttle, vaklas };
         Ship comparingTest = ShipChecker.ShipsComparator(ships);
+
+        Assert.Equal(shuttleResult, shuttleMessage);
+        Assert.Equal(vaklasResult, vaklasMessage);
         Assert.Equal(comparingResult, comparingTest);
     }
 
@@ -155,6 +159,7 @@ public class MainTest
 
         string shuttleMessage = shuttleChecker.PermeabilityCheck(route);
         string vaklasMessage = vaklasChecker.PermeabilityCheck(route);
+
         Assert.Equal(shuttleResult, shuttleMessage);
         Assert.Equal(vaklasResult, vaklasMessage);
     }
@@ -182,12 +187,12 @@ public class MainTest
         route.AddSegment(spaceOne);
         route.AddSegment(spaceTwo);
         route.AddSegment(nitrinoParticleNebulae);
-
         var shuttleChecker = new ShipChecker(shuttle);
         var vaklasChecker = new ShipChecker(vaklas);
 
         string shuttleMessage = shuttleChecker.PermeabilityCheck(route);
         string vaklasMessage = vaklasChecker.PermeabilityCheck(route);
+
         Assert.Equal(shuttleResult, shuttleMessage);
         Assert.Equal(vaklasResult, vaklasMessage);
     }
