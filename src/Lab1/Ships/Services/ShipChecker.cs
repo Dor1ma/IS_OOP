@@ -28,13 +28,11 @@ public class ShipChecker
         double localMinimum = double.MaxValue;
         if (ships != null)
         {
-            for (int i = 0; i < ships.Length; i++)
+            foreach (Ship ship in ships)
             {
-                if (ships[i].Cost < localMinimum)
-                {
-                    localMinimum = ships[i].Cost;
-                    result = ships[i];
-                }
+                if (!(ship.Cost < localMinimum)) continue;
+                localMinimum = ship.Cost;
+                result = ship;
             }
         }
 
@@ -43,106 +41,94 @@ public class ShipChecker
 
     public string PermeabilityCheck(Route? route)
     {
-        if (route != null)
+        if (route == null) return "OK";
+        foreach (Environment segment in route.Segments)
         {
-            foreach (Environment segment in route.Segments)
+            // Segment with impulse engine required
+            if (segment.EngineRequired == "Impulse")
             {
-                // Segment with impulse engine required
-                if (segment.EngineRequired == "Impulse")
+                // Space condition
+                if (segment.ExtraRequirenment == "-")
                 {
-                    // Space condition
-                    if (segment.ExtraRequirenment == "-")
+                    if (segment.FirstObstaclesCount != 0)
                     {
-                        if (segment.FirstObstaclesCount != 0)
+                        for (int i = 0; i < segment.FirstObstaclesCount; i++)
                         {
-                            for (int i = 0; i < segment.FirstObstaclesCount; i++)
+                            if (_ship == null) continue;
+                            if (_shipDeflector != null && _shipArmor != null)
+                                segment.FirstObstacle?.DoDamage(_shipDeflector, _shipArmor);
+                            if (_ship.IsBroken)
                             {
-                                if (_ship != null)
-                                {
-                                    if (_shipDeflector != null && _shipArmor != null)
-                                        segment.FirstObstacle?.DoDamage(_shipDeflector, _shipArmor);
-                                    if (_ship.IsBroken)
-                                    {
-                                        return "Ship destroyed";
-                                    }
-                                }
-                            }
-                        }
-
-                        if (segment.SecondObstaclesCount != 0)
-                        {
-                            for (int i = 0; i < segment.SecondObstaclesCount; i++)
-                            {
-                                if (_ship != null)
-                                {
-                                    if (_shipDeflector != null && _shipArmor != null)
-                                        segment.SecondObstacle?.DoDamage(_shipDeflector, _shipArmor);
-                                    if (_ship.IsBroken)
-                                    {
-                                        return "Ship destroyed";
-                                    }
-                                }
+                                return "Ship destroyed";
                             }
                         }
                     }
-                    else
+
+                    if (segment.SecondObstaclesCount == 0) continue;
                     {
-                        // Exponent acceleration engine required?
-                        if (_ship != null && _impulseEngine != null)
+                        for (int i = 0; i < segment.SecondObstaclesCount; i++)
                         {
+                            if (_ship == null) continue;
+                            if (_shipDeflector != null && _shipArmor != null)
+                                segment.SecondObstacle?.DoDamage(_shipDeflector, _shipArmor);
+                            if (_ship.IsBroken)
                             {
-                                _impulseEngine = _ship;
-                            }
-
-                            if (_impulseEngine.ImpulseEngineType != "E")
-                                return "Unsuitable engine";
-                        }
-
-                        if (segment.FirstObstaclesCount != 0)
-                        {
-                            for (int i = 0; i < segment.FirstObstaclesCount; i++)
-                            {
-                                if (_ship != null)
-                                {
-                                    if (_shipDeflector != null && _shipArmor != null)
-                                        segment.FirstObstacle?.DoDamage(_shipDeflector, _shipArmor);
-                                    if (_ship.IsBroken)
-                                    {
-                                        return "Ship destroyed";
-                                    }
-                                }
+                                return "Ship destroyed";
                             }
                         }
                     }
                 }
                 else
                 {
-                    // Ship engine type check
-                    if (_ship != null && _ship.EngineTypes != "Both")
+                    // Exponent acceleration engine required?
+                    if (_ship != null && _impulseEngine != null)
                     {
-                        return "Unsuitable engine";
-                    }
-
-                    // Range check
-                    if (_ship != null && _jumpEngine != null)
-                    {
-                        if (_jumpEngine.Range < segment.EnvironmentLength)
-                            return "Insufficient engines range";
-                    }
-
-                    // Flashes check
-                    if (segment.FirstObstaclesCount != 0)
-                    {
-                        for (int i = 0; i < segment.FirstObstaclesCount; i++)
                         {
-                            if (_ship != null && _shipDeflector != null)
-                            {
-                                if (!_shipDeflector.IsActive || !_shipDeflector.IsPhoton)
-                                    return "Crew is dead";
-                                if (_shipArmor != null)
-                                    segment.FirstObstacle?.DoDamage(_shipDeflector, _shipArmor);
-                            }
+                            _impulseEngine = _ship;
                         }
+
+                        if (_impulseEngine.ImpulseEngineType != "E")
+                            return "Unsuitable engine";
+                    }
+
+                    if (segment.FirstObstaclesCount == 0) continue;
+                    for (int i = 0; i < segment.FirstObstaclesCount; i++)
+                    {
+                        if (_ship == null) continue;
+                        if (_shipDeflector != null && _shipArmor != null)
+                            segment.FirstObstacle?.DoDamage(_shipDeflector, _shipArmor);
+                        if (_ship.IsBroken)
+                        {
+                            return "Ship destroyed";
+                        }
+                    }
+                }
+            }
+            else
+            {
+                // Ship engine type check
+                if (_ship != null && _ship.EngineTypes != "Both")
+                {
+                    return "Unsuitable engine";
+                }
+
+                // Range check
+                if (_ship != null && _jumpEngine != null)
+                {
+                    if (_jumpEngine.Range < segment.EnvironmentLength)
+                        return "Insufficient engines range";
+                }
+
+                // Flashes check
+                if (segment.FirstObstaclesCount == 0) break;
+                for (int i = 0; i < segment.FirstObstaclesCount; i++)
+                {
+                    if (_ship != null && _shipDeflector != null)
+                    {
+                        if (!_shipDeflector.IsActive || !_shipDeflector.IsPhoton)
+                            return "Crew is dead";
+                        if (_shipArmor != null)
+                            segment.FirstObstacle?.DoDamage(_shipDeflector, _shipArmor);
                     }
                 }
             }
@@ -159,26 +145,24 @@ public class ShipChecker
             {
                 if (segment.ExtraRequirenment != "-")
                 {
-                    if (ship != null && _impulseEngine != null)
+                    if (ship == null || _impulseEngine == null) continue;
+                    _impulseEngine = ship;
+                    if (_impulseEngine.ImpulseEngineType == "C")
                     {
-                        _impulseEngine = ship;
-                        if (_impulseEngine.ImpulseEngineType == "C")
+                        double time = segment.EnvironmentLength / _impulseEngine.Speed;
+                        if (fuelExchange != null)
                         {
-                            double time = segment.EnvironmentLength / _impulseEngine.Speed;
-                            if (fuelExchange != null)
-                            {
-                                ship.Cost += (time * fuelExchange.ActivePlasmaCost * ship.Mass) + _impulseEngine.StartCost;
-                            }
+                            ship.Cost += (time * fuelExchange.ActivePlasmaCost * ship.Mass) + _impulseEngine.StartCost;
                         }
-                        else
+                    }
+                    else
+                    {
+                        double speed = double.Exp(segment.EnvironmentLength);
+                        double time = segment.EnvironmentLength / speed;
+                        if (fuelExchange != null)
                         {
-                            double speed = double.Exp(segment.EnvironmentLength);
-                            double time = segment.EnvironmentLength / speed;
-                            if (fuelExchange != null)
-                            {
-                                ship.Cost += (time * fuelExchange.ActivePlasmaCost * ship.Mass) +
-                                             _impulseEngine.StartCost;
-                            }
+                            ship.Cost += (time * fuelExchange.ActivePlasmaCost * ship.Mass) +
+                                         _impulseEngine.StartCost;
                         }
                     }
                 }
@@ -192,24 +176,31 @@ public class ShipChecker
             }
             else
             {
-                if (ship != null && _jumpEngine != null)
+                if (ship == null || _jumpEngine == null) continue;
+                switch (_jumpEngine.JumpEngineType)
                 {
-                    if (_jumpEngine.JumpEngineType == "Alpha")
+                    case "Alpha":
                     {
                         if (fuelExchange != null) ship.Cost += segment.EnvironmentLength * fuelExchange.GravityMatterCost;
+                        break;
                     }
-                    else if (_jumpEngine.JumpEngineType == "Omega")
+
+                    case "Omega":
                     {
                         if (fuelExchange != null)
                         {
                             ship.Cost += segment.EnvironmentLength * double.Log(segment.EnvironmentLength) *
                                          fuelExchange.GravityMatterCost;
                         }
+
+                        break;
                     }
-                    else
+
+                    default:
                     {
                         if (fuelExchange != null)
                             ship.Cost += double.Pow(segment.EnvironmentLength, 2) * fuelExchange.GravityMatterCost;
+                        break;
                     }
                 }
             }
