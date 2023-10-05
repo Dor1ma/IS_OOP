@@ -11,9 +11,7 @@ public abstract class Ship : IArmor, IDeflector, IImpulseEngine, IJumpEngine
         IsPhoton = isPhoton;
         IsActive = true;
         ImpulseEngineType = "-";
-        ImpulseEngineFuelType = "ActivePlasma";
         JumpEngineType = "-";
-        JumpEngineFuelType = "GravityMatter";
         if (isPhoton)
         {
             ReflectedFlashes = ShipParameters.PhotonDeflectorLimit;
@@ -22,7 +20,7 @@ public abstract class Ship : IArmor, IDeflector, IImpulseEngine, IJumpEngine
 
     public double Mass { get; protected init; }
     public string EngineTypes { get; protected init; }
-    public int DeflectorClass { get; set; }
+    public int DeflectorClass { get; protected init; }
     public int AsteroidsLimit { get; set; }
     public int MeteorsLimit { get; set; }
     public bool IsBroken { get; set; }
@@ -34,11 +32,9 @@ public abstract class Ship : IArmor, IDeflector, IImpulseEngine, IJumpEngine
     public bool IsPhoton { get; }
     public bool AntiNitriniumEmitter { get; protected init; }
     public double Cost { get; set; }
-    public string ImpulseEngineType { get; init; }
-    public string ImpulseEngineFuelType { get; init; }
-    public int StartCost { get; init; }
-    public double Speed { get; set; }
-    public string JumpEngineType { get; init; }
-    public string JumpEngineFuelType { get; init; }
-    public int Range { get; init; }
+    public string ImpulseEngineType { get; protected init; }
+    public int StartCost { get; protected init; }
+    public double Speed { get; protected init; }
+    public string JumpEngineType { get; protected init; }
+    public int Range { get; protected init; }
 }

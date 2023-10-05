@@ -1,5 +1,7 @@
 namespace Itmo.ObjectOrientedProgramming.Lab1.Ships;
 
+// Using static class and static auto-properties here to fix magic numbers
+// in ships initialization logic
 public static class ShipParameters
 {
     public static double LowMass => 1.1;

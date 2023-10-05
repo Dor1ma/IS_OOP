@@ -8,6 +8,6 @@ public class FuelExchange
         GravityMatterCost = gravityMatterCost;
     }
 
-    public int ActivePlasmaCost { get; private set; }
-    public int GravityMatterCost { get; set; }
+    public int ActivePlasmaCost { get; }
+    public int GravityMatterCost { get; }
 }
