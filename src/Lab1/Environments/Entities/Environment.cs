@@ -10,5 +10,5 @@ public abstract class Environment
     public int SecondObstaclesCount { get; protected init; }
     public string EngineRequired { get; protected init; } = "-";
     public string ExtraRequirenment { get; protected init; } = "-";
-    public int EnvironmentLength { get; protected init; } = 100;
+    public int EnvironmentLength { get; protected init; }
 }
