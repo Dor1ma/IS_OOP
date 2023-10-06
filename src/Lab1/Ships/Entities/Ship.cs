@@ -13,7 +13,7 @@ public abstract class Ship
     public ImpulseEngine? ImpulseEngine { get; protected set; }
     public JumpEngine? JumpEngine { get; protected set; }
     public double Mass { get; protected init; }
-    public double Cost { get; set; }
+    public double Cost { get; private set; }
 
     public bool IsBroken()
     {
@@ -24,5 +24,10 @@ public abstract class Ship
     {
         if (Deflector?.PhotonPart == null) return false;
         return Deflector.PhotonPart.ReflectedFlashes > 0;
+    }
+
+    public void UpdateCost(double computedPrice)
+    {
+        Cost += computedPrice;
     }
 }
