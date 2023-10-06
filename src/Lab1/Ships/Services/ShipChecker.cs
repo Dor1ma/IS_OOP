@@ -1,134 +1,103 @@
 using Itmo.ObjectOrientedProgramming.Lab1.Environments.Entities;
+using Itmo.ObjectOrientedProgramming.Lab1.Environments.Models;
 using Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
-using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models;
+using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models.Engines;
 using Environment = Itmo.ObjectOrientedProgramming.Lab1.Environments.Entities.Environment;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Ships.Services;
 
 public class ShipChecker
 {
-    private readonly IDeflector _shipDeflector;
-    private readonly IArmor _shipArmor;
-    private readonly IJumpEngine _jumpEngine;
-    private readonly Ship _ship;
-    private IImpulseEngine _impulseEngine;
-
-    public ShipChecker(Ship ship)
-    {
-        _shipDeflector = ship;
-        _shipArmor = ship;
-        _impulseEngine = ship;
-        _jumpEngine = ship;
-        _ship = ship;
-    }
-
     public static Ship ShipsComparator(Ship[]? ships)
     {
-        Ship result = new Shuttle(false);
-        double localMinimum = double.MaxValue;
         if (ships != null)
         {
+            Ship result = ships[0];
+            double localMinimum = double.MaxValue;
             foreach (Ship ship in ships)
             {
                 if (!(ship.Cost < localMinimum)) continue;
                 localMinimum = ship.Cost;
                 result = ship;
             }
-        }
 
-        return result;
+            return result;
+        }
     }
 
-    public string PermeabilityCheck(Route? route)
+    public static string PermeabilityCheck(Ship? ship, Route? route)
     {
         if (route == null) return "OK";
         foreach (Environment segment in route.Segments)
         {
             // Segment with impulse engine required
-            if (segment.EngineRequired == "Impulse")
+            if (segment.Requirement == typeof(ImpulseEngine) && segment.Requirement != typeof(ImpulseEngineClassE))
             {
                 // Space condition
-                if (segment.ExtraRequirenment == "-")
+                if (segment.Obstacles.Count == 0) continue;
+                foreach (Obstacle obstacle in segment.Obstacles)
                 {
-                    if (segment.FirstObstaclesCount != 0)
+                    if (ship?.Deflector == null) continue;
+                    if (ship.Armor == null) continue;
+                    obstacle.DoDamage(ship.Deflector, ship.Armor);
+                    if (ship.IsBroken())
                     {
-                        for (int i = 0; i < segment.FirstObstaclesCount; i++)
-                        {
-                            if (_ship == null) continue;
-                            if (_shipDeflector != null && _shipArmor != null)
-                                segment.FirstObstacle?.DoDamage(_shipDeflector, _shipArmor);
-                            if (_ship.IsBroken)
-                            {
-                                return "Ship destroyed";
-                            }
-                        }
+                        return "Ship destroyed";
                     }
-
-                    if (segment.SecondObstaclesCount == 0) continue;
+                }
+            }
+            else if (segment.Requirement == typeof(ImpulseEngineClassE))
+            {
+                // Exponent acceleration engine required?
+                if (segment.Requirement == typeof(ImpulseEngineClassE) && segment.Requirement != ship?.GetType())
+                {
+                    if (ship?.ImpulseEngine != null)
                     {
-                        for (int i = 0; i < segment.SecondObstaclesCount; i++)
+                        ImpulseEngine testedEngine = ship.ImpulseEngine;
+                        if (testedEngine.GetType() != typeof(ImpulseEngineClassE))
                         {
-                            if (_ship == null) continue;
-                            if (_shipDeflector != null && _shipArmor != null)
-                                segment.SecondObstacle?.DoDamage(_shipDeflector, _shipArmor);
-                            if (_ship.IsBroken)
-                            {
-                                return "Ship destroyed";
-                            }
+                            return "Unsuitable engine";
                         }
                     }
                 }
-                else
+
+                if (segment.Obstacles.Count == 0) continue;
+                foreach (Obstacle obstacle in segment.Obstacles)
                 {
-                    // Exponent acceleration engine required?
-                    if (_ship != null && _impulseEngine != null)
+                    if (ship?.Deflector == null) continue;
+                    if (ship.Armor == null) continue;
+                    obstacle.DoDamage(ship.Deflector, ship.Armor);
+                    if (ship.IsBroken())
                     {
-                        {
-                            _impulseEngine = _ship;
-                        }
-
-                        if (_impulseEngine.ImpulseEngineType != "E")
-                            return "Unsuitable engine";
-                    }
-
-                    if (segment.FirstObstaclesCount == 0) continue;
-                    for (int i = 0; i < segment.FirstObstaclesCount; i++)
-                    {
-                        if (_ship == null) continue;
-                        if (_shipDeflector != null && _shipArmor != null)
-                            segment.FirstObstacle?.DoDamage(_shipDeflector, _shipArmor);
-                        if (_ship.IsBroken)
-                        {
-                            return "Ship destroyed";
-                        }
+                        return "Ship destroyed";
                     }
                 }
             }
             else
             {
                 // Ship engine type check
-                if (_ship != null && _ship.EngineTypes != "Both")
+                if (ship is { JumpEngine: null })
                 {
                     return "Unsuitable engine";
                 }
 
                 // Range check
-                if (_ship != null && _jumpEngine != null)
+                if (ship is { JumpEngine: not null })
                 {
-                    if (_jumpEngine.Range < segment.EnvironmentLength)
+                    if (ship.JumpEngine.Range < segment.EnvironmentLength)
                         return "Insufficient engines range";
                 }
 
                 // Flashes check
-                if (segment.FirstObstaclesCount == 0) break;
-                for (int i = 0; i < segment.FirstObstaclesCount; i++)
+                if (segment.Obstacles.Count == 0) continue;
+                foreach (Obstacle obstacle in segment.Obstacles)
                 {
-                    if (_ship != null && _shipDeflector != null)
+                    if (ship?.Deflector == null) continue;
+                    if (ship.Armor == null) continue;
+                    obstacle.DoDamage(ship.Deflector, ship.Armor);
+                    if (!ship.CrewStatus())
                     {
-                        if (!_shipDeflector.IsActive || !_shipDeflector.IsPhoton)
-                            return "Crew is dead";
-                        if (_shipArmor != null)
-                            segment.FirstObstacle?.DoDamage(_shipDeflector, _shipArmor);
+                        return "Crew is dead";
                     }
                 }
             }

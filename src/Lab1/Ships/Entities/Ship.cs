@@ -14,4 +14,15 @@ public abstract class Ship
     public JumpEngine? JumpEngine { get; protected set; }
     public double Mass { get; protected init; }
     public double Cost { get; set; }
+
+    public bool IsBroken()
+    {
+        return Armor != null && (Armor.AsteroidsLimit <= 0 || Armor.MeteorsLimit <= 0);
+    }
+
+    public bool CrewStatus()
+    {
+        if (Deflector?.PhotonPart == null) return false;
+        return Deflector.PhotonPart.ReflectedFlashes > 0;
+    }
 }
