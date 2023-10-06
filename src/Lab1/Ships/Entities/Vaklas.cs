@@ -1,20 +1,17 @@
+using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models.Armors;
+using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models.Deflectors;
+using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models.Engines;
+
 namespace Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
 
 public class Vaklas : Ship
 {
-    public Vaklas(bool isPhoton)
-        : base(isPhoton)
+    public Vaklas(bool isDeflectorPhoton)
     {
-        EngineTypes = "Both";
         Mass = ShipParameters.MediumMass;
-        DeflectorClass = 1;
-        DestroyedAsteroids = ShipParameters.FirstDeflectorsAsteroidsLimit;
-        DestroyedMeteors = ShipParameters.FirstDeflectorsMeteorsLimit;
-        AsteroidsLimit = ShipParameters.ArmorClassTwoAsteroidsLimit;
-        MeteorsLimit = ShipParameters.ArmorClassTwoMeteorsLimit;
-        ImpulseEngineType = "E";
-        StartCost = ShipParameters.ImpulseEngineTypeEStartCost;
-        JumpEngineType = "Gamma";
-        Range = ShipParameters.JumpEngineTypeGammaRange;
+        Deflector = new DefectorClassOne(isDeflectorPhoton);
+        Armor = new ArmorClassTwo();
+        ImpulseEngine = new ImpulseEngineClassE();
+        JumpEngine = new JumpEngineTypeGamma();
     }
 }

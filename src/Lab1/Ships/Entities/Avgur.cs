@@ -1,21 +1,17 @@
+using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models.Armors;
+using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models.Deflectors;
+using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models.Engines;
+
 namespace Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
 
 public class Avgur : Ship
 {
-    public Avgur(bool isPhoton)
-        : base(isPhoton)
+    public Avgur(bool isDeflectorPhoton)
     {
-        EngineTypes = "Both";
         Mass = ShipParameters.HighMass;
-        DeflectorClass = 3;
-        DestroyedAsteroids = ShipParameters.ThirdDeflectorsAsteroidsLimit;
-        DestroyedMeteors = ShipParameters.ThirdDeflectorsMeteorsLimit;
-        ReflectedWhales = ShipParameters.ThirdDeflectorsWhalesLimit;
-        AsteroidsLimit = ShipParameters.ArmorClassThreeAsteroidsLimit;
-        MeteorsLimit = ShipParameters.ArmorClassThreeMeteorsLimit;
-        ImpulseEngineType = "E";
-        StartCost = ShipParameters.ImpulseEngineTypeEStartCost;
-        JumpEngineType = "Alpha";
-        Range = ShipParameters.JumpEngineTypeAlphaRange;
+        Deflector = new DeflectorClassThree(isDeflectorPhoton);
+        Armor = new ArmorClassThree();
+        ImpulseEngine = new ImpulseEngineClassE();
+        JumpEngine = new JumpEngineTypeAlpha();
     }
 }

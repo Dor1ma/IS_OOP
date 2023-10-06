@@ -1,17 +1,14 @@
+using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models.Armors;
+using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models.Engines;
+
 namespace Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
 
 public class Shuttle : Ship
 {
-    public Shuttle(bool isPhoton)
-        : base(isPhoton)
+    public Shuttle()
     {
-        EngineTypes = "Impulse";
         Mass = ShipParameters.LowMass;
-        IsActive = false;
-        AsteroidsLimit = ShipParameters.ArmorClassOneAsteroidsLimit;
-        MeteorsLimit = ShipParameters.ArmorClassOneMeteorsLimit;
-        ImpulseEngineType = "C";
-        Speed = ShipParameters.ImpulseEngineTypeCSpeed;
-        StartCost = ShipParameters.ImpulseEngineTypeCStartCost;
+        Armor = new ArmorClassOne();
+        ImpulseEngine = new ImpulseEngineClassC();
     }
 }

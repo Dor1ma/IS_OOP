@@ -1,21 +1,17 @@
+using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models.Armors;
+using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models.Deflectors;
+using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models.Engines;
+
 namespace Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
 
 public class Stella : Ship
 {
-    public Stella(bool isPhoton)
-        : base(isPhoton)
+    public Stella(bool isDeflectorPhoton)
     {
-        EngineTypes = "Both";
         Mass = ShipParameters.LowMass;
-        DeflectorClass = 1;
-        DestroyedAsteroids = ShipParameters.FirstDeflectorsAsteroidsLimit;
-        DestroyedMeteors = ShipParameters.FirstDeflectorsMeteorsLimit;
-        AsteroidsLimit = ShipParameters.ArmorClassOneAsteroidsLimit;
-        MeteorsLimit = ShipParameters.ArmorClassOneMeteorsLimit;
-        ImpulseEngineType = "C";
-        Speed = ShipParameters.ImpulseEngineTypeCSpeed;
-        StartCost = ShipParameters.ImpulseEngineTypeCStartCost;
-        JumpEngineType = "Omega";
-        Range = ShipParameters.JumpEngineTypeOmegaRange;
+        Deflector = new DefectorClassOne(isDeflectorPhoton);
+        Armor = new ArmorClassOne();
+        ImpulseEngine = new ImpulseEngineClassC();
+        JumpEngine = new JumpEngineTypeOmega();
     }
 }
