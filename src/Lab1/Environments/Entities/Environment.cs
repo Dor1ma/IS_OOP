@@ -1,14 +1,15 @@
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Itmo.ObjectOrientedProgramming.Lab1.Environments.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environments.Entities;
 
 public abstract class Environment
 {
-    public Obstacle? FirstObstacle { get; protected init; }
-    public Obstacle? SecondObstacle { get; protected init; }
-    public int FirstObstaclesCount { get; protected init; }
-    public int SecondObstaclesCount { get; protected init; }
-    public string EngineRequired { get; protected init; } = "-";
-    public string ExtraRequirenment { get; protected init; } = "-";
+    private readonly Collection<Obstacle> _obstacles = new(new List<Obstacle>());
+
+    public Collection<Obstacle> Obstacles => _obstacles;
     public int EnvironmentLength { get; protected init; }
+    public Type? Requirement { get; protected init; }
 }

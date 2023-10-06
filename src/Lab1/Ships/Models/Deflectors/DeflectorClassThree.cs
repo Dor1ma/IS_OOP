@@ -11,4 +11,9 @@ public class DeflectorClassThree : Deflector
     }
 
     public int ReflectedWhales { get; private set; }
+
+    public override void DefendFromWhale()
+    {
+        ReflectedWhales--;
+    }
 }

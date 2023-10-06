@@ -1,26 +1,21 @@
-using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models;
+using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models.Armors;
+using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models.Deflectors;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environments.Models;
 
 public class Asteroid : Obstacle
 {
-    public override void DoDamage(IDeflector deflector, IArmor armor)
+    public override void DoDamage(Deflector deflector, Armor armor)
     {
-        if (deflector.IsActive)
+        if (deflector.DestroyedAsteroids > 0)
         {
-            deflector.DestroyedAsteroids--;
-            if (deflector.DestroyedAsteroids <= 0)
-            {
-                deflector.IsActive = false;
-            }
+            deflector.DestroyAsteroid();
+            return;
         }
-        else
+
+        if (armor.AsteroidsLimit > 0)
         {
-            armor.AsteroidsLimit--;
-            if (armor.AsteroidsLimit <= 0)
-            {
-                armor.IsBroken = true;
-            }
+            armor.DefendFromAsteroid();
         }
     }
 }

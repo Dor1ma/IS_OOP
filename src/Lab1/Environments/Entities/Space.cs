@@ -6,11 +6,22 @@ public class Space : Environment
 {
     public Space(int asteroidsCount, int meteorsCount, int length)
     {
-        FirstObstacle = new Asteroid();
-        SecondObstacle = new Meteor();
-        FirstObstaclesCount = asteroidsCount;
-        SecondObstaclesCount = meteorsCount;
-        EngineRequired = "Impulse";
+        if (asteroidsCount != 0)
+        {
+            for (int i = 0; i < asteroidsCount; i++)
+            {
+                Obstacles.Add(new Asteroid());
+            }
+        }
+
+        if (meteorsCount != 0)
+        {
+            for (int i = 0; i < meteorsCount; i++)
+            {
+                Obstacles.Add(new Meteor());
+            }
+        }
+
         EnvironmentLength = length;
     }
 }

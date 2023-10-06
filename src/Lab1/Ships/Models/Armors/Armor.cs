@@ -4,4 +4,14 @@ public abstract class Armor
 {
     public int AsteroidsLimit { get; protected set; }
     public int MeteorsLimit { get; protected set; }
+
+    public void DefendFromAsteroid()
+    {
+        AsteroidsLimit--;
+    }
+
+    public void DefendFromMeteor()
+    {
+        MeteorsLimit--;
+    }
 }

@@ -1,26 +1,21 @@
-using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models;
+using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models.Armors;
+using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models.Deflectors;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environments.Models;
 
 public class Meteor : Obstacle
 {
-    public override void DoDamage(IDeflector deflector, IArmor armor)
+    public override void DoDamage(Deflector deflector, Armor armor)
     {
-        if (deflector.IsActive)
+        if (deflector.DestroyedMeteors > 0)
         {
-            deflector.DestroyedMeteors--;
-            if (deflector.DestroyedMeteors <= 0)
-            {
-                deflector.IsActive = false;
-            }
+            deflector.DestroyMeteor();
+            return;
         }
-        else
+
+        if (armor.MeteorsLimit > 0)
         {
-            armor.MeteorsLimit--;
-            if (armor.MeteorsLimit <= 0)
-            {
-                armor.IsBroken = true;
-            }
+            armor.DefendFromMeteor();
         }
     }
 }

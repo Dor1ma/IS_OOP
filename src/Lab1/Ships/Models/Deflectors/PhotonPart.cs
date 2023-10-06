@@ -8,4 +8,9 @@ public class PhotonPart
     }
 
     public int ReflectedFlashes { get; protected set; }
+
+    public void DefendFromFlash()
+    {
+        ReflectedFlashes--;
+    }
 }
