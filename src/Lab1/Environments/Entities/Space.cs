@@ -1,4 +1,5 @@
 using Itmo.ObjectOrientedProgramming.Lab1.Environments.Models;
+using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models.Engines;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environments.Entities;
 
@@ -22,6 +23,7 @@ public class Space : Environment
             }
         }
 
+        Requirement = typeof(ImpulseEngine);
         EnvironmentLength = length;
     }
 }

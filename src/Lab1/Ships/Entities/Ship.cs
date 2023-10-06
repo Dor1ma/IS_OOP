@@ -7,11 +7,11 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
 
 public abstract class Ship
 {
-    public Deflector? Deflector { get; protected set; }
-    public Armor? Armor { get; protected set; }
-    public AntiNitriniumEmitter? AntiNitriniumEmitter { get; protected set; }
-    public ImpulseEngine? ImpulseEngine { get; protected set; }
-    public JumpEngine? JumpEngine { get; protected set; }
+    public Deflector? Deflector { get; protected init; }
+    public Armor? Armor { get; protected init; }
+    public AntiNitriniumEmitter? AntiNitriniumEmitter { get; protected init; }
+    public ImpulseEngine? ImpulseEngine { get; protected init; }
+    public JumpEngine? JumpEngine { get; protected init; }
     public double Mass { get; protected init; }
     public double Cost { get; private set; }
 

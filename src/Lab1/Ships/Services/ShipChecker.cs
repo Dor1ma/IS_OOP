@@ -1,6 +1,7 @@
 using Itmo.ObjectOrientedProgramming.Lab1.Environments.Entities;
 using Itmo.ObjectOrientedProgramming.Lab1.Environments.Models;
 using Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
+using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models.Deflectors;
 using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models.Engines;
 using Environment = Itmo.ObjectOrientedProgramming.Lab1.Environments.Entities.Environment;
 
@@ -35,9 +36,17 @@ public static class ShipChecker
                 if (segment.Obstacles.Count == 0) continue;
                 foreach (Obstacle obstacle in segment.Obstacles)
                 {
-                    if (ship?.Deflector == null) continue;
-                    if (ship.Armor == null) continue;
-                    obstacle.DoDamage(ship.Deflector, ship.Armor);
+                    if (ship?.Deflector == null && ship?.GetType() == typeof(Ship))
+                    {
+                        if (segment.Obstacles.Count < ShipParameters.ArmorClassOneAsteroidsLimit +
+                            ShipParameters.ArmorClassOneMeteorsLimit)
+                        {
+                            return "Ship destroyed";
+                        }
+                    }
+
+                    if (ship?.Armor == null) continue;
+                    if (ship.Deflector != null) obstacle.DoDamage(ship.Deflector, ship.Armor);
                     if (ship.IsBroken())
                     {
                         return "Ship destroyed";
@@ -62,9 +71,16 @@ public static class ShipChecker
                 if (segment.Obstacles.Count == 0) continue;
                 foreach (Obstacle obstacle in segment.Obstacles)
                 {
+                    if (ship?.AntiNitriniumEmitter != null) continue;
                     if (ship?.Deflector == null) continue;
                     if (ship.Armor == null) continue;
+                    if (ship.Deflector is not DeflectorClassThree)
+                    {
+                        return "Ship destroyed";
+                    }
+
                     obstacle.DoDamage(ship.Deflector, ship.Armor);
+
                     if (ship.IsBroken())
                     {
                         return "Ship destroyed";

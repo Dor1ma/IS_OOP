@@ -15,7 +15,7 @@ public class Asteroid : Obstacle
 
         if (armor.AsteroidsLimit > 0)
         {
-            armor.DefendFromMeteor();
+            armor.DefendFromAsteroid();
         }
     }
 }
