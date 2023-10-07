@@ -9,9 +9,9 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Ships.Services;
 
 public static class ShipChecker
 {
-    public static Ship ShipsComparator(Ship[]? ships)
+    public static Ship ShipsComparator(Ship[] ships)
     {
-        if (ships == null) return new Avgur(false);
+        // if (ships == null) return new Avgur(false);
         Ship result = ships[0];
         double localMinimum = double.MaxValue;
         foreach (Ship ship in ships)
@@ -24,7 +24,7 @@ public static class ShipChecker
         return result;
     }
 
-    public static string PermeabilityCheck(Ship? ship, Route? route)
+    public static string PermeabilityCheck(Ship ship, Route? route)
     {
         if (route == null) return "OK";
         foreach (Environment segment in route.Segments)
@@ -34,7 +34,7 @@ public static class ShipChecker
             {
                 // Space condition
                 if (segment.Obstacles.Count == 0) continue;
-                foreach (Obstacle obstacle in segment.Obstacles)
+                foreach (IObstacle obstacle in segment.Obstacles)
                 {
                     if (ship?.Deflector == null && ship?.GetType() == typeof(Ship))
                     {
@@ -69,7 +69,7 @@ public static class ShipChecker
                 }
 
                 if (segment.Obstacles.Count == 0) continue;
-                foreach (Obstacle obstacle in segment.Obstacles)
+                foreach (IObstacle obstacle in segment.Obstacles)
                 {
                     if (ship?.AntiNitriniumEmitter != null) continue;
                     if (ship?.Deflector == null) continue;
@@ -96,15 +96,12 @@ public static class ShipChecker
                 }
 
                 // Range check
-                if (ship is { JumpEngine: not null })
-                {
-                    if (ship.JumpEngine.Range < segment.EnvironmentLength)
+                if (ship != null && ship.JumpEngine.Range < segment.EnvironmentLength)
                         return "Insufficient engines range";
-                }
 
                 // Flashes check
                 if (segment.Obstacles.Count == 0) continue;
-                foreach (Obstacle obstacle in segment.Obstacles)
+                foreach (IObstacle obstacle in segment.Obstacles)
                 {
                     if (ship?.Deflector == null) continue;
                     if (ship.Armor == null) continue;

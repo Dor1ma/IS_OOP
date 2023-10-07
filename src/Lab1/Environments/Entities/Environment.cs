@@ -7,9 +7,9 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Environments.Entities;
 
 public abstract class Environment
 {
-    private readonly Collection<Obstacle> _obstacles = new(new List<Obstacle>());
+    private readonly ReadOnlyCollection<IObstacle> _obstacles = new(new List<IObstacle>());
 
-    public Collection<Obstacle> Obstacles => _obstacles;
+    public ICollection<IObstacle> Obstacles => _obstacles;
     public int EnvironmentLength { get; protected init; }
     public Type? Requirement { get; protected init; }
 }

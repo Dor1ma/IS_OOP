@@ -3,9 +3,9 @@ using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models.Deflectors;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environments.Models;
 
-public class Asteroid : Obstacle
+public class Asteroid : IObstacle
 {
-    public override void DoDamage(Deflector deflector, Armor armor)
+    public void DoDamage(Deflector deflector, Armor armor)
     {
         if (deflector.DestroyedAsteroids > 0)
         {
