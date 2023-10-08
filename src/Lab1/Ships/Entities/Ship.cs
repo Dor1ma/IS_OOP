@@ -17,13 +17,13 @@ public abstract class Ship
 
     public bool IsBroken()
     {
-        return Armor != null && (Armor.AsteroidsLimit <= 0 || Armor.MeteorsLimit <= 0);
+        return Armor != null && (Armor.ArmorHealthPoints <= 0);
     }
 
     public bool CrewStatus()
     {
         if (Deflector?.PhotonPart == null) return false;
-        return Deflector.PhotonPart.ReflectedFlashes > 0;
+        return Deflector.PhotonPart.PhotonPartHealthPoints > 0;
     }
 
     public void UpdateCost(double computedPrice)

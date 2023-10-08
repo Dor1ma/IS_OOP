@@ -5,9 +5,10 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Environments.Models;
 
 public class AntimatterFlashes : IObstacle
 {
+    private const int FlashDamage = 1;
+    public int ObstacleDamage { get; init; } = FlashDamage;
     public void DoDamage(Deflector deflector, Armor armor)
     {
-        if (deflector.PhotonPart == null) return;
-        deflector.PhotonPart.DefendFromFlash();
+        deflector.PhotonPart?.TakeFlashDamage(ObstacleDamage);
     }
 }

@@ -2,15 +2,10 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Ships.Models.Deflectors;
 
 public class PhotonPart
 {
-    public PhotonPart()
-    {
-        ReflectedFlashes = ShipParameters.PhotonDeflectorLimit;
-    }
+    public int PhotonPartHealthPoints { get; private set; } = 3;
 
-    public int ReflectedFlashes { get; protected set; }
-
-    public void DefendFromFlash()
+    public void TakeFlashDamage(int flashDamage)
     {
-        ReflectedFlashes--;
+        PhotonPartHealthPoints -= flashDamage;
     }
 }

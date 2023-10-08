@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab1.Environments.Models;
 using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models.Engines;
 
@@ -5,22 +6,11 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Environments.Entities;
 
 public class Space : Environment
 {
-    public Space(int asteroidsCount, int meteorsCount, int length)
+    public Space(IReadOnlyCollection<IAmOnlyForSpace> obstacles, int length)
     {
-        if (asteroidsCount != 0)
+        foreach (IAmOnlyForSpace obstacle in obstacles)
         {
-            for (int i = 0; i < asteroidsCount; i++)
-            {
-                Obstacles.Add(new Asteroid());
-            }
-        }
-
-        if (meteorsCount != 0)
-        {
-            for (int i = 0; i < meteorsCount; i++)
-            {
-                Obstacles.Add(new Meteor());
-            }
+            Obstacles.Add(obstacle);
         }
 
         Requirement = typeof(ImpulseEngine);

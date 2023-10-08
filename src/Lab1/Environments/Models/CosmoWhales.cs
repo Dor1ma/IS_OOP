@@ -5,11 +5,10 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Environments.Models;
 
 public class CosmoWhales : IObstacle
 {
+    private const int WhaleDamage = 40;
+    public int ObstacleDamage { get; init; } = WhaleDamage;
     public void DoDamage(Deflector deflector, Armor armor)
     {
-        if (deflector is DeflectorClassThree)
-        {
-            deflector.DefendFromWhale();
-        }
+        deflector.TakeDamage(ObstacleDamage);
     }
 }

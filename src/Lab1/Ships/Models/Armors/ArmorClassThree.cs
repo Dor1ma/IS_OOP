@@ -2,9 +2,9 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Ships.Models.Armors;
 
 public class ArmorClassThree : Armor
 {
+    private const int ArmorClassThreeHealthPoints = 20;
     public ArmorClassThree()
     {
-        AsteroidsLimit = ShipParameters.ArmorClassThreeAsteroidsLimit;
-        MeteorsLimit = ShipParameters.ArmorClassThreeMeteorsLimit;
+        ArmorHealthPoints = ArmorClassThreeHealthPoints;
     }
 }

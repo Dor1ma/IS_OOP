@@ -3,19 +3,21 @@ using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models.Deflectors;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environments.Models;
 
-public class Meteor : IObstacle
+public class Meteor : IAmOnlyForSpace
 {
+    private const int MeteorDamage = 4;
+    public int ObstacleDamage { get; init; } = MeteorDamage;
     public void DoDamage(Deflector deflector, Armor armor)
     {
-        if (deflector.DestroyedMeteors > 0)
+        if (deflector.DeflectorHealthPoints > 0)
         {
-            deflector.DestroyMeteor();
+            deflector.TakeDamage(ObstacleDamage);
             return;
         }
 
-        if (armor.MeteorsLimit > 0)
+        if (armor.ArmorHealthPoints > 0)
         {
-            armor.DefendFromMeteor();
+            armor.TakeDamage(ObstacleDamage);
         }
     }
 }

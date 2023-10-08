@@ -2,18 +2,10 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Ships.Models.Deflectors;
 
 public class DeflectorClassThree : Deflector
 {
+    private const int DeflectorClassThreeHealthPoints = 40;
     public DeflectorClassThree(bool isPhoton)
         : base(isPhoton)
     {
-        DestroyedAsteroids = ShipParameters.ThirdDeflectorsAsteroidsLimit;
-        DestroyedMeteors = ShipParameters.ThirdDeflectorsMeteorsLimit;
-        ReflectedWhales = ShipParameters.ThirdDeflectorsWhalesLimit;
-    }
-
-    public int ReflectedWhales { get; private set; }
-
-    public override void DefendFromWhale()
-    {
-        ReflectedWhales--;
+        DeflectorHealthPoints = DeflectorClassThreeHealthPoints;
     }
 }
