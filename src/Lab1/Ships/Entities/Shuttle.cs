@@ -5,9 +5,10 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
 
 public class Shuttle : Ship
 {
+    private const double LowMass = 1.1;
     public Shuttle()
     {
-        Mass = ShipParameters.LowMass;
+        Mass = LowMass;
         Armor = new ArmorClassOne();
         ImpulseEngine = new ImpulseEngineClassC();
     }

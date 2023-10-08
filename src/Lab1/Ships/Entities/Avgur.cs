@@ -6,9 +6,10 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
 
 public class Avgur : Ship
 {
+    private const double HighMass = 1.5;
     public Avgur(bool isDeflectorPhoton)
     {
-        Mass = ShipParameters.HighMass;
+        Mass = HighMass;
         Deflector = new DeflectorClassThree(isDeflectorPhoton);
         Armor = new ArmorClassThree();
         ImpulseEngine = new ImpulseEngineClassE();
