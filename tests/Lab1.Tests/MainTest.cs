@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Itmo.ObjectOrientedProgramming.Lab1.Environments.Entities;
+using Itmo.ObjectOrientedProgramming.Lab1.Environments.Models;
+using Itmo.ObjectOrientedProgramming.Lab1.Ships;
 using Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
 using Itmo.ObjectOrientedProgramming.Lab1.Ships.Services;
 using Xunit;
@@ -17,14 +20,15 @@ public class MainTest
         Route route,
         int flashesCount,
         int length,
-        string shuttleResult,
-        string avgurResult)
+        CheckerMessages shuttleResult,
+        CheckerMessages avgurResult)
     {
-        var space = new HighDensityNebulae(flashesCount, length);
+        IReadOnlyCollection<IObstacle> flashes = new List<IObstacle>(flashesCount);
+        var space = new HighDensityNebulae(flashes, length);
         route.AddSegment(space);
 
-        string shuttleMessage = ShipChecker.PermeabilityCheck(shuttle, route);
-        string avgurMessage = ShipChecker.PermeabilityCheck(avgur, route);
+        CheckerMessages shuttleMessage = ShipChecker.PermeabilityCheck(shuttle, route);
+        CheckerMessages avgurMessage = ShipChecker.PermeabilityCheck(avgur, route);
 
         Assert.Equal(shuttleResult, shuttleMessage);
         Assert.Equal(avgurResult, avgurMessage);
@@ -38,14 +42,20 @@ public class MainTest
         Route route,
         int flashesCount,
         int length,
-        string vaklasResult,
-        string vaklasWithPhotonsResult)
+        CheckerMessages vaklasResult,
+        CheckerMessages vaklasWithPhotonsResult)
     {
-        var highDensityNebulae = new HighDensityNebulae(flashesCount, length);
+        var flashes = new Collection<IObstacle>();
+        for (int i = 0; i < flashesCount; i++)
+        {
+            flashes.Add(new AntimatterFlashes());
+        }
+
+        var highDensityNebulae = new HighDensityNebulae(flashes, length);
         route.AddSegment(highDensityNebulae);
 
-        string vaklasMessage = ShipChecker.PermeabilityCheck(vaklas, route);
-        string vaklasWithPhotonsMessage = ShipChecker.PermeabilityCheck(vaklasWithPhotons, route);
+        CheckerMessages vaklasMessage = ShipChecker.PermeabilityCheck(vaklas, route);
+        CheckerMessages vaklasWithPhotonsMessage = ShipChecker.PermeabilityCheck(vaklasWithPhotons, route);
 
         Assert.Equal(vaklasResult, vaklasMessage);
         Assert.Equal(vaklasWithPhotonsResult, vaklasWithPhotonsMessage);
@@ -60,16 +70,22 @@ public class MainTest
         Route route,
         int whalesCount,
         int length,
-        string vaklasResult,
-        string avgurResult,
-        string meredianResult)
+        CheckerMessages vaklasResult,
+        CheckerMessages avgurResult,
+        CheckerMessages meredianResult)
     {
-        var nitrinoParticleNebulae = new NitrinoParticleNebulae(whalesCount, length);
+        var whales = new Collection<IObstacle>();
+        for (int i = 0; i < whalesCount; i++)
+        {
+            whales.Add(new CosmoWhales());
+        }
+
+        var nitrinoParticleNebulae = new NitrinoParticleNebulae(whales, length);
         route.AddSegment(nitrinoParticleNebulae);
 
-        string vaklasMessage = ShipChecker.PermeabilityCheck(vaklas, route);
-        string avgurMessage = ShipChecker.PermeabilityCheck(avgur, route);
-        string meredianMessage = ShipChecker.PermeabilityCheck(meredian, route);
+        CheckerMessages vaklasMessage = ShipChecker.PermeabilityCheck(vaklas, route);
+        CheckerMessages avgurMessage = ShipChecker.PermeabilityCheck(avgur, route);
+        CheckerMessages meredianMessage = ShipChecker.PermeabilityCheck(meredian, route);
 
         Assert.Equal(vaklasResult, vaklasMessage);
         Assert.Equal(avgurResult, avgurMessage);
@@ -82,25 +98,24 @@ public class MainTest
         Shuttle shuttle,
         Vaklas vaklas,
         Route route,
-        int asteroidsCount,
-        int meteorsCount,
         int length,
-        string shuttleResult,
-        string vaklasResult,
+        CheckerMessages shuttleResult,
+        CheckerMessages vaklasResult,
         int activePasmaCost,
         int gravityMatterCost)
     {
-        var space = new Space(asteroidsCount, meteorsCount, length);
+        IReadOnlyCollection<IAmOnlyForSpace> obstaclesData = new Collection<IAmOnlyForSpace>();
+        var space = new Space(obstaclesData, length);
         route.AddSegment(space);
+        var ships = new Collection<Ship>();
         var fuelExchange = new FuelExchange(activePasmaCost, gravityMatterCost);
-        var ships = new Ship[2];
 
-        string shuttleMessage = ShipChecker.PermeabilityCheck(shuttle, route);
-        string vaklasMessage = ShipChecker.PermeabilityCheck(vaklas, route);
+        CheckerMessages shuttleMessage = ShipChecker.PermeabilityCheck(shuttle, route);
+        CheckerMessages vaklasMessage = ShipChecker.PermeabilityCheck(vaklas, route);
         ShipChecker.CostCount(shuttle, route, fuelExchange);
         ShipChecker.CostCount(vaklas, route, fuelExchange);
-        ships[0] = shuttle;
-        ships[1] = vaklas;
+        ships.Add(shuttle);
+        ships.Add(vaklas);
         Ship comparingResult = shuttle;
         Ship comparingTest = ShipChecker.ShipsComparator(ships);
 
@@ -115,16 +130,16 @@ public class MainTest
         Avgur avgur,
         Stella stella,
         Route route,
-        int flashesCount,
         int length,
-        string avgurResult,
-        string stellaResult)
+        CheckerMessages avgurResult,
+        CheckerMessages stellaResult)
     {
-        var highDensityNebulae = new HighDensityNebulae(flashesCount, length);
+        IReadOnlyCollection<IObstacle> obstaclesData = new Collection<IObstacle>();
+        var highDensityNebulae = new HighDensityNebulae(obstaclesData, length);
         route.AddSegment(highDensityNebulae);
 
-        string avgurMessage = ShipChecker.PermeabilityCheck(avgur, route);
-        string stellaMessage = ShipChecker.PermeabilityCheck(stella, route);
+        CheckerMessages avgurMessage = ShipChecker.PermeabilityCheck(avgur, route);
+        CheckerMessages stellaMessage = ShipChecker.PermeabilityCheck(stella, route);
 
         Assert.Equal(avgurResult, avgurMessage);
         Assert.Equal(stellaResult, stellaMessage);
@@ -136,16 +151,17 @@ public class MainTest
         Shuttle shuttle,
         Vaklas vaklas,
         Route route,
-        int whalesCount,
         int length,
-        string shuttleResult,
-        string vaklasResult)
+        CheckerMessages shuttleResult,
+        CheckerMessages vaklasResult)
     {
-        var nitrinoParticleNebulae = new NitrinoParticleNebulae(whalesCount, length);
+        var whales = new Collection<IObstacle>();
+        whales.Add(new CosmoWhales());
+        var nitrinoParticleNebulae = new NitrinoParticleNebulae(whales, length);
         route.AddSegment(nitrinoParticleNebulae);
 
-        string shuttleMessage = ShipChecker.PermeabilityCheck(shuttle, route);
-        string vaklasMessage = ShipChecker.PermeabilityCheck(vaklas, route);
+        CheckerMessages shuttleMessage = ShipChecker.PermeabilityCheck(shuttle, route);
+        CheckerMessages vaklasMessage = ShipChecker.PermeabilityCheck(vaklas, route);
 
         Assert.Equal(shuttleResult, shuttleMessage);
         Assert.Equal(vaklasResult, vaklasMessage);
@@ -158,25 +174,31 @@ public class MainTest
         Vaklas vaklas,
         Route route,
         int firstAsteroidsCount,
-        int firstMeteorsCount,
-        int secondAsteroidsCount,
-        int secondMeteorsCount,
-        int whalesCount,
         int segmentOneLength,
         int segmentTwoLength,
         int segmentThreeLength,
-        string shuttleResult,
-        string vaklasResult)
+        CheckerMessages shuttleResult,
+        CheckerMessages vaklasResult)
     {
-        var spaceOne = new Space(firstAsteroidsCount, firstMeteorsCount, segmentOneLength);
-        var spaceTwo = new Space(secondAsteroidsCount, secondMeteorsCount, segmentTwoLength);
-        var nitrinoParticleNebulae = new NitrinoParticleNebulae(whalesCount, segmentThreeLength);
+        var firstSpaceObstacles = new Collection<IAmOnlyForSpace>();
+        for (int i = 0; i < firstAsteroidsCount; i++)
+        {
+            firstSpaceObstacles.Add(new Asteroid());
+        }
+
+        var secondSpaceObstacles = new Collection<IAmOnlyForSpace>();
+        secondSpaceObstacles.Add(new Meteor());
+        var spaceOne = new Space(firstSpaceObstacles, segmentOneLength);
+        var spaceTwo = new Space(secondSpaceObstacles, segmentTwoLength);
+        var whales = new Collection<IObstacle>();
+        whales.Add(new CosmoWhales());
+        var nitrinoParticleNebulae = new NitrinoParticleNebulae(whales, segmentThreeLength);
         route.AddSegment(spaceOne);
         route.AddSegment(spaceTwo);
         route.AddSegment(nitrinoParticleNebulae);
 
-        string shuttleMessage = ShipChecker.PermeabilityCheck(shuttle, route);
-        string vaklasMessage = ShipChecker.PermeabilityCheck(vaklas, route);
+        CheckerMessages shuttleMessage = ShipChecker.PermeabilityCheck(shuttle, route);
+        CheckerMessages vaklasMessage = ShipChecker.PermeabilityCheck(vaklas, route);
 
         Assert.Equal(shuttleResult, shuttleMessage);
         Assert.Equal(vaklasResult, vaklasMessage);
@@ -187,8 +209,8 @@ public class MainTest
         private const bool AreAvgurDeflectorsPhoton = false;
         private const int FlashesCount = 0;
         private const int SegmentLength = 200;
-        private const string ShuttleExpected = "Unsuitable engine";
-        private const string AvgurExpected = "Insufficient engines range";
+        private const CheckerMessages ShuttleExpected = CheckerMessages.UnsuitableEngine;
+        private const CheckerMessages AvgurExpected = CheckerMessages.InsufficientEnginesRange;
 
         private readonly List<object[]> _data = new List<object[]>
         {
@@ -214,8 +236,8 @@ public class MainTest
         private const bool WithPhotons = true;
         private const int FlashesCount = 1;
         private const int SegmentLength = 100;
-        private const string FirstVaklasExpected = "Crew is dead";
-        private const string SecondVaklasExpected = "OK";
+        private const CheckerMessages FirstVaklasExpected = CheckerMessages.CrewIsDead;
+        private const CheckerMessages SecondVaklasExpected = CheckerMessages.Ok;
         private readonly List<object[]> _data = new List<object[]>
         {
             new object[]
@@ -239,9 +261,9 @@ public class MainTest
         private const bool WithoutPhotons = false;
         private const int WhalesCount = 1;
         private const int SegmentLength = 200;
-        private const string VaklasExpected = "Ship destroyed";
-        private const string AvgurExpected = "OK";
-        private const string MeredianExpected = "OK";
+        private const CheckerMessages VaklasExpected = CheckerMessages.ShipDestroyed;
+        private const CheckerMessages AvgurExpected = CheckerMessages.Ok;
+        private const CheckerMessages MeredianExpected = CheckerMessages.Ok;
         private readonly List<object[]> _data = new List<object[]>
         {
             new object[]
@@ -265,11 +287,9 @@ public class MainTest
     private class FourthTestData : IEnumerable<object[]>
     {
         private const bool WithoutPhotons = false;
-        private const int AsteroidsCount = 0;
-        private const int MeteorsCount = 0;
         private const int SegmentLength = 100;
-        private const string ShuttleExpected = "OK";
-        private const string VaklasExpected = "OK";
+        private const CheckerMessages ShuttleExpected = CheckerMessages.Ok;
+        private const CheckerMessages VaklasExpected = CheckerMessages.Ok;
         private const int ActivePlasmaCost = 10;
         private const int GravityMatterCost = 25;
         private readonly List<object[]> _data = new List<object[]>
@@ -279,8 +299,6 @@ public class MainTest
                 new Shuttle(),
                 new Vaklas(WithoutPhotons),
                 new Route(),
-                AsteroidsCount,
-                MeteorsCount,
                 SegmentLength,
                 ShuttleExpected,
                 VaklasExpected,
@@ -296,10 +314,9 @@ public class MainTest
     private class FifthTestData : IEnumerable<object[]>
     {
         private const bool WithoutPhotons = false;
-        private const int FlashesCount = 0;
         private const int SegmentLength = 400;
-        private const string AvgurExpected = "Insufficient engines range";
-        private const string StellaExpected = "OK";
+        private const CheckerMessages AvgurExpected = CheckerMessages.InsufficientEnginesRange;
+        private const CheckerMessages StellaExpected = CheckerMessages.Ok;
         private readonly List<object[]> _data = new List<object[]>
         {
             new object[]
@@ -307,7 +324,6 @@ public class MainTest
                 new Avgur(WithoutPhotons),
                 new Stella(WithoutPhotons),
                 new Route(),
-                FlashesCount,
                 SegmentLength,
                 AvgurExpected,
                 StellaExpected,
@@ -321,10 +337,9 @@ public class MainTest
     private class SixthTestData : IEnumerable<object[]>
     {
         private const bool WithoutPhotons = false;
-        private const int WhalesCount = 0;
         private const int SegmentLength = 100;
-        private const string ShuttleExpected = "Unsuitable engine";
-        private const string VaklasExpected = "OK";
+        private const CheckerMessages ShuttleExpected = CheckerMessages.UnsuitableEngine;
+        private const CheckerMessages VaklasExpected = CheckerMessages.Ok;
 
         private readonly List<object[]> _data = new List<object[]>
         {
@@ -333,7 +348,6 @@ public class MainTest
                 new Shuttle(),
                 new Vaklas(WithoutPhotons),
                 new Route(),
-                WhalesCount,
                 SegmentLength,
                 ShuttleExpected,
                 VaklasExpected,
@@ -348,15 +362,11 @@ public class MainTest
     {
         private const bool WithoutPhotons = false;
         private const int FirstSpaceAsteroidsCount = 4;
-        private const int FirstSpaceMeteorsCount = 0;
-        private const int SecondSpaceAsteroidsCount = 0;
-        private const int SecondSpaceMeteorsCount = 1;
-        private const int WhalesCount = 0;
         private const int FirstSegmentLength = 100;
         private const int SecondSegmentLength = 200;
         private const int ThirdSegmentLength = 400;
-        private const string ShuttleExpected = "Ship destroyed";
-        private const string VaklasExpected = "OK";
+        private const CheckerMessages ShuttleExpected = CheckerMessages.ShipDestroyed;
+        private const CheckerMessages VaklasExpected = CheckerMessages.Ok;
 
         private readonly List<object[]> _data = new List<object[]>
         {
@@ -366,10 +376,6 @@ public class MainTest
                 new Vaklas(WithoutPhotons),
                 new Route(),
                 FirstSpaceAsteroidsCount,
-                FirstSpaceMeteorsCount,
-                SecondSpaceAsteroidsCount,
-                SecondSpaceMeteorsCount,
-                WhalesCount,
                 FirstSegmentLength,
                 SecondSegmentLength,
                 ThirdSegmentLength,
