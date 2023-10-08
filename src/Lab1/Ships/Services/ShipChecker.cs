@@ -3,7 +3,6 @@ using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab1.Environments.Entities;
 using Itmo.ObjectOrientedProgramming.Lab1.Environments.Models;
 using Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
-using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models.Deflectors;
 using Itmo.ObjectOrientedProgramming.Lab1.Ships.Models.Engines;
 using Environment = Itmo.ObjectOrientedProgramming.Lab1.Environments.Entities.Environment;
 
@@ -37,16 +36,8 @@ public static class ShipChecker
                 if (segment.Obstacles.Count == 0) continue;
                 foreach (IObstacle obstacle in segment.Obstacles)
                 {
-                    if (ship?.Deflector is null && ship?.GetType() == typeof(Ship))
-                    {
-                        if (ship.Armor is not null && segment.Obstacles.Count < ship.Armor.ArmorHealthPoints)
-                        {
-                            return CheckerMessages.ShipDestroyed;
-                        }
-                    }
-
-                    if (ship?.Armor is null) continue;
-                    if (ship.Deflector is not null) obstacle.DoDamage(ship.Deflector, ship.Armor);
+                    if (ship is null) continue;
+                    obstacle.DoDamage(ship);
                     if (ship.IsBroken())
                     {
                         return CheckerMessages.ShipDestroyed;
@@ -71,16 +62,8 @@ public static class ShipChecker
                 if (segment.Obstacles.Count == 0) continue;
                 foreach (IObstacle obstacle in segment.Obstacles)
                 {
-                    if (ship?.AntiNitriniumEmitter is not null) continue;
-                    if (ship?.Deflector is null) continue;
-                    if (ship.Armor is null) continue;
-                    if (ship.Deflector is not DeflectorClassThree)
-                    {
-                        return CheckerMessages.ShipDestroyed;
-                    }
-
-                    obstacle.DoDamage(ship.Deflector, ship.Armor);
-
+                    if (ship is null) continue;
+                    obstacle.DoDamage(ship);
                     if (ship.IsBroken())
                     {
                         return CheckerMessages.ShipDestroyed;
@@ -103,9 +86,8 @@ public static class ShipChecker
                 if (segment.Obstacles.Count == 0) continue;
                 foreach (IObstacle obstacle in segment.Obstacles)
                 {
-                    if (ship?.Deflector is null) continue;
-                    if (ship.Armor is null) continue;
-                    obstacle.DoDamage(ship.Deflector, ship.Armor);
+                    if (ship is null) continue;
+                    obstacle.DoDamage(ship);
                     if (!ship.CrewStatus())
                     {
                         return CheckerMessages.CrewIsDead;
