@@ -23,7 +23,7 @@ public class MainTest
         CheckerMessages shuttleResult,
         CheckerMessages avgurResult)
     {
-        IReadOnlyCollection<IObstacle> flashes = new List<IObstacle>(flashesCount);
+        IReadOnlyCollection<AntimatterFlashes> flashes = new List<AntimatterFlashes>(flashesCount);
         var space = new HighDensityNebulae(flashes, length);
         route.AddSegment(space);
 
@@ -45,7 +45,7 @@ public class MainTest
         CheckerMessages vaklasResult,
         CheckerMessages vaklasWithPhotonsResult)
     {
-        var flashes = new Collection<IObstacle>();
+        var flashes = new Collection<AntimatterFlashes>();
         for (int i = 0; i < flashesCount; i++)
         {
             flashes.Add(new AntimatterFlashes());
@@ -74,7 +74,7 @@ public class MainTest
         CheckerMessages avgurResult,
         CheckerMessages meredianResult)
     {
-        var whales = new Collection<IObstacle>();
+        var whales = new Collection<CosmoWhales>();
         for (int i = 0; i < whalesCount; i++)
         {
             whales.Add(new CosmoWhales());
@@ -134,7 +134,7 @@ public class MainTest
         CheckerMessages avgurResult,
         CheckerMessages stellaResult)
     {
-        IReadOnlyCollection<IObstacle> obstaclesData = new Collection<IObstacle>();
+        IReadOnlyCollection<AntimatterFlashes> obstaclesData = new Collection<AntimatterFlashes>();
         var highDensityNebulae = new HighDensityNebulae(obstaclesData, length);
         route.AddSegment(highDensityNebulae);
 
@@ -155,7 +155,7 @@ public class MainTest
         CheckerMessages shuttleResult,
         CheckerMessages vaklasResult)
     {
-        var whales = new Collection<IObstacle>();
+        var whales = new Collection<CosmoWhales>();
         var nitrinoParticleNebulae = new NitrinoParticleNebulae(whales, length);
         route.AddSegment(nitrinoParticleNebulae);
 
@@ -189,7 +189,7 @@ public class MainTest
         secondSpaceObstacles.Add(new Meteor());
         var spaceOne = new Space(firstSpaceObstacles, segmentOneLength);
         var spaceTwo = new Space(secondSpaceObstacles, segmentTwoLength);
-        var whales = new Collection<IObstacle>();
+        var whales = new Collection<CosmoWhales>();
         var nitrinoParticleNebulae = new NitrinoParticleNebulae(whales, segmentThreeLength);
         route.AddSegment(spaceOne);
         route.AddSegment(spaceTwo);
