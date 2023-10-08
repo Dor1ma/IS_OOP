@@ -156,7 +156,6 @@ public class MainTest
         CheckerMessages vaklasResult)
     {
         var whales = new Collection<IObstacle>();
-        whales.Add(new CosmoWhales());
         var nitrinoParticleNebulae = new NitrinoParticleNebulae(whales, length);
         route.AddSegment(nitrinoParticleNebulae);
 
@@ -191,7 +190,6 @@ public class MainTest
         var spaceOne = new Space(firstSpaceObstacles, segmentOneLength);
         var spaceTwo = new Space(secondSpaceObstacles, segmentTwoLength);
         var whales = new Collection<IObstacle>();
-        whales.Add(new CosmoWhales());
         var nitrinoParticleNebulae = new NitrinoParticleNebulae(whales, segmentThreeLength);
         route.AddSegment(spaceOne);
         route.AddSegment(spaceTwo);
