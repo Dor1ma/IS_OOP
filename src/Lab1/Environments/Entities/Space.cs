@@ -13,7 +13,7 @@ public class Space : Environment
             Obstacles.Add(obstacle);
         }
 
-        Requirement = typeof(ImpulseEngine);
+        Requirement = new ImpulseEngine();
         EnvironmentLength = length;
     }
 }

@@ -9,7 +9,7 @@ public class NitrinoParticleNebulae : Environment
     public NitrinoParticleNebulae(IReadOnlyCollection<INitrinoParticleNebulaeObstacle> obstacles, int length)
     {
         EnvironmentLength = length;
-        Requirement = typeof(ImpulseEngineClassE);
+        Requirement = new ImpulseEngineClassE();
         foreach (INitrinoParticleNebulaeObstacle obstacle in obstacles)
         {
             Obstacles.Add(obstacle);

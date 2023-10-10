@@ -9,7 +9,7 @@ public class HighDensityNebulae : Environment
     public HighDensityNebulae(IReadOnlyCollection<IHighDensityNebulaeObstacle> obstacles, int length)
     {
         EnvironmentLength = length;
-        Requirement = typeof(JumpEngine);
+        Requirement = new JumpEngine();
         foreach (IHighDensityNebulaeObstacle obstacle in obstacles)
         {
             Obstacles.Add(obstacle);

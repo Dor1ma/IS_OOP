@@ -30,36 +30,39 @@ public static class ShipChecker
         foreach (Environment segment in route.Segments)
         {
             // Segment with impulse engine required
-            if (segment.Requirement == typeof(ImpulseEngine) && segment.Requirement != typeof(ImpulseEngineClassE))
+            if (segment.Requirement is ImpulseEngine)
             {
-                // Space condition
-                if (segment.Obstacles.Count == 0) continue;
-                foreach (IObstacle obstacle in segment.Obstacles)
+                if (segment.Requirement is ImpulseEngineClassE)
                 {
-                    if (ship is null) continue;
-                    obstacle.DoDamage(ship);
-                    if (ship.IsBroken())
+                    // Exponent acceleration engine required?
+                    if (ship?.ImpulseEngine is not ImpulseEngineClassE)
                     {
-                        return CheckerMessages.ShipDestroyed;
+                        return CheckerMessages.UnsuitableEngine;
+                    }
+
+                    if (segment.Obstacles.Count == 0) continue;
+                    foreach (IObstacle obstacle in segment.Obstacles)
+                    {
+                        if (ship is null) continue;
+                        obstacle.DoDamage(ship);
+                        if (ship.IsBroken())
+                        {
+                            return CheckerMessages.ShipDestroyed;
+                        }
                     }
                 }
-            }
-            else if (segment.Requirement == typeof(ImpulseEngineClassE))
-            {
-                // Exponent acceleration engine required?
-                if (ship?.ImpulseEngine is not ImpulseEngineClassE)
+                else
                 {
-                    return CheckerMessages.UnsuitableEngine;
-                }
-
-                if (segment.Obstacles.Count == 0) continue;
-                foreach (IObstacle obstacle in segment.Obstacles)
-                {
-                    if (ship is null) continue;
-                    obstacle.DoDamage(ship);
-                    if (ship.IsBroken())
+                    // Space condition
+                    if (segment.Obstacles.Count == 0) continue;
+                    foreach (IObstacle obstacle in segment.Obstacles)
                     {
-                        return CheckerMessages.ShipDestroyed;
+                        if (ship is null) continue;
+                        obstacle.DoDamage(ship);
+                        if (ship.IsBroken())
+                        {
+                            return CheckerMessages.ShipDestroyed;
+                        }
                     }
                 }
             }
@@ -96,9 +99,9 @@ public static class ShipChecker
     {
         foreach (Environment segment in route.Segments)
         {
-            if (segment.Requirement == typeof(ImpulseEngine))
+            if (segment.Requirement is ImpulseEngine)
             {
-                if (segment.Requirement != typeof(ImpulseEngineClassE))
+                if (segment.Requirement is not ImpulseEngineClassE)
                 {
                     switch (ship?.ImpulseEngine)
                     {
