@@ -6,13 +6,10 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Environments.Entities;
 
 public class NitrinoParticleNebulae : Environment
 {
-    public NitrinoParticleNebulae(IReadOnlyCollection<INitrinoParticleNebulaeObstacle> obstacles, int length)
+    public NitrinoParticleNebulae(ICollection<IObstacle> obstacles, int length)
     {
+        Obstacles = obstacles;
         EnvironmentLength = length;
         Requirement = new ImpulseEngineClassE();
-        foreach (INitrinoParticleNebulaeObstacle obstacle in obstacles)
-        {
-            Obstacles.Add(obstacle);
-        }
     }
 }

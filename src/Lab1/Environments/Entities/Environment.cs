@@ -6,7 +6,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Environments.Entities;
 
 public abstract class Environment
 {
-    public ICollection<IObstacle> Obstacles { get; } = new List<IObstacle>();
+    public ICollection<IObstacle> Obstacles { get; protected init; } = new List<IObstacle>();
 
     public int EnvironmentLength { get; protected init; }
     public Engine? Requirement { get; protected init; }
