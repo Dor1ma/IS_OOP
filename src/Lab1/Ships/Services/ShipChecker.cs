@@ -52,6 +52,11 @@ public static class ShipChecker
                     if (ship?.ImpulseEngine is not null)
                     {
                         ImpulseEngine testedEngine = ship.ImpulseEngine;
+                        if (testedEngine is ImpulseEngineClassE)
+                        {
+                            return CheckerMessages.UnsuitableEngine;
+                        }
+
                         if (testedEngine.GetType() != typeof(ImpulseEngineClassE))
                         {
                             return CheckerMessages.UnsuitableEngine;

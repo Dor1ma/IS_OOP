@@ -6,11 +6,11 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Environments.Entities;
 
 public class HighDensityNebulae : Environment
 {
-    public HighDensityNebulae(IReadOnlyCollection<AntimatterFlashes> obstacles, int length)
+    public HighDensityNebulae(IReadOnlyCollection<IHighDensityNebulaeObstacle> obstacles, int length)
     {
         EnvironmentLength = length;
         Requirement = typeof(JumpEngine);
-        foreach (AntimatterFlashes obstacle in obstacles)
+        foreach (IHighDensityNebulaeObstacle obstacle in obstacles)
         {
             Obstacles.Add(obstacle);
         }

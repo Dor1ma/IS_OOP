@@ -6,9 +6,9 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Environments.Entities;
 
 public class Space : Environment
 {
-    public Space(IReadOnlyCollection<IAmOnlyForSpace> obstacles, int length)
+    public Space(IReadOnlyCollection<ISpaceObstacle> obstacles, int length)
     {
-        foreach (IAmOnlyForSpace obstacle in obstacles)
+        foreach (ISpaceObstacle obstacle in obstacles)
         {
             Obstacles.Add(obstacle);
         }

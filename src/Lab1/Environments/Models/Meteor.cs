@@ -2,7 +2,7 @@ using Itmo.ObjectOrientedProgramming.Lab1.Ships.Entities;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environments.Models;
 
-public class Meteor : IAmOnlyForSpace
+public class Meteor : ISpaceObstacle
 {
     private const int MeteorDamage = 4;
     public int ObstacleDamage { get; init; } = MeteorDamage;
