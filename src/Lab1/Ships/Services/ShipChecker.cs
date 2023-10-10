@@ -47,21 +47,9 @@ public static class ShipChecker
             else if (segment.Requirement == typeof(ImpulseEngineClassE))
             {
                 // Exponent acceleration engine required?
-                if (segment.Requirement == typeof(ImpulseEngineClassE) && segment.Requirement != ship?.GetType())
+                if (ship?.ImpulseEngine is not ImpulseEngineClassE)
                 {
-                    if (ship?.ImpulseEngine is not null)
-                    {
-                        ImpulseEngine testedEngine = ship.ImpulseEngine;
-                        if (testedEngine is ImpulseEngineClassE)
-                        {
-                            return CheckerMessages.UnsuitableEngine;
-                        }
-
-                        if (testedEngine.GetType() != typeof(ImpulseEngineClassE))
-                        {
-                            return CheckerMessages.UnsuitableEngine;
-                        }
-                    }
+                    return CheckerMessages.UnsuitableEngine;
                 }
 
                 if (segment.Obstacles.Count == 0) continue;
@@ -112,23 +100,30 @@ public static class ShipChecker
             {
                 if (segment.Requirement != typeof(ImpulseEngineClassE))
                 {
-                    if (ship?.ImpulseEngine is null) continue;
-                    if (ship.ImpulseEngine.GetType() == typeof(ImpulseEngineClassC))
+                    switch (ship?.ImpulseEngine)
                     {
-                        double time = segment.EnvironmentLength / ship.ImpulseEngine.Speed;
-                        if (fuelExchange == null) continue;
-                        double result = (time * fuelExchange.ActivePlasmaCost * ship.Mass) +
-                                        ship.ImpulseEngine.StartCost;
-                        ship.UpdateCost(result);
-                    }
-                    else
-                    {
-                        double speed = double.Exp(segment.EnvironmentLength);
-                        double time = segment.EnvironmentLength / speed;
-                        if (fuelExchange is null) continue;
-                        double result = (time * fuelExchange.ActivePlasmaCost * ship.Mass) +
-                                        ship.ImpulseEngine.StartCost;
-                        ship.UpdateCost(result);
+                        case null:
+                            continue;
+                        case ImpulseEngineClassC:
+                        {
+                            double time = segment.EnvironmentLength / ship.ImpulseEngine.Speed;
+                            if (fuelExchange == null) continue;
+                            double result = (time * fuelExchange.ActivePlasmaCost * ship.Mass) +
+                                            ship.ImpulseEngine.StartCost;
+                            ship.UpdateCost(result);
+                            break;
+                        }
+
+                        default:
+                        {
+                            double speed = double.Exp(segment.EnvironmentLength);
+                            double time = segment.EnvironmentLength / speed;
+                            if (fuelExchange is null) continue;
+                            double result = (time * fuelExchange.ActivePlasmaCost * ship.Mass) +
+                                            ship.ImpulseEngine.StartCost;
+                            ship.UpdateCost(result);
+                            break;
+                        }
                     }
                 }
                 else
@@ -145,7 +140,7 @@ public static class ShipChecker
             else
             {
                 if (ship?.JumpEngine is null) continue;
-                if (ship.JumpEngine.GetType() == typeof(JumpEngineTypeAlpha))
+                if (ship.JumpEngine is JumpEngineTypeAlpha)
                 {
                     if (fuelExchange is not null)
                     {
@@ -156,7 +151,7 @@ public static class ShipChecker
                     continue;
                 }
 
-                if (ship.JumpEngine.GetType() == typeof(JumpEngineTypeOmega))
+                if (ship.JumpEngine is JumpEngineTypeOmega)
                 {
                     if (fuelExchange is not null)
                     {
@@ -168,7 +163,7 @@ public static class ShipChecker
                     continue;
                 }
 
-                if (ship.JumpEngine.GetType() != typeof(JumpEngineTypeGamma)) continue;
+                if (ship.JumpEngine is not JumpEngineTypeGamma) continue;
                 if (fuelExchange is null) continue;
                 {
                     double result = double.Pow(segment.EnvironmentLength, 2) * fuelExchange.GravityMatterCost;
