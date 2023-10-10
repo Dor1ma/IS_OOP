@@ -13,102 +13,73 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
 public class MainTest
 {
     [Theory]
-    [ClassData(typeof(FirstTestData))]
+    [MemberData(nameof(TestDataGenerator.GetFirstTestData), MemberType = typeof(TestDataGenerator))]
     public void ShuttleAndAvgurInHighDensityNebulaeTest(
-        Shuttle shuttle,
-        Avgur avgur,
-        Route route,
-        int flashesCount,
+        Ship ship,
+        ICollection<IObstacle> obstaclesList,
         int length,
-        CheckerMessages shuttleResult,
-        CheckerMessages avgurResult)
+        CheckerMessages expected)
     {
-        IReadOnlyCollection<IHighDensityNebulaeObstacle> flashes = new List<IHighDensityNebulaeObstacle>(flashesCount);
-        var space = new HighDensityNebulae(flashes, length);
+        var route = new Route();
+        var space = new HighDensityNebulae(obstaclesList, length);
         route.AddSegment(space);
 
-        CheckerMessages shuttleMessage = ShipChecker.PermeabilityCheck(shuttle, route);
-        CheckerMessages avgurMessage = ShipChecker.PermeabilityCheck(avgur, route);
+        CheckerMessages shipMessage = ShipChecker.PermeabilityCheck(ship, route);
 
-        Assert.Equal(shuttleResult, shuttleMessage);
-        Assert.Equal(avgurResult, avgurMessage);
+        Assert.Equal(expected, shipMessage);
     }
 
     [Theory]
-    [ClassData(typeof(SecondTestData))]
+    [MemberData(nameof(TestDataGenerator.GetSecondTestData), MemberType = typeof(TestDataGenerator))]
     public void VaklasAndVaklasWithPhotonsTest(
-        Vaklas vaklas,
-        Vaklas vaklasWithPhotons,
-        Route route,
-        int flashesCount,
+        Ship ship,
+        ICollection<IObstacle> obstaclesList,
         int length,
-        CheckerMessages vaklasResult,
-        CheckerMessages vaklasWithPhotonsResult)
+        CheckerMessages expected)
     {
-        var flashes = new Collection<IHighDensityNebulaeObstacle>();
-        for (int i = 0; i < flashesCount; i++)
-        {
-            flashes.Add(new AntimatterFlashes());
-        }
-
-        var highDensityNebulae = new HighDensityNebulae(flashes, length);
+        var route = new Route();
+        obstaclesList.Add(new AntimatterFlashes());
+        var highDensityNebulae = new HighDensityNebulae(obstaclesList, length);
         route.AddSegment(highDensityNebulae);
 
-        CheckerMessages vaklasMessage = ShipChecker.PermeabilityCheck(vaklas, route);
-        CheckerMessages vaklasWithPhotonsMessage = ShipChecker.PermeabilityCheck(vaklasWithPhotons, route);
+        CheckerMessages shipMessage = ShipChecker.PermeabilityCheck(ship, route);
 
-        Assert.Equal(vaklasResult, vaklasMessage);
-        Assert.Equal(vaklasWithPhotonsResult, vaklasWithPhotonsMessage);
+        Assert.Equal(expected, shipMessage);
     }
 
     [Theory]
-    [ClassData(typeof(ThirdTestData))]
+    [MemberData(nameof(TestDataGenerator.GetThirdTestData), MemberType = typeof(TestDataGenerator))]
     public void VaklasAvgurAndMeredianAgainstCosmoWhaleTest(
-        Vaklas vaklas,
-        Avgur avgur,
-        Meredian meredian,
-        Route route,
-        int whalesCount,
+        Ship ship,
+        ICollection<IObstacle> obstacles,
         int length,
-        CheckerMessages vaklasResult,
-        CheckerMessages avgurResult,
-        CheckerMessages meredianResult)
+        CheckerMessages expected)
     {
-        var whales = new Collection<INitrinoParticleNebulaeObstacle>();
-        for (int i = 0; i < whalesCount; i++)
-        {
-            whales.Add(new CosmoWhales());
-        }
-
-        var nitrinoParticleNebulae = new NitrinoParticleNebulae(whales, length);
+        var route = new Route();
+        obstacles.Add(new CosmoWhales());
+        var nitrinoParticleNebulae = new NitrinoParticleNebulae(obstacles, length);
         route.AddSegment(nitrinoParticleNebulae);
 
-        CheckerMessages vaklasMessage = ShipChecker.PermeabilityCheck(vaklas, route);
-        CheckerMessages avgurMessage = ShipChecker.PermeabilityCheck(avgur, route);
-        CheckerMessages meredianMessage = ShipChecker.PermeabilityCheck(meredian, route);
+        CheckerMessages shipMessage = ShipChecker.PermeabilityCheck(ship, route);
 
-        Assert.Equal(vaklasResult, vaklasMessage);
-        Assert.Equal(avgurResult, avgurMessage);
-        Assert.Equal(meredianResult, meredianMessage);
+        Assert.Equal(expected, shipMessage);
     }
 
     [Theory]
-    [ClassData(typeof(FourthTestData))]
+    [MemberData(nameof(TestDataGenerator.GetFourthTestData), MemberType = typeof(TestDataGenerator))]
     public void ShuttleAndVaklasInSpaceCostCheck(
         Shuttle shuttle,
         Vaklas vaklas,
-        Route route,
+        ICollection<IObstacle> obstacles,
         int length,
         CheckerMessages shuttleResult,
-        CheckerMessages vaklasResult,
-        int activePasmaCost,
-        int gravityMatterCost)
+        CheckerMessages vaklasResult)
     {
-        IReadOnlyCollection<ISpaceObstacle> obstaclesData = new Collection<ISpaceObstacle>();
-        var space = new Space(obstaclesData, length);
+        var route = new Route();
+        var space = new Space(obstacles, length);
         route.AddSegment(space);
         var ships = new Collection<Ship>();
-        var fuelExchange = new FuelExchange(activePasmaCost, gravityMatterCost);
+        var fuelExchange = new FuelExchange();
 
         CheckerMessages shuttleMessage = ShipChecker.PermeabilityCheck(shuttle, route);
         CheckerMessages vaklasMessage = ShipChecker.PermeabilityCheck(vaklas, route);
@@ -125,72 +96,63 @@ public class MainTest
     }
 
     [Theory]
-    [ClassData(typeof(FifthTestData))]
+    [MemberData(nameof(TestDataGenerator.GetFifthTestData), MemberType = typeof(TestDataGenerator))]
     public void AvgurAndStellaInHighDensityNebulaeTest(
-        Avgur avgur,
-        Stella stella,
-        Route route,
+        Ship ship,
+        ICollection<IObstacle> obstacles,
         int length,
-        CheckerMessages avgurResult,
-        CheckerMessages stellaResult)
+        CheckerMessages expected)
     {
-        IReadOnlyCollection<IHighDensityNebulaeObstacle> obstaclesData = new Collection<IHighDensityNebulaeObstacle>();
-        var highDensityNebulae = new HighDensityNebulae(obstaclesData, length);
+        var route = new Route();
+        var highDensityNebulae = new HighDensityNebulae(obstacles, length);
         route.AddSegment(highDensityNebulae);
 
-        CheckerMessages avgurMessage = ShipChecker.PermeabilityCheck(avgur, route);
-        CheckerMessages stellaMessage = ShipChecker.PermeabilityCheck(stella, route);
+        CheckerMessages shipMessage = ShipChecker.PermeabilityCheck(ship, route);
 
-        Assert.Equal(avgurResult, avgurMessage);
-        Assert.Equal(stellaResult, stellaMessage);
+        Assert.Equal(expected, shipMessage);
     }
 
     [Theory]
-    [ClassData(typeof(SixthTestData))]
+    [MemberData(nameof(TestDataGenerator.GetSixthTestData), MemberType = typeof(TestDataGenerator))]
     public void ShuttleAndVaklasInNitrinoParcticleNebulaeTest(
-        Shuttle shuttle,
-        Vaklas vaklas,
-        Route route,
+        Ship ship,
+        ICollection<IObstacle> obstacles,
         int length,
-        CheckerMessages shuttleResult,
-        CheckerMessages vaklasResult)
+        CheckerMessages expected)
     {
-        var whales = new Collection<INitrinoParticleNebulaeObstacle>();
-        var nitrinoParticleNebulae = new NitrinoParticleNebulae(whales, length);
+        var route = new Route();
+        var nitrinoParticleNebulae = new NitrinoParticleNebulae(obstacles, length);
         route.AddSegment(nitrinoParticleNebulae);
 
-        CheckerMessages shuttleMessage = ShipChecker.PermeabilityCheck(shuttle, route);
-        CheckerMessages vaklasMessage = ShipChecker.PermeabilityCheck(vaklas, route);
+        CheckerMessages shipMessage = ShipChecker.PermeabilityCheck(ship, route);
 
-        Assert.Equal(shuttleResult, shuttleMessage);
-        Assert.Equal(vaklasResult, vaklasMessage);
+        Assert.Equal(expected, shipMessage);
     }
 
     [Theory]
-    [ClassData(typeof(SeventhTestData))]
+    [MemberData(nameof(TestDataGenerator.GetSeventhTestData), MemberType = typeof(TestDataGenerator))]
     public void ShuttleAndVaklasInMultipleSegmentsRoute(
         Shuttle shuttle,
         Vaklas vaklas,
-        Route route,
-        int firstAsteroidsCount,
+        ICollection<IObstacle> firstSegmentObstacles,
+        ICollection<IObstacle> secondSegmentObstacles,
+        ICollection<IObstacle> thirdSegmentObstacles,
         int segmentOneLength,
         int segmentTwoLength,
         int segmentThreeLength,
         CheckerMessages shuttleResult,
         CheckerMessages vaklasResult)
     {
-        var firstSpaceObstacles = new Collection<ISpaceObstacle>();
-        for (int i = 0; i < firstAsteroidsCount; i++)
+        var route = new Route();
+        for (int i = 0; i < 4; i++)
         {
-            firstSpaceObstacles.Add(new Asteroid());
+            firstSegmentObstacles.Add(new Asteroid());
         }
 
-        var secondSpaceObstacles = new Collection<ISpaceObstacle>();
-        secondSpaceObstacles.Add(new Meteor());
-        var spaceOne = new Space(firstSpaceObstacles, segmentOneLength);
-        var spaceTwo = new Space(secondSpaceObstacles, segmentTwoLength);
-        var whales = new Collection<INitrinoParticleNebulaeObstacle>();
-        var nitrinoParticleNebulae = new NitrinoParticleNebulae(whales, segmentThreeLength);
+        secondSegmentObstacles.Add(new Meteor());
+        var spaceOne = new Space(firstSegmentObstacles, segmentOneLength);
+        var spaceTwo = new Space(secondSegmentObstacles, segmentTwoLength);
+        var nitrinoParticleNebulae = new NitrinoParticleNebulae(thirdSegmentObstacles, segmentThreeLength);
         route.AddSegment(spaceOne);
         route.AddSegment(spaceTwo);
         route.AddSegment(nitrinoParticleNebulae);
@@ -202,187 +164,129 @@ public class MainTest
         Assert.Equal(vaklasResult, vaklasMessage);
     }
 
-    private class FirstTestData : IEnumerable<object[]>
+    private class TestDataGenerator : IEnumerable<object[]>
     {
-        private const bool AreAvgurDeflectorsPhoton = false;
-        private const int FlashesCount = 0;
-        private const int SegmentLength = 200;
-        private const CheckerMessages ShuttleExpected = CheckerMessages.UnsuitableEngine;
-        private const CheckerMessages AvgurExpected = CheckerMessages.InsufficientEnginesRange;
-
-        private readonly List<object[]> _data = new List<object[]>
-        {
-            new object[]
-            {
-                new Shuttle(),
-                new Avgur(AreAvgurDeflectorsPhoton),
-                new Route(),
-                FlashesCount,
-                SegmentLength,
-                ShuttleExpected,
-                AvgurExpected,
-            },
-        };
-        public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
-
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-    }
-
-    private class SecondTestData : IEnumerable<object[]>
-    {
-        private const bool WithoutPhotons = false;
+        private const bool NoPhotons = false;
         private const bool WithPhotons = true;
-        private const int FlashesCount = 1;
-        private const int SegmentLength = 100;
-        private const CheckerMessages FirstVaklasExpected = CheckerMessages.CrewIsDead;
-        private const CheckerMessages SecondVaklasExpected = CheckerMessages.Ok;
-        private readonly List<object[]> _data = new List<object[]>
+        private const int LowSegmentLength = 100;
+        private const int MediumSegmentLength = 200;
+        private const int HighSegmentLength = 400;
+
+        private static readonly ICollection<IObstacle> FirstTestObstacles =
+            new List<IObstacle>(0);
+
+        private static readonly ICollection<IObstacle> SecondTestObstacles =
+            new List<IObstacle>(1);
+
+        private static readonly ICollection<IObstacle> ThirdTestObstacles =
+            new List<IObstacle>(1);
+
+        private static readonly ICollection<IObstacle> FourthTestObstacles =
+            new List<IObstacle>(0);
+
+        private static readonly ICollection<IObstacle> FifthTestObstacles =
+            new List<IObstacle>(0);
+
+        private static readonly ICollection<IObstacle> SixthTestObstacles =
+            new List<IObstacle>(0);
+
+        private static readonly ICollection<IObstacle> SeventhTestFirstSegmentObstacles =
+            new List<IObstacle>(4);
+
+        private static readonly ICollection<IObstacle> SeventhTestSecondSegmentObstacles =
+            new List<IObstacle>(1);
+
+        private static readonly ICollection<IObstacle> SeventhTestThirdSegmentObstacles =
+            new List<IObstacle>(0);
+        public static IEnumerable<object[]> GetFirstTestData()
         {
-            new object[]
+            yield return new object[]
             {
-                new Vaklas(WithoutPhotons),
-                new Vaklas(WithPhotons),
-                new Route(),
-                FlashesCount,
-                SegmentLength,
-                FirstVaklasExpected,
-                SecondVaklasExpected,
-            },
-        };
-        public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
+                new Shuttle(), FirstTestObstacles, MediumSegmentLength, CheckerMessages.UnsuitableEngine,
+            };
+            yield return new object[]
+            {
+                new Avgur(NoPhotons), FirstTestObstacles, MediumSegmentLength, CheckerMessages.InsufficientEnginesRange,
+            };
+        }
 
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-    }
-
-    private class ThirdTestData : IEnumerable<object[]>
-    {
-        private const bool WithoutPhotons = false;
-        private const int WhalesCount = 1;
-        private const int SegmentLength = 200;
-        private const CheckerMessages VaklasExpected = CheckerMessages.ShipDestroyed;
-        private const CheckerMessages AvgurExpected = CheckerMessages.Ok;
-        private const CheckerMessages MeredianExpected = CheckerMessages.Ok;
-        private readonly List<object[]> _data = new List<object[]>
+        public static IEnumerable<object[]> GetSecondTestData()
         {
-            new object[]
+            yield return new object[]
             {
-                new Vaklas(WithoutPhotons),
-                new Avgur(WithoutPhotons),
-                new Meredian(WithoutPhotons),
-                new Route(),
-                WhalesCount,
-                SegmentLength,
-                VaklasExpected,
-                AvgurExpected,
-                MeredianExpected,
-            },
-        };
-        public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
+                new Vaklas(NoPhotons), SecondTestObstacles, LowSegmentLength, CheckerMessages.CrewIsDead,
+            };
+            yield return new object[]
+            {
+                new Vaklas(WithPhotons), SecondTestObstacles, LowSegmentLength, CheckerMessages.Ok,
+            };
+        }
 
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-    }
-
-    private class FourthTestData : IEnumerable<object[]>
-    {
-        private const bool WithoutPhotons = false;
-        private const int SegmentLength = 100;
-        private const CheckerMessages ShuttleExpected = CheckerMessages.Ok;
-        private const CheckerMessages VaklasExpected = CheckerMessages.Ok;
-        private const int ActivePlasmaCost = 10;
-        private const int GravityMatterCost = 25;
-        private readonly List<object[]> _data = new List<object[]>
+        public static IEnumerable<object[]> GetThirdTestData()
         {
-            new object[]
+            yield return new object[]
             {
-                new Shuttle(),
-                new Vaklas(WithoutPhotons),
-                new Route(),
-                SegmentLength,
-                ShuttleExpected,
-                VaklasExpected,
-                ActivePlasmaCost,
-                GravityMatterCost,
-            },
-        };
-        public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
+                new Vaklas(NoPhotons), ThirdTestObstacles, MediumSegmentLength, CheckerMessages.ShipDestroyed,
+            };
+            yield return new object[]
+            {
+                new Avgur(NoPhotons), ThirdTestObstacles, MediumSegmentLength, CheckerMessages.Ok,
+            };
+            yield return new object[]
+            {
+                new Meredian(NoPhotons), ThirdTestObstacles, MediumSegmentLength, CheckerMessages.Ok,
+            };
+        }
 
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-    }
-
-    private class FifthTestData : IEnumerable<object[]>
-    {
-        private const bool WithoutPhotons = false;
-        private const int SegmentLength = 400;
-        private const CheckerMessages AvgurExpected = CheckerMessages.InsufficientEnginesRange;
-        private const CheckerMessages StellaExpected = CheckerMessages.Ok;
-        private readonly List<object[]> _data = new List<object[]>
+        public static IEnumerable<object[]> GetFourthTestData()
         {
-            new object[]
+            yield return new object[]
             {
-                new Avgur(WithoutPhotons),
-                new Stella(WithoutPhotons),
-                new Route(),
-                SegmentLength,
-                AvgurExpected,
-                StellaExpected,
-            },
-        };
-        public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
+                new Shuttle(), new Vaklas(NoPhotons),
+                FourthTestObstacles, LowSegmentLength,
+                CheckerMessages.Ok, CheckerMessages.Ok,
+            };
+        }
 
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-    }
-
-    private class SixthTestData : IEnumerable<object[]>
-    {
-        private const bool WithoutPhotons = false;
-        private const int SegmentLength = 100;
-        private const CheckerMessages ShuttleExpected = CheckerMessages.UnsuitableEngine;
-        private const CheckerMessages VaklasExpected = CheckerMessages.Ok;
-
-        private readonly List<object[]> _data = new List<object[]>
+        public static IEnumerable<object[]> GetFifthTestData()
         {
-            new object[]
+            yield return new object[]
             {
-                new Shuttle(),
-                new Vaklas(WithoutPhotons),
-                new Route(),
-                SegmentLength,
-                ShuttleExpected,
-                VaklasExpected,
-            },
-        };
-        public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
+                new Avgur(NoPhotons), FifthTestObstacles,
+                HighSegmentLength, CheckerMessages.InsufficientEnginesRange,
+            };
+            yield return new object[]
+            {
+                new Stella(NoPhotons), FifthTestObstacles,
+                HighSegmentLength, CheckerMessages.Ok,
+            };
+        }
 
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-    }
-
-    private class SeventhTestData : IEnumerable<object[]>
-    {
-        private const bool WithoutPhotons = false;
-        private const int FirstSpaceAsteroidsCount = 4;
-        private const int FirstSegmentLength = 100;
-        private const int SecondSegmentLength = 200;
-        private const int ThirdSegmentLength = 400;
-        private const CheckerMessages ShuttleExpected = CheckerMessages.ShipDestroyed;
-        private const CheckerMessages VaklasExpected = CheckerMessages.Ok;
-
-        private readonly List<object[]> _data = new List<object[]>
+        public static IEnumerable<object[]> GetSixthTestData()
         {
-            new object[]
-            {
-                new Shuttle(),
-                new Vaklas(WithoutPhotons),
-                new Route(),
-                FirstSpaceAsteroidsCount,
-                FirstSegmentLength,
-                SecondSegmentLength,
-                ThirdSegmentLength,
-                ShuttleExpected,
-                VaklasExpected,
-            },
-        };
-        public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
+            yield return new object[] { new Shuttle(), SixthTestObstacles, LowSegmentLength, CheckerMessages.UnsuitableEngine };
+            yield return new object[] { new Vaklas(NoPhotons), SixthTestObstacles, LowSegmentLength, CheckerMessages.Ok };
+        }
 
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        public static IEnumerable<object[]> GetSeventhTestData()
+        {
+            yield return new object[]
+            {
+                new Shuttle(), new Vaklas(NoPhotons),
+                SeventhTestFirstSegmentObstacles, SeventhTestSecondSegmentObstacles,
+                SeventhTestThirdSegmentObstacles, LowSegmentLength, MediumSegmentLength,
+                HighSegmentLength, CheckerMessages.ShipDestroyed, CheckerMessages.Ok,
+            };
+        }
+
+        public IEnumerator<object[]> GetEnumerator()
+        {
+            throw new NotValidImplementationException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 }
