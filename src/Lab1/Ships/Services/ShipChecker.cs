@@ -111,7 +111,7 @@ public static class ShipChecker
                         {
                             double time = segment.EnvironmentLength / ship.ImpulseEngine.Speed;
                             if (fuelExchange == null) continue;
-                            double result = (time * fuelExchange.ActivePlasmaCost * ship.Mass) +
+                            double result = (time * fuelExchange.ActivePlasma.Price * ship.Mass) +
                                             ship.ImpulseEngine.StartCost;
                             ship.UpdateCost(result);
                             break;
@@ -122,7 +122,7 @@ public static class ShipChecker
                             double speed = double.Exp(segment.EnvironmentLength);
                             double time = segment.EnvironmentLength / speed;
                             if (fuelExchange is null) continue;
-                            double result = (time * fuelExchange.ActivePlasmaCost * ship.Mass) +
+                            double result = (time * fuelExchange.ActivePlasma.Price * ship.Mass) +
                                             ship.ImpulseEngine.StartCost;
                             ship.UpdateCost(result);
                             break;
@@ -135,7 +135,7 @@ public static class ShipChecker
                     double time = segment.EnvironmentLength / speed;
                     if (fuelExchange is null || ship is null) continue;
                     if (ship.ImpulseEngine is null) continue;
-                    double result = (time * fuelExchange.ActivePlasmaCost * ship.Mass) +
+                    double result = (time * fuelExchange.ActivePlasma.Price * ship.Mass) +
                                     ship.ImpulseEngine.StartCost;
                     ship.UpdateCost(result);
                 }
@@ -147,7 +147,7 @@ public static class ShipChecker
                 {
                     if (fuelExchange is not null)
                     {
-                        double result = segment.EnvironmentLength * fuelExchange.GravityMatterCost;
+                        double result = segment.EnvironmentLength * fuelExchange.GravitonMatter.Price;
                         ship.UpdateCost(result);
                     }
 
@@ -159,7 +159,7 @@ public static class ShipChecker
                     if (fuelExchange is not null)
                     {
                         double result = segment.EnvironmentLength * double.Log(segment.EnvironmentLength) *
-                                        fuelExchange.GravityMatterCost;
+                                        fuelExchange.GravitonMatter.Price;
                         ship.UpdateCost(result);
                     }
 
@@ -169,7 +169,7 @@ public static class ShipChecker
                 if (ship.JumpEngine is not JumpEngineTypeGamma) continue;
                 if (fuelExchange is null) continue;
                 {
-                    double result = double.Pow(segment.EnvironmentLength, 2) * fuelExchange.GravityMatterCost;
+                    double result = double.Pow(segment.EnvironmentLength, 2) * fuelExchange.GravitonMatter.Price;
                     ship.UpdateCost(result);
                 }
             }

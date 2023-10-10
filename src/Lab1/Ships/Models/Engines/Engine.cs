@@ -1,6 +1,8 @@
+using Itmo.ObjectOrientedProgramming.Lab1.Fuels;
+
 namespace Itmo.ObjectOrientedProgramming.Lab1.Ships.Models.Engines;
 
 public abstract class Engine
 {
-    public string? FuelType { get; protected init; }
+    public Fuel? FuelType { get; protected init; }
 }

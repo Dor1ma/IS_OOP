@@ -1,13 +1,15 @@
+using Itmo.ObjectOrientedProgramming.Lab1.Fuels;
+
 namespace Itmo.ObjectOrientedProgramming.Lab1;
 
 public class FuelExchange
 {
-    public FuelExchange(int activePlasmaCost, int gravityMatterCost)
+    public FuelExchange()
     {
-        ActivePlasmaCost = activePlasmaCost;
-        GravityMatterCost = gravityMatterCost;
+        ActivePlasma = new ActivePlasma();
+        GravitonMatter = new GravitonMatter();
     }
 
-    public int ActivePlasmaCost { get; }
-    public int GravityMatterCost { get; }
+    public ActivePlasma ActivePlasma { get; private set; }
+    public GravitonMatter GravitonMatter { get; private set; }
 }
