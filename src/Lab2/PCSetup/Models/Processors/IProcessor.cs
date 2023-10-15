@@ -4,7 +4,6 @@ public interface IProcessor
 {
     public double CoreFrequency { get; protected init; }
     public int CoreCount { get; protected init; }
-    public string Socket { get; protected init; }
 
     // Need to add CLASS of videocore here
     public bool IntegratedVideoCore { get; protected init; }

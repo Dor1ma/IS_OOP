@@ -1,6 +1,6 @@
 namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Processors.Vendors.Intel;
 
-public class IntelISeven13700KF : Lga1700Processor
+public class IntelISeven13700KF : ILga1700Processor
 {
     private const double CurrentCoreFrequency = 3.4;
     private const int CurrentCoreCount = 12;
@@ -8,13 +8,11 @@ public class IntelISeven13700KF : Lga1700Processor
     private const int CurrentMaximumDdrFrequency = 5600;
     private const int CurrentTdp = 253;
     private const int CurrentPowerConsumption = 253;
-    public IntelISeven13700KF()
-    {
-        CoreFrequency = CurrentCoreFrequency;
-        CoreCount = CurrentCoreCount;
-        IntegratedVideoCore = CurrentIntegratedVideoCore;
-        MaximumDdrFrequency = CurrentMaximumDdrFrequency;
-        TDP = CurrentTdp;
-        PowerConsumption = CurrentPowerConsumption;
-    }
+
+    public double CoreFrequency { get; init; } = CurrentCoreFrequency;
+    public int CoreCount { get; init; } = CurrentCoreCount;
+    public bool IntegratedVideoCore { get; init; } = CurrentIntegratedVideoCore;
+    public int MaximumDdrFrequency { get; init; } = CurrentMaximumDdrFrequency;
+    public int TDP { get; init; } = CurrentTdp;
+    public int PowerConsumption { get; init; } = CurrentPowerConsumption;
 }
