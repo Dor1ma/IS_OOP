@@ -2,12 +2,12 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Processors;
 
 public interface IProcessor
 {
-    public double CoreFrequency { get; protected init; }
-    public int CoreCount { get; protected init; }
+    public double CoreFrequency { get; }
+    public int CoreCount { get; }
 
     // Need to add CLASS of videocore here
-    public bool IntegratedVideoCore { get; protected init; }
-    public int MaximumDdrFrequency { get; protected init; }
-    public int TDP { get; protected init; }
-    public int PowerConsumption { get; protected init; }
+    public bool IntegratedVideoCore { get; }
+    public int MaximumDdrFrequency { get; }
+    public int TDP { get; }
+    public int PowerConsumption { get; }
 }
