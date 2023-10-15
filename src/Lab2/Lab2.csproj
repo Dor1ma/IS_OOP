@@ -4,4 +4,10 @@
         <RootNamespace>Itmo.ObjectOrientedProgramming.Lab2</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="PCSetup\Enteties\" />
+      <Folder Include="PCSetup\Models\" />
+      <Folder Include="PCSetup\Services\" />
+    </ItemGroup>
+
 </Project>
