@@ -7,7 +7,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.CoolingSystems;
 
 public class BeQuietDarkRock4 : ICooller
 {
-    private readonly int _dimensions = 159;
+    private readonly int _height = 163;
     private readonly ICollection<IProcessor> _supportedSockets = new List<IProcessor>();
     private readonly int _maximumTdp = 200;
 
@@ -15,12 +15,12 @@ public class BeQuietDarkRock4 : ICooller
     {
         _supportedSockets.Add(new RyzenFive5500());
         _supportedSockets.Add(new IntelIFive12400F());
-        Dimensions = _dimensions;
+        Height = _height;
         SupportedSockets = _supportedSockets;
         MaximumTdp = _maximumTdp;
     }
 
-    public int Dimensions { get; init; }
+    public int Height { get; init; }
     public ICollection<IProcessor> SupportedSockets { get; init; }
     public int MaximumTdp { get; init; }
 }

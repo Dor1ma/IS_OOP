@@ -5,7 +5,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.CoolingSystems;
 
 public interface ICooller
 {
-    public int Dimensions { get; protected init; }
+    public int Height { get; protected init; }
     public ICollection<IProcessor> SupportedSockets { get; protected init; }
     public int MaximumTdp { get; protected init; }
 }
