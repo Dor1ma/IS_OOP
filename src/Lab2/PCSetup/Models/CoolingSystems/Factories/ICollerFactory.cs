@@ -2,5 +2,5 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.CoolingSystems.Fact
 
 public interface ICollerFactory
 {
-    ICooller Create();
+    Cooller Create(string name, int height, int maximumTdp);
 }

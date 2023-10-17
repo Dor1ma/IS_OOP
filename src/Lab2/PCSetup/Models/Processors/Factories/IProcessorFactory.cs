@@ -8,7 +8,7 @@ public interface IProcessorFactory
         string model,
         double coreFrequency,
         int coreCount,
-        IIntegratedGpu? integratedVideoCore,
+        IntegratedGpu? integratedVideoCore,
         int maximumDdrFrequency,
         int tdp,
         int powerConsumption);

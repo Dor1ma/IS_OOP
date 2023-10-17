@@ -8,7 +8,7 @@ public class Lga1700Processor : IProcessor
         string model,
         double coreFrequency,
         int coreCount,
-        IIntegratedGpu? integratedVideoCore,
+        IntegratedGpu? integratedVideoCore,
         int maximumDdrFrequency,
         int tdp,
         int powerConsumption)
@@ -25,7 +25,7 @@ public class Lga1700Processor : IProcessor
     public string Model { get; }
     public double CoreFrequency { get; }
     public int CoreCount { get; }
-    public IIntegratedGpu? IntegratedVideoCore { get; }
+    public IntegratedGpu? IntegratedVideoCore { get; }
     public int MaximumDdrFrequency { get; }
     public int Tdp { get; }
     public int PowerConsumption { get; }
