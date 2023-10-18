@@ -5,13 +5,13 @@ public class DimmDdrFactory : IRamFactory
     private readonly IRamType _ddrFour = new DdrFourRam();
     private readonly IRamType _ddrFive = new DdrFiveRam();
 
-    public IRam CreateDdrFourthDdr(string name, int memorySize, string formFactor, int powerConsumption)
+    public IRam CreateDdrFourthDdr(string name, int memorySize, int powerConsumption)
     {
-        return new DimmFormFactor(name, memorySize, formFactor, powerConsumption, _ddrFour);
+        return new DimmFormFactor(name, memorySize, powerConsumption, _ddrFour);
     }
 
-    public IRam CreateDdrFiveDdr(string name, int memorySize, string formFactor, int powerConsumption)
+    public IRam CreateDdrFiveDdr(string name, int memorySize, int powerConsumption)
     {
-        return new DimmFormFactor(name, memorySize, formFactor, powerConsumption, _ddrFive);
+        return new DimmFormFactor(name, memorySize, powerConsumption, _ddrFive);
     }
 }
