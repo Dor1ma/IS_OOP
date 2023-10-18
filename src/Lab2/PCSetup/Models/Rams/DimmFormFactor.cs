@@ -2,8 +2,9 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Rams;
 
 public class DimmFormFactor : IRam
 {
-    public DimmFormFactor(int memorySize, string formFactor, int powerConsumption, IRamType ramType)
+    public DimmFormFactor(string name, int memorySize, string formFactor, int powerConsumption, IRamType ramType)
     {
+        Name = name;
         MemorySize = memorySize;
         FormFactor = formFactor;
         PowerConsumption = powerConsumption;
@@ -14,4 +15,5 @@ public class DimmFormFactor : IRam
     public string FormFactor { get; }
     public int PowerConsumption { get; }
     public IRamType RamType { get; }
+    public string Name { get; }
 }

@@ -2,9 +2,8 @@ using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.VideoCards;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Processors;
 
-public interface IProcessor
+public interface IProcessor : IPcComponent
 {
-    public string Model { get; }
     public double CoreFrequency { get; }
     public int CoreCount { get; }
     public IntegratedGpu? IntegratedVideoCore { get; }

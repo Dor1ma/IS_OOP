@@ -1,6 +1,6 @@
 namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.PowerSupplies;
 
-public class PowerSupply
+public class PowerSupply : IPcComponent
 {
     public PowerSupply(string name, int peakLoad)
     {

@@ -5,7 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="PCSetup\Enteties\" />
+      <Folder Include="PCSetup\Enteties\Reposytories\" />
       <Folder Include="PCSetup\Services\" />
     </ItemGroup>
 

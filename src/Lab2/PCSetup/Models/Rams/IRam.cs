@@ -1,6 +1,6 @@
 namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Rams;
 
-public interface IRam
+public interface IRam : IPcComponent
 {
     public int MemorySize { get; }
     public string FormFactor { get; }

@@ -8,11 +8,14 @@ public class PcCaseFactory
     private readonly int _maximumVideoCardLength;
     private readonly ICollection<IMotherBoard> _supportedFormFactors;
     private readonly int _maximumCoolerHeight;
+    private readonly string _name;
     public PcCaseFactory(
+        string name,
         int maximumVideoCardLength,
         ICollection<IMotherBoard> supportedFormFactors,
         int maximumCoolerHeight)
     {
+        _name = name;
         _maximumVideoCardLength = maximumVideoCardLength;
         _supportedFormFactors = supportedFormFactors;
         _maximumCoolerHeight = maximumCoolerHeight;
@@ -20,6 +23,6 @@ public class PcCaseFactory
 
     public PcCase Create()
     {
-        return new PcCase(_maximumVideoCardLength, _supportedFormFactors, _maximumCoolerHeight);
+        return new PcCase(_name, _maximumVideoCardLength, _supportedFormFactors, _maximumCoolerHeight);
     }
 }

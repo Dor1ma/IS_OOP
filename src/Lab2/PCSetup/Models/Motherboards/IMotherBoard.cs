@@ -3,9 +3,8 @@ using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Rams;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Motherboards;
 
-public interface IMotherBoard
+public interface IMotherBoard : IPcComponent
 {
-    public string Name { get; }
     public IProcessor ProcessorSocket { get; }
     public int PciExpressCount { get; }
     public int SataCount { get; }

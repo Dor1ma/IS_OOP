@@ -5,7 +5,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Processors.Vendors.
 public class Lga1700Processor : IProcessor
 {
     public Lga1700Processor(
-        string model,
+        string name,
         double coreFrequency,
         int coreCount,
         IntegratedGpu? integratedVideoCore,
@@ -13,7 +13,7 @@ public class Lga1700Processor : IProcessor
         int tdp,
         int powerConsumption)
     {
-        Model = model;
+        Name = name;
         CoreFrequency = coreFrequency;
         CoreCount = coreCount;
         IntegratedVideoCore = integratedVideoCore;
@@ -21,6 +21,8 @@ public class Lga1700Processor : IProcessor
         Tdp = tdp;
         PowerConsumption = powerConsumption;
     }
+
+    public string Name { get; }
 
     public string Model { get; }
     public double CoreFrequency { get; }

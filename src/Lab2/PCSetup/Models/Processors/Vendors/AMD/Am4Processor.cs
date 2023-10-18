@@ -5,7 +5,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Processors.Vendors.
 public class Am4Processor : IProcessor
 {
     public Am4Processor(
-        string model,
+        string name,
         double coreFrequency,
         int coreCount,
         IntegratedGpu? integratedVideoCore,
@@ -13,7 +13,7 @@ public class Am4Processor : IProcessor
         int tdp,
         int powerConsumption)
     {
-        Model = model;
+        Name = name;
         CoreFrequency = coreFrequency;
         CoreCount = coreCount;
         IntegratedVideoCore = integratedVideoCore;
@@ -29,4 +29,5 @@ public class Am4Processor : IProcessor
     public int MaximumDdrFrequency { get; }
     public int Tdp { get; }
     public int PowerConsumption { get; }
+    public string Name { get; }
 }

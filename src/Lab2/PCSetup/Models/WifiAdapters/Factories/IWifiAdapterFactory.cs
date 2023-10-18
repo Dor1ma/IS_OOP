@@ -2,5 +2,5 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.WifiAdapters.Factor
 
 public interface IWifiAdapterFactory
 {
-    IWifiAdapter Create(bool isBlueToothModuleInstalled, double pciExpressVersion, int powerConsumption);
+    IWifiAdapter Create(string name, bool isBlueToothModuleInstalled, double pciExpressVersion, int powerConsumption);
 }

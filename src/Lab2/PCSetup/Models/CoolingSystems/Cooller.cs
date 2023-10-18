@@ -1,6 +1,6 @@
 namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.CoolingSystems;
 
-public class Cooller
+public class Cooller : IPcComponent
 {
     // Don't forget to implement the supportable processor list!
     public Cooller(string name, int height, int maximumTdp)
