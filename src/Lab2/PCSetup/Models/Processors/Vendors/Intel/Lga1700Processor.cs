@@ -23,8 +23,6 @@ public class Lga1700Processor : IProcessor
     }
 
     public string Name { get; }
-
-    public string Model { get; }
     public double CoreFrequency { get; }
     public int CoreCount { get; }
     public IntegratedGpu? IntegratedVideoCore { get; }

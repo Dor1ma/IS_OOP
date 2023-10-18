@@ -22,7 +22,6 @@ public class Am4Processor : IProcessor
         PowerConsumption = powerConsumption;
     }
 
-    public string Model { get; }
     public double CoreFrequency { get; }
     public int CoreCount { get; }
     public IntegratedGpu? IntegratedVideoCore { get; }
