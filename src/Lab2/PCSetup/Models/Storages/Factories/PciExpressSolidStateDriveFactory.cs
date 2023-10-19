@@ -9,7 +9,7 @@ public class PciExpressSolidStateDriveFactory : IStorageFactory
         _maximumOperatingSpeed = maximumOperatingSpeed;
     }
 
-    public IStorage Create(string name, int memorySize, int powerConsumption)
+    public Storage Create(string name, int memorySize, int powerConsumption)
     {
         return new PciExpressSolidStateDrive(name, memorySize, powerConsumption, _maximumOperatingSpeed);
     }

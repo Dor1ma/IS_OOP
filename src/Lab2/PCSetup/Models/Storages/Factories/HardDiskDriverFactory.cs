@@ -9,7 +9,7 @@ public class HardDiskDriverFactory : IStorageFactory
         _spindleSpeed = spindleSpeed;
     }
 
-    public IStorage Create(string name, int memorySize, int powerConsumption)
+    public Storage Create(string name, int memorySize, int powerConsumption)
     {
         return new HardDiskDriver(name, memorySize, powerConsumption, _spindleSpeed);
     }

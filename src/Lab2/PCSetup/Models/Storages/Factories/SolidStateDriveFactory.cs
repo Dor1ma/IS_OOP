@@ -9,7 +9,7 @@ public class SolidStateDriveFactory : IStorageFactory
         _maximumOperatingSpeed = maximumOperatingSpeed;
     }
 
-    public IStorage Create(string name, int memorySize, int powerConsumption)
+    public Storage Create(string name, int memorySize, int powerConsumption)
     {
         return new SolidStateDrive(name, memorySize, powerConsumption, _maximumOperatingSpeed);
     }
