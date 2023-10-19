@@ -3,27 +3,21 @@ using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Rams;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Motherboards;
 
-public class MiniAtxBoard : IMotherBoard
+public class MiniAtxBoard : MotherBoard
 {
     private readonly int _pciExpressCount = 2;
     private readonly int _sataCount = 4;
     private readonly int _ddrCount = 4;
-    public MiniAtxBoard(string name, IProcessor processorSocket, string chipset, IRamType supportableDdrType)
+    public MiniAtxBoard(string name, Processor processorSocket, string chipset, IRamType supportableDdrType)
+        : base(name, processorSocket, chipset, supportableDdrType)
     {
-        Name = name;
-        ProcessorSocket = processorSocket;
-        Chipset = chipset;
-        SupportableDdrType = supportableDdrType;
         PciExpressCount = _pciExpressCount;
         SataCount = _sataCount;
         DdrSlotsCount = _ddrCount;
     }
 
-    public string Name { get; }
-    public IProcessor ProcessorSocket { get; }
-    public int PciExpressCount { get; }
-    public int SataCount { get; }
-    public string Chipset { get; }
-    public IRamType SupportableDdrType { get; }
-    public int DdrSlotsCount { get; }
+    public override MotherBoard Clone()
+    {
+        return new MiniAtxBoard((string)Name.Clone(), ProcessorSocket, Chipset, SupportableDdrType);
+    }
 }

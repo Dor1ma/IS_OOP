@@ -5,5 +5,5 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Motherboards.Factor
 
 public interface IMotherBoardFactory
 {
-    IMotherBoard Create(string name, IProcessor processorSocket, string chipset, IRamType supportableDdrType);
+    MotherBoard Create(string name, Processor processorSocket, string chipset, IRamType supportableDdrType);
 }

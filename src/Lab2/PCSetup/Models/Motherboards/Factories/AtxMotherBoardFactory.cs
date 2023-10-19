@@ -5,7 +5,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Motherboards.Factor
 
 public class AtxMotherBoardFactory : IMotherBoardFactory
 {
-    public IMotherBoard Create(string name, IProcessor processorSocket, string chipset, IRamType supportableDdrType)
+    public MotherBoard Create(string name, Processor processorSocket, string chipset, IRamType supportableDdrType)
     {
         return new AtxMotherBoard(name, processorSocket, chipset, supportableDdrType);
     }
