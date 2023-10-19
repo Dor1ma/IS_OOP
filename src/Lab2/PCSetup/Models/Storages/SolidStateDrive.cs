@@ -17,4 +17,11 @@ public class SolidStateDrive : Storage
             PowerConsumption,
             MaximumOperatingSpeed);
     }
+
+    public Storage ChangeMaximumOperatingSpeed(int newMaximumOperatingSpeed)
+    {
+        var clone = (SolidStateDrive)Clone();
+        clone.MaximumOperatingSpeed = newMaximumOperatingSpeed;
+        return clone;
+    }
 }

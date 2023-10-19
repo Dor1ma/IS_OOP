@@ -2,7 +2,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Storages;
 
 public class PciExpressStorage : Storage
 {
-    public PciExpressStorage(string name, int memorySize, int powerConsumption)
+    protected PciExpressStorage(string name, int memorySize, int powerConsumption)
         : base(name, memorySize, powerConsumption)
     {
     }

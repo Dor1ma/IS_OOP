@@ -8,5 +8,12 @@ public class PciExpressSolidStateDrive : PciExpressStorage
         MaximumOperatingSpeed = maximumOperatingSpeed;
     }
 
-    public int MaximumOperatingSpeed { get; }
+    public int MaximumOperatingSpeed { get; private set; }
+
+    public Storage ChangeMaximumOperatingSpeed(int newMaximumOperatingSpeed)
+    {
+        var clone = (PciExpressSolidStateDrive)Clone();
+        clone.MaximumOperatingSpeed = newMaximumOperatingSpeed;
+        return clone;
+    }
 }
