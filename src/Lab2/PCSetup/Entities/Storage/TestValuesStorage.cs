@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models;
+using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Cases;
+using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.CoolingSystems;
 using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Motherboards;
 using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.PowerSupplies;
 using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Processors;
@@ -51,6 +53,15 @@ public class TestValuesStorage : IStorage
     private readonly double _gpuPciExpressVersion = 4.0;
     private readonly int _gpuChipFrequency = 1830;
     private readonly int _gpuPowerConsumption = 115;
+    private readonly string _airCollerName = "Be quite! Pure Rock 2";
+    private readonly int _airCollerHeight = 155;
+    private readonly int _airCollerMaximumTdp = 150;
+    private readonly ICollection<IProcessor> _aircollerSupportableSockets = new List<IProcessor>();
+    private readonly string _pcCaseName = "LIAN LI Lancool 205 Mesh White";
+    private readonly int _pcCaseMaximumVideoCardLength = 350;
+    private readonly ICollection<IMotherBoard> _pcCaseSupportableFormFactors = new List<IMotherBoard>();
+    private readonly int _pcCaseMaximumCoolerHeight = 160;
+
     public TestValuesStorage()
     {
         // Base CPUs initialization
@@ -111,10 +122,10 @@ public class TestValuesStorage : IStorage
         // Base ssd initialization
         _components.Add(new SolidStateDrive(_ssdName, _ssdMemorySize, _ssdPowerConsumption, _ssdOperationSpeed));
 
-        // Base RAM Initialization
+        // Base RAM initialization
         _components.Add(new DimmFormFactor(_ramName, _ramMemorySize, _ramPowerConsumption, _ramType));
 
-        // Base Gpu Initialization
+        // Base Gpu initialization
         _components.Add(new Gpu(
             _gpuName,
             _gpuLength,
@@ -123,6 +134,43 @@ public class TestValuesStorage : IStorage
             _gpuPciExpressVersion,
             _gpuChipFrequency,
             _gpuPowerConsumption));
+
+        // Base cooler initialization
+        _aircollerSupportableSockets.Add(new Am4Processor(
+            _firstProcessorName,
+            _firstProcessorCoreFrequency,
+            _firstProcessorCoreCount,
+            firstProcessorIntegratedVideoCore,
+            _firstProcessorMaximumDdrFrequency,
+            _firstProcessorTdp,
+            _firstProcessorPowerConsumption));
+        _aircollerSupportableSockets.Add(new Lga1700Processor(
+            _secondProcessorName,
+            _secondProcessorCoreFrequency,
+            _secondProcessorCoreCount,
+            secondProcessorIntegratedVideoCore,
+            _secondProcessorMaximumDdrFrequency,
+            _secondProcessorTdp,
+            _secondProcessorPowerConsumption));
+        _components.Add(new Cooler(_airCollerName, _airCollerHeight, _airCollerMaximumTdp, _aircollerSupportableSockets));
+
+        // Base pc case initialization
+        _pcCaseSupportableFormFactors.Add(new AtxMotherBoard(
+            _amdMotherBoardName,
+            amdMotherBoardSocket,
+            _amdMotherBoardChipset,
+            _amdMotherBoardDdrType));
+        _pcCaseSupportableFormFactors.Add(new MiniAtxBoard(
+            _amdMotherBoardName,
+            amdMotherBoardSocket,
+            _amdMotherBoardChipset,
+            _amdMotherBoardDdrType));
+        _pcCaseSupportableFormFactors.Add(new MicroAtxBoard(
+            _amdMotherBoardName,
+            amdMotherBoardSocket,
+            _amdMotherBoardChipset,
+            _amdMotherBoardDdrType));
+        _components.Add(new PcCase(_pcCaseName, _pcCaseMaximumVideoCardLength, _pcCaseSupportableFormFactors, _pcCaseMaximumCoolerHeight));
     }
 
     public void Update(IPcComponent newComponent)

@@ -1,9 +1,12 @@
+using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Processors;
+
 namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.CoolingSystems.Factories;
 
 public class AirCollerFactory : ICollerFactory
 {
-    public Cooller Create(string name, int height, int maximumTdp)
+    public Cooler Create(string name, int height, int maximumTdp, ICollection<IProcessor> supportableSockets)
     {
-        return new Cooller(name, height, maximumTdp);
+        return new Cooler(name, height, maximumTdp, supportableSockets);
     }
 }
