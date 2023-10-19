@@ -1,17 +1,14 @@
 namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.WifiAdapters;
 
-public class WifiFiveAdapter : IWifiAdapter
+public class WifiFiveAdapter : WifiAdapter
 {
     public WifiFiveAdapter(string name, bool installedBlueToothModule, double pciExpressVersion, int powerConsumption)
+        : base(name, installedBlueToothModule, pciExpressVersion, powerConsumption)
     {
-        Name = name;
-        InstalledBlueToothModule = installedBlueToothModule;
-        PciExpressVersion = pciExpressVersion;
-        PowerConsumption = powerConsumption;
     }
 
-    public bool InstalledBlueToothModule { get; }
-    public double PciExpressVersion { get; }
-    public int PowerConsumption { get; }
-    public string Name { get; }
+    public override WifiAdapter Clone()
+    {
+        return new WifiFiveAdapter((string)Name.Clone(), InstalledBlueToothModule, PciExpressVersion, PowerConsumption);
+    }
 }
