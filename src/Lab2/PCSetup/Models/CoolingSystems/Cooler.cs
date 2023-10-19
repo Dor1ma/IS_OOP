@@ -5,8 +5,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.CoolingSystems;
 
 public class Cooler : IPcComponent
 {
-    // Don't forget to implement the supportable processor list!
-    public Cooler(string name, int height, int maximumTdp, ICollection<IProcessor> supportableSockets)
+    public Cooler(string name, int height, int maximumTdp, ICollection<Processor> supportableSockets)
     {
         Name = name;
         Height = height;
@@ -14,8 +13,41 @@ public class Cooler : IPcComponent
         SupportableSockets = supportableSockets;
     }
 
-    public string Name { get; }
-    public int Height { get; }
-    public int MaximumTdp { get; }
-    public ICollection<IProcessor> SupportableSockets { get; }
+    public string Name { get; private set; }
+    public int Height { get; private set; }
+    public int MaximumTdp { get; private set; }
+    public ICollection<Processor> SupportableSockets { get; private set; }
+
+    public Cooler Clone()
+    {
+        return new Cooler((string)Name.Clone(), Height, MaximumTdp, SupportableSockets);
+    }
+
+    public Cooler ChangeName(string newName)
+    {
+        Cooler clone = Clone();
+        clone.Name = newName;
+        return clone;
+    }
+
+    public Cooler ChangeHeight(int newHeight)
+    {
+        Cooler clone = Clone();
+        clone.Height = newHeight;
+        return clone;
+    }
+
+    public Cooler ChangeMaximumTdp(int newMaximumTdp)
+    {
+        Cooler clone = Clone();
+        clone.MaximumTdp = newMaximumTdp;
+        return clone;
+    }
+
+    public Cooler ChangeSupportableSockets(ICollection<Processor> newSupportableSockets)
+    {
+        Cooler clone = Clone();
+        clone.SupportableSockets = newSupportableSockets;
+        return clone;
+    }
 }
