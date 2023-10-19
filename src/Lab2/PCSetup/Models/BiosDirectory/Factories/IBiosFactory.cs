@@ -5,5 +5,5 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.BiosDirectory.Facto
 
 public interface IBiosFactory
 {
-    IBios Create(int version, IReadOnlyCollection<IProcessor> supportableProcessor);
+    Bios Create(string name, int version, ICollection<Processor> supportableProcessor);
 }

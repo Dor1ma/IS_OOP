@@ -5,8 +5,8 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.BiosDirectory.Facto
 
 public class BiosTypeOneFactory : IBiosFactory
 {
-    public IBios Create(int version, IReadOnlyCollection<IProcessor> supportableProcessor)
+    public Bios Create(string name, int version, ICollection<Processor> supportableProcessor)
     {
-        return new BiosTypeOne(version, supportableProcessor);
+        return new BiosTypeOne(name, version, supportableProcessor);
     }
 }

@@ -3,14 +3,15 @@ using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Processors;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.BiosDirectory;
 
-public class BiosTypeTwo : IBios
+public class BiosTypeTwo : Bios
 {
-    public BiosTypeTwo(int version, IReadOnlyCollection<IProcessor> supportableProcessor)
+    public BiosTypeTwo(string name, int version, ICollection<Processor> supportableProcessor)
+        : base(name, version, supportableProcessor)
     {
-        Version = version;
-        SupportableProcessor = supportableProcessor;
     }
 
-    public int Version { get; }
-    public IReadOnlyCollection<IProcessor> SupportableProcessor { get; }
+    public override Bios Clone()
+    {
+        return new BiosTypeTwo((string)Name.Clone(), Version, SupportableProcessors);
+    }
 }
