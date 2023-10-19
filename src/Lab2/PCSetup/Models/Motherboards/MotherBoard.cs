@@ -1,3 +1,4 @@
+using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Chipsets;
 using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Processors;
 using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Rams;
 
@@ -8,7 +9,7 @@ public abstract class MotherBoard : IPcComponent
     protected MotherBoard(
         string name,
         Processor processorSocket,
-        string chipset,
+        IChipset chipset,
         IRamType supportableDdrType)
     {
         Name = name;
@@ -21,7 +22,7 @@ public abstract class MotherBoard : IPcComponent
     public Processor ProcessorSocket { get; private set; }
     public int PciExpressCount { get; protected set; }
     public int SataCount { get; protected set; }
-    public string Chipset { get; private set; }
+    public IChipset Chipset { get; private set; }
     public IRamType SupportableDdrType { get; private set; }
     public int DdrSlotsCount { get; protected set; }
     public abstract MotherBoard Clone();
@@ -54,7 +55,7 @@ public abstract class MotherBoard : IPcComponent
         return clone;
     }
 
-    public MotherBoard ChangeChipSet(string newChipSet)
+    public MotherBoard ChangeChipSet(IChipset newChipSet)
     {
         MotherBoard clone = Clone();
         clone.Chipset = newChipSet;

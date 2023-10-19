@@ -1,3 +1,4 @@
+using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Chipsets;
 using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Processors;
 using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Rams;
 
@@ -8,7 +9,7 @@ public class AtxMotherBoard : MotherBoard
     private readonly int _pciExpressCount = 2;
     private readonly int _sataCount = 6;
     private readonly int _ddrCount = 4;
-    public AtxMotherBoard(string name, Processor processorSocket, string chipset, IRamType supportableDdrType)
+    public AtxMotherBoard(string name, Processor processorSocket, IChipset chipset, IRamType supportableDdrType)
         : base(name, processorSocket, chipset, supportableDdrType)
     {
         PciExpressCount = _pciExpressCount;
