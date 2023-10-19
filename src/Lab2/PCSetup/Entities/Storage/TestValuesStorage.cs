@@ -91,8 +91,8 @@ public class TestValuesStorage : IStorage
         // Base motherboard socket initialization
         string initSocketName = "INIT SOCKET NAME";
         IntegratedGpu? initSocketGpu = null;
-        IChipset b450chipset = new B450Chipset(_b450MaximumDdrFrequency, _isXmpSupported);
-        IChipset b760chipset = new B760Chipset(_b760MaximumDdrFrequency, _isXmpSupported);
+        IChipset b450Chipset = new B450Chipset(_b450MaximumDdrFrequency, _isXmpSupported);
+        IChipset b760Chipset = new B760Chipset(_b760MaximumDdrFrequency, _isXmpSupported);
         Processor amdMotherBoardSocket = new Am4Processor(
             initSocketName,
             _specialInitValue,
@@ -114,12 +114,12 @@ public class TestValuesStorage : IStorage
         _components.Add(new AtxMotherBoard(
             _amdMotherBoardName,
             amdMotherBoardSocket,
-            b450chipset,
+            b450Chipset,
             _amdMotherBoardDdrType));
         _components.Add(new AtxMotherBoard(
             _intelMotherBoardName,
             intelMotherBoardSocket,
-            b760chipset,
+            b760Chipset,
             _intelMotherBoardDdrType));
 
         // Base power supply initialization
@@ -164,17 +164,17 @@ public class TestValuesStorage : IStorage
         _pcCaseSupportableFormFactors.Add(new AtxMotherBoard(
             _amdMotherBoardName,
             amdMotherBoardSocket,
-            b450chipset,
+            b450Chipset,
             _amdMotherBoardDdrType));
         _pcCaseSupportableFormFactors.Add(new MiniAtxBoard(
             _amdMotherBoardName,
             amdMotherBoardSocket,
-            b450chipset,
+            b450Chipset,
             _amdMotherBoardDdrType));
         _pcCaseSupportableFormFactors.Add(new MicroAtxBoard(
             _amdMotherBoardName,
             amdMotherBoardSocket,
-            b450chipset,
+            b450Chipset,
             _amdMotherBoardDdrType));
         _components.Add(new PcCase(_pcCaseName, _pcCaseMaximumVideoCardLength, _pcCaseSupportableFormFactors, _pcCaseMaximumCoolerHeight));
     }

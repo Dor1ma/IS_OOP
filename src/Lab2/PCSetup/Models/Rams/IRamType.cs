@@ -1,7 +1,8 @@
+using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.XMPs;
+
 namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Rams;
 
 public interface IRamType
 {
-    // Temp
-    public string Xmp { get; }
+    public Xmp Xmp { get; }
 }
