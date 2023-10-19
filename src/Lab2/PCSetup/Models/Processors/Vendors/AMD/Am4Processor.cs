@@ -2,7 +2,7 @@ using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.VideoCards;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Processors.Vendors.AMD;
 
-public class Am4Processor : IProcessor
+public class Am4Processor : Processor
 {
     public Am4Processor(
         string name,
@@ -12,21 +12,19 @@ public class Am4Processor : IProcessor
         int maximumDdrFrequency,
         int tdp,
         int powerConsumption)
+        : base(name, coreFrequency, coreCount, integratedVideoCore, maximumDdrFrequency, tdp, powerConsumption)
     {
-        Name = name;
-        CoreFrequency = coreFrequency;
-        CoreCount = coreCount;
-        IntegratedVideoCore = integratedVideoCore;
-        MaximumDdrFrequency = maximumDdrFrequency;
-        Tdp = tdp;
-        PowerConsumption = powerConsumption;
     }
 
-    public double CoreFrequency { get; }
-    public int CoreCount { get; }
-    public IntegratedGpu? IntegratedVideoCore { get; }
-    public int MaximumDdrFrequency { get; }
-    public int Tdp { get; }
-    public int PowerConsumption { get; }
-    public string Name { get; }
+    public override Processor Clone()
+    {
+        return new Am4Processor(
+            (string)Name.Clone(),
+            CoreFrequency,
+            CoreCount,
+            IntegratedVideoCore,
+            MaximumDdrFrequency,
+            Tdp,
+            PowerConsumption);
+    }
 }

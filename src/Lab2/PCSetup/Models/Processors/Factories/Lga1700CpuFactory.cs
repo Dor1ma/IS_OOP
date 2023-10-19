@@ -5,7 +5,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Processors.Factorie
 
 public class Lga1700CpuFactory : IProcessorFactory
 {
-    public IProcessor Create(
+    public Processor Create(
         string model,
         double coreFrequency,
         int coreCount,

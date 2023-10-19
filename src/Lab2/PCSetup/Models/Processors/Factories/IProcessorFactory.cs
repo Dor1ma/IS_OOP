@@ -4,7 +4,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Processors.Factorie
 
 public interface IProcessorFactory
 {
-    IProcessor Create(
+    Processor Create(
         string model,
         double coreFrequency,
         int coreCount,
