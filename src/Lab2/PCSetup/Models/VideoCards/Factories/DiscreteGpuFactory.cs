@@ -1,8 +1,8 @@
 namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.VideoCards.Factories;
 
-public class GpuFactory : IGpuFactory
+public class DiscreteGpuFactory : IGpuFactory
 {
-    public IGpu Create(
+    public Gpu Create(
         string name,
         int length,
         int width,
@@ -11,7 +11,7 @@ public class GpuFactory : IGpuFactory
         int chipFrequency,
         int powerConsumption)
     {
-        return new Gpu(
+        return new DiscreteGpu(
             name,
             length,
             width,

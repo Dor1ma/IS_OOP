@@ -2,7 +2,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.VideoCards.Factorie
 
 public class IntegratedGpuFactory : IGpuFactory
 {
-    public IGpu Create(
+    public Gpu Create(
         string name,
         int length,
         int width,

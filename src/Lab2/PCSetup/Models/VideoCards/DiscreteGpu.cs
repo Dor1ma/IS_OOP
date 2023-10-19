@@ -1,8 +1,8 @@
 namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.VideoCards;
 
-public class IntegratedGpu : Gpu
+public class DiscreteGpu : Gpu
 {
-    public IntegratedGpu(
+    public DiscreteGpu(
         string name,
         int length,
         int width,
@@ -23,7 +23,7 @@ public class IntegratedGpu : Gpu
 
     public override Gpu Clone()
     {
-        return new IntegratedGpu(
+        return new DiscreteGpu(
             (string)Name.Clone(),
             Length,
             Width,
