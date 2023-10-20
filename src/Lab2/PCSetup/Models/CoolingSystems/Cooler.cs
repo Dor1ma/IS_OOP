@@ -5,22 +5,24 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.CoolingSystems;
 
 public class Cooler : IPcComponent
 {
-    public Cooler(string name, int height, int maximumTdp, ICollection<Processor> supportableSockets)
+    public Cooler(string name, int height, int maximumTdp, ICollection<Processor> supportableSockets, int powerConsumption)
     {
         Name = name;
         Height = height;
         MaximumTdp = maximumTdp;
         SupportableSockets = supportableSockets;
+        PowerConsumption = powerConsumption;
     }
 
     public string Name { get; private set; }
     public int Height { get; private set; }
     public int MaximumTdp { get; private set; }
     public ICollection<Processor> SupportableSockets { get; private set; }
+    public int PowerConsumption { get; private set; }
 
     public Cooler Clone()
     {
-        return new Cooler((string)Name.Clone(), Height, MaximumTdp, SupportableSockets);
+        return new Cooler((string)Name.Clone(), Height, MaximumTdp, SupportableSockets, PowerConsumption);
     }
 
     public Cooler ChangeName(string newName)
@@ -48,6 +50,13 @@ public class Cooler : IPcComponent
     {
         Cooler clone = Clone();
         clone.SupportableSockets = newSupportableSockets;
+        return clone;
+    }
+
+    public Cooler ChangePowerConsumption(int powerConsumption)
+    {
+        Cooler clone = Clone();
+        clone.PowerConsumption = powerConsumption;
         return clone;
     }
 

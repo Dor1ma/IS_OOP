@@ -13,4 +13,5 @@ public enum CheckerMessages
     VideoCardDoesNotFitInTheCase,
     MissingStorage,
     UnsupportableMotherBoardFormFactor,
+    InsufficientPowerSupplyCapacity,
 }

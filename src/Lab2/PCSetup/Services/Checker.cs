@@ -5,10 +5,58 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Services;
 public class Checker
 {
     private readonly PersonalComputer _personalComputer;
+    private int _currentPowerConsumption;
 
     public Checker(PersonalComputer personalComputer)
     {
         _personalComputer = personalComputer;
+    }
+
+    public CheckerMessages Check()
+    {
+        CheckerMessages result = MotherBoardCheck();
+        if (result != CheckerMessages.Success)
+        {
+            return result;
+        }
+
+        result = ProcessorCheck();
+        if (result != CheckerMessages.Success)
+        {
+            return result;
+        }
+
+        result = CoolingSystemCheck();
+        if (result != CheckerMessages.Success)
+        {
+            return result;
+        }
+
+        result = VideoCardCheck();
+        if (result != CheckerMessages.Success)
+        {
+            return result;
+        }
+
+        result = StorageCheck();
+        if (result != CheckerMessages.Success)
+        {
+            return result;
+        }
+
+        result = PcCaseCheck();
+        if (result != CheckerMessages.Success)
+        {
+            return result;
+        }
+
+        result = PowerSupplyCheck();
+        if (result != CheckerMessages.Success)
+        {
+            return result;
+        }
+
+        return result;
     }
 
     private CheckerMessages MotherBoardCheck()
@@ -117,6 +165,26 @@ public class Checker
             if (_personalComputer.PcCase.FormFactorChecker(_personalComputer.MotherBoard))
             {
                 return CheckerMessages.UnsupportableMotherBoardFormFactor;
+            }
+        }
+
+        return CheckerMessages.Success;
+    }
+
+    private CheckerMessages PowerSupplyCheck()
+    {
+        if (_personalComputer.Processor?.PowerConsumption is not null && _personalComputer.Cooler?.PowerConsumption is not null
+            && _personalComputer.Ram?.PowerConsumption is not null && _personalComputer.DiscreteGpu?.PowerConsumption is not null
+            && _personalComputer.Storage?.PowerConsumption is not null && _personalComputer.PowerSupply?.PeakLoad is not null)
+        {
+            _currentPowerConsumption += _personalComputer.Processor.PowerConsumption;
+            _currentPowerConsumption += _personalComputer.Cooler.PowerConsumption;
+            _currentPowerConsumption += _personalComputer.Ram.PowerConsumption;
+            _currentPowerConsumption += _personalComputer.DiscreteGpu.PowerConsumption;
+            _currentPowerConsumption += _personalComputer.Storage.PowerConsumption;
+            if (_currentPowerConsumption < _personalComputer.PowerSupply.PeakLoad)
+            {
+                return CheckerMessages.InsufficientPowerSupplyCapacity;
             }
         }
 
