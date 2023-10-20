@@ -24,7 +24,7 @@ public class TestValuesStorage : IStorage
     private readonly string _firstProcessorName = "Ryzen 5 5600";
     private readonly double _firstProcessorCoreFrequency = 3.5;
     private readonly int _firstProcessorCoreCount = 6;
-    private readonly int _firstProcessorMaximumDdrFrequency = 3200;
+    private readonly int _firstProcessorMaximumDdrFrequency = 5200;
     private readonly int _firstProcessorTdp = 65;
     private readonly int _firstProcessorPowerConsumption = 65;
 
@@ -36,7 +36,7 @@ public class TestValuesStorage : IStorage
     private readonly int _secondProcessorPowerConsumption = 117;
 
     private readonly string _amdMotherBoardName = "MSI B450 Gaming Plus Max";
-    private readonly int _b450MaximumDdrFrequency = 4133;
+    private readonly int _b450MaximumDdrFrequency = 5200;
     private readonly string _amdBiosName = "I am AMD bios";
     private readonly int _biosVersion = 1;
     private readonly ICollection<Processor> _amdBiosSupportableProcessors = new List<Processor>();

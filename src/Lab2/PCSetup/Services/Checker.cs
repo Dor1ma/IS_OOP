@@ -96,7 +96,7 @@ public class Checker
         if (_personalComputer.Ram?.RamType.Xmp is not null && _personalComputer.Processor is not null
             && _personalComputer.Ram?.RamType.Xmp.Frequency is not null)
         {
-            if (_personalComputer.Processor.CoreFrequency < _personalComputer.Ram?.RamType.Xmp.Frequency)
+            if (_personalComputer.Processor.MaximumDdrFrequency < _personalComputer.Ram?.RamType.Xmp.Frequency)
             {
                 return CheckerMessages.UnsupportableDdrFrequency;
             }
@@ -162,7 +162,7 @@ public class Checker
         if (_personalComputer.PcCase?.SupportedFormFactors is not null
                 && _personalComputer.MotherBoard is not null)
         {
-            if (_personalComputer.PcCase.FormFactorChecker(_personalComputer.MotherBoard))
+            if (!_personalComputer.PcCase.FormFactorChecker(_personalComputer.MotherBoard))
             {
                 return CheckerMessages.UnsupportableMotherBoardFormFactor;
             }
@@ -182,7 +182,7 @@ public class Checker
             _currentPowerConsumption += _personalComputer.Ram.PowerConsumption;
             _currentPowerConsumption += _personalComputer.DiscreteGpu.PowerConsumption;
             _currentPowerConsumption += _personalComputer.Storage.PowerConsumption;
-            if (_currentPowerConsumption < _personalComputer.PowerSupply.PeakLoad)
+            if (_currentPowerConsumption > _personalComputer.PowerSupply.PeakLoad)
             {
                 return CheckerMessages.InsufficientPowerSupplyCapacity;
             }
