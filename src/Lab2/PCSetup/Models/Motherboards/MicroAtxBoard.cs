@@ -22,4 +22,9 @@ public class MicroAtxBoard : MotherBoard
     {
         return new MicroAtxBoard((string)Name.Clone(), ProcessorSocket, Chipset, SupportableDdrType, Bios);
     }
+
+    public override bool FormFactorEquals(MotherBoard motherBoard)
+    {
+        return motherBoard is MicroAtxBoard;
+    }
 }

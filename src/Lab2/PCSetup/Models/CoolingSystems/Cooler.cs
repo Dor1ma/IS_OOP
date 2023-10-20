@@ -50,4 +50,17 @@ public class Cooler : IPcComponent
         clone.SupportableSockets = newSupportableSockets;
         return clone;
     }
+
+    public bool CheckSupportability(Processor socket)
+    {
+        foreach (Processor supportableSocket in SupportableSockets)
+        {
+            if (supportableSocket.Equals(socket))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

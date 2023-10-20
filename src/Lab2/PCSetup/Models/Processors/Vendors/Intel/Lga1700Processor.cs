@@ -27,4 +27,9 @@ public class Lga1700Processor : Processor
             Tdp,
             PowerConsumption);
     }
+
+    public override bool Equals(Processor processor)
+    {
+        return processor is Lga1700Processor;
+    }
 }

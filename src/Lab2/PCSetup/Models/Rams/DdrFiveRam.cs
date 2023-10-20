@@ -14,4 +14,8 @@ public class DdrFiveRam : IRamType
     }
 
     public Xmp Xmp { get; }
+    public bool Equals(IRamType ramType)
+    {
+        return ramType is DdrFiveRam;
+    }
 }

@@ -50,4 +50,17 @@ public class PcCase : IPcComponent
         clone.MaximumCoolerHeight = newMaximumCoolerHeight;
         return clone;
     }
+
+    public bool FormFactorChecker(MotherBoard motherBoard)
+    {
+        foreach (MotherBoard supportedFormFactor in SupportedFormFactors)
+        {
+            if (supportedFormFactor.FormFactorEquals(motherBoard))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

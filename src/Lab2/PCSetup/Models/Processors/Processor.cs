@@ -78,5 +78,7 @@ public abstract class Processor : IPcComponent
         return clone;
     }
 
+    public abstract bool Equals(Processor processor);
+
     public abstract Processor Clone();
 }

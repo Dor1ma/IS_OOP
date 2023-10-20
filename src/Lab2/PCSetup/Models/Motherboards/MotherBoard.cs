@@ -86,4 +86,6 @@ public abstract class MotherBoard : IPcComponent
         clone.DdrSlotsCount = newDdrSlotsCount;
         return clone;
     }
+
+    public abstract bool FormFactorEquals(MotherBoard motherBoard);
 }
