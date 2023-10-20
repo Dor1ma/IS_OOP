@@ -10,11 +10,11 @@ using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Tests;
 
-public class OneHundredPercentSuccessfulBuild
+public class SecondLabTests
 {
     [Theory]
     [MemberData(nameof(TestDataGenerator.GetData), MemberType = typeof(TestDataGenerator))]
-    public void StartTest(
+    public void OneHundredPercentSuccessfulBuild(
         string processorName,
         string motherboardName,
         string ramName,
@@ -57,14 +57,20 @@ public class OneHundredPercentSuccessfulBuild
     private class TestDataGenerator : IEnumerable<object[]>
     {
         private const string ProcessorName = "Ryzen 5 5600";
+        private const string SecondProcessorName = "Intel Core I5-12400F";
         private const string MotherBoardName = "MSI B450 Gaming Plus Max";
         private const string RamName = "G.Skill TRIDENT Z5";
         private const string GpuName = "MSI GeForce RTX 4060 Gaming X";
         private const string AirCoolerName = "Be quite! Pure Rock 2";
+        private const string SecondAirCoolerName = "Cooler with low tdp";
         private const string PowerSupplyName = "Be quite! Pure Power 11";
         private const string StorageName = "Kingston A400";
+        private const string SecondPowerSupplyName = "KCAS";
         private const string PcCase = "LIAN LI Lancool 205 Mesh White";
-        private static CheckerMessages FirstTestMessage { get; } = CheckerMessages.Success;
+        private static CheckerMessages FirstTestMessage => CheckerMessages.Success;
+        private static CheckerMessages SecondTestMessage => CheckerMessages.InsufficientPowerSupplyCapacity;
+        private static CheckerMessages ThirdTestMessage => CheckerMessages.DisclaimerOfWarrantyLiability;
+        private static CheckerMessages FourthTestMessage => CheckerMessages.UnsupportableSocket;
 
         public static IEnumerable<object[]> GetData()
         {
@@ -79,6 +85,42 @@ public class OneHundredPercentSuccessfulBuild
                 StorageName,
                 PcCase,
                 FirstTestMessage,
+            };
+            yield return new object[]
+            {
+                ProcessorName,
+                MotherBoardName,
+                RamName,
+                GpuName,
+                AirCoolerName,
+                SecondPowerSupplyName,
+                StorageName,
+                PcCase,
+                SecondTestMessage,
+            };
+            yield return new object[]
+            {
+                ProcessorName,
+                MotherBoardName,
+                RamName,
+                GpuName,
+                SecondAirCoolerName,
+                PowerSupplyName,
+                StorageName,
+                PcCase,
+                ThirdTestMessage,
+            };
+            yield return new object[]
+            {
+                SecondProcessorName,
+                MotherBoardName,
+                RamName,
+                GpuName,
+                AirCoolerName,
+                PowerSupplyName,
+                StorageName,
+                PcCase,
+                FourthTestMessage,
             };
         }
 

@@ -77,6 +77,9 @@ public class TestValuesStorage : IStorage
     private readonly ICollection<Processor> _aircollerSupportableSockets = new List<Processor>();
     private readonly int _airCoolerPowerConsumption = 12;
 
+    private readonly string _secondAirCoolerName = "Cooler with low tdp";
+    private readonly int _secondAirCoolerTdp = 50;
+
     private readonly string _pcCaseName = "LIAN LI Lancool 205 Mesh White";
     private readonly int _pcCaseMaximumVideoCardLength = 350;
     private readonly ICollection<MotherBoard> _pcCaseSupportableFormFactors = new List<MotherBoard>();
@@ -165,6 +168,9 @@ public class TestValuesStorage : IStorage
 
         // Base power supply initialization
         _components.Add(new PowerSupply(_powerSupplyName, _powerSupplyPowerConsumption));
+        _powerSupplyName = "KCAS";
+        _powerSupplyPowerConsumption = 175;
+        _components.Add(new PowerSupply(_powerSupplyName, _powerSupplyPowerConsumption));
 
         // Base ssd initialization
         _components.Add(new SolidStateDrive(_ssdName, _ssdMemorySize, _ssdPowerConsumption, _ssdOperationSpeed));
@@ -200,6 +206,7 @@ public class TestValuesStorage : IStorage
             _secondProcessorTdp,
             _secondProcessorPowerConsumption));
         _components.Add(new Cooler(_airCollerName, _airCollerHeight, _airCollerMaximumTdp, _aircollerSupportableSockets, _airCoolerPowerConsumption));
+        _components.Add(new Cooler(_secondAirCoolerName, _airCollerHeight, _secondAirCoolerTdp, _aircollerSupportableSockets, _airCoolerPowerConsumption));
 
         // Base pc case initialization
         _pcCaseSupportableFormFactors.Add(new AtxMotherBoard(
