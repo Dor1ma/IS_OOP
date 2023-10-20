@@ -1,3 +1,4 @@
+using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.BiosDirectory;
 using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Chipsets;
 using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Processors;
 using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Rams;
@@ -10,12 +11,14 @@ public abstract class MotherBoard : IPcComponent
         string name,
         Processor processorSocket,
         IChipset chipset,
-        IRamType supportableDdrType)
+        IRamType supportableDdrType,
+        Bios bios)
     {
         Name = name;
         ProcessorSocket = processorSocket;
         Chipset = chipset;
         SupportableDdrType = supportableDdrType;
+        Bios = bios;
     }
 
     public string Name { get; private set; }
@@ -25,6 +28,7 @@ public abstract class MotherBoard : IPcComponent
     public IChipset Chipset { get; private set; }
     public IRamType SupportableDdrType { get; private set; }
     public int DdrSlotsCount { get; protected set; }
+    public Bios Bios { get; private set; }
     public abstract MotherBoard Clone();
 
     public MotherBoard ChangeName(string newName)
@@ -66,6 +70,13 @@ public abstract class MotherBoard : IPcComponent
     {
         MotherBoard clone = Clone();
         clone.SupportableDdrType = newRamType;
+        return clone;
+    }
+
+    public MotherBoard UpdateBios(Bios bios)
+    {
+        MotherBoard clone = Clone();
+        clone.Bios = bios;
         return clone;
     }
 

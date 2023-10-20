@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Processors;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.BiosDirectory;
@@ -36,5 +37,10 @@ public abstract class Bios
         Bios clone = Clone();
         clone.SupportableProcessors = newSupportableProcessors;
         return clone;
+    }
+
+    public bool CheckSupportability(Processor processor)
+    {
+        return SupportableProcessors.Any(localProcessor => localProcessor.Equals(processor));
     }
 }

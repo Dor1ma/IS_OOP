@@ -1,3 +1,4 @@
+using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.BiosDirectory;
 using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Chipsets;
 using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Processors;
 using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Rams;
@@ -9,8 +10,8 @@ public class MicroAtxBoard : MotherBoard
     private readonly int _pciExpressCount = 1;
     private readonly int _sataCount = 2;
     private readonly int _ddrCount = 2;
-    public MicroAtxBoard(string name, Processor processorSocket, IChipset chipset, IRamType supportableDdrType)
-        : base(name, processorSocket, chipset, supportableDdrType)
+    public MicroAtxBoard(string name, Processor processorSocket, IChipset chipset, IRamType supportableDdrType, Bios bios)
+        : base(name, processorSocket, chipset, supportableDdrType, bios)
     {
         PciExpressCount = _pciExpressCount;
         SataCount = _sataCount;
@@ -19,6 +20,6 @@ public class MicroAtxBoard : MotherBoard
 
     public override MotherBoard Clone()
     {
-        return new MicroAtxBoard((string)Name.Clone(), ProcessorSocket, Chipset, SupportableDdrType);
+        return new MicroAtxBoard((string)Name.Clone(), ProcessorSocket, Chipset, SupportableDdrType, Bios);
     }
 }

@@ -27,4 +27,9 @@ public class Am4Processor : Processor
             Tdp,
             PowerConsumption);
     }
+
+    public override bool Equals(Processor processor)
+    {
+        return processor is Am4Processor;
+    }
 }
