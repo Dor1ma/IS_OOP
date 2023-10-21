@@ -1,8 +1,8 @@
 namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.VideoCards.Factories;
 
-public class IntegratedGpuFactory : IGpuFactory
+public class IntegratedGpuFactory : GpuFactory
 {
-    public Gpu Create(
+    public IntegratedGpuFactory(
         string name,
         int length,
         int width,
@@ -10,14 +10,19 @@ public class IntegratedGpuFactory : IGpuFactory
         double pciExpressVersion,
         int chipFrequency,
         int powerConsumption)
+        : base(name, length, width, videoMemorySize, pciExpressVersion, chipFrequency, powerConsumption)
+    {
+    }
+
+    public override IPcComponent Create()
     {
         return new IntegratedGpu(
-            name,
-            length,
-            width,
-            videoMemorySize,
-            pciExpressVersion,
-            chipFrequency,
-            powerConsumption);
+            Name,
+            Length,
+            Width,
+            VideoMemorySize,
+            PciExpressVersion,
+            ChipFrequency,
+            PowerConsumption);
     }
 }

@@ -1,16 +1,17 @@
 namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Storages.Factories;
 
-public class PciExpressSolidStateDriveFactory : IStorageFactory
+public class PciExpressSolidStateDriveFactory : StorageFactory
 {
     private readonly int _maximumOperatingSpeed;
 
-    public PciExpressSolidStateDriveFactory(int maximumOperatingSpeed)
+    public PciExpressSolidStateDriveFactory(string name, int memorySize, int powerConsumption, int maximumOperatingSpeed)
+        : base(name, memorySize, powerConsumption)
     {
         _maximumOperatingSpeed = maximumOperatingSpeed;
     }
 
-    public Storage Create(string name, int memorySize, int powerConsumption)
+    public override IPcComponent Create()
     {
-        return new PciExpressSolidStateDrive(name, memorySize, powerConsumption, _maximumOperatingSpeed);
+        return new PciExpressSolidStateDrive(Name, MemorySize, PowerConsumption, _maximumOperatingSpeed);
     }
 }

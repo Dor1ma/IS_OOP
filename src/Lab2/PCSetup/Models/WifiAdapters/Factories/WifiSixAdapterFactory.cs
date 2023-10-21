@@ -1,9 +1,14 @@
 namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.WifiAdapters.Factories;
 
-public class WifiSixAdapterFactory : IWifiAdapterFactory
+public class WifiSixAdapterFactory : WifiAdapterFactory
 {
-    public WifiAdapter Create(string name, bool isBlueToothModuleInstalled, double pciExpressVersion, int powerConsumption)
+    public WifiSixAdapterFactory(string name, bool isBlueToothModuleInstalled, double pciExpressVersion, int powerConsumption)
+        : base(name, isBlueToothModuleInstalled, pciExpressVersion, powerConsumption)
     {
-        return new WifiSixAdapter(name, isBlueToothModuleInstalled, pciExpressVersion, powerConsumption);
+    }
+
+    public override IPcComponent Create()
+    {
+        return new WifiSixAdapter(Name, IsBlueToothModuleInstalled, PciExpressVersion, PowerConsumption);
     }
 }

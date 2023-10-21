@@ -5,10 +5,15 @@ using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Rams;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Motherboards.Factories;
 
-public class AtxMotherBoardFactory : IMotherBoardFactory
+public class AtxMotherBoardFactory : MotherBoardFactory
 {
-    public MotherBoard Create(string name, Processor processorSocket, IChipset chipset, IRamType supportableDdrType, Bios bios)
+    public AtxMotherBoardFactory(string name, Processor processorSocket, IChipset chipset, IRamType supportableDdrType, Bios bios)
+        : base(name, processorSocket, chipset, supportableDdrType, bios)
     {
-        return new AtxMotherBoard(name, processorSocket, chipset, supportableDdrType, bios);
+    }
+
+    public override IPcComponent Create()
+    {
+        return new AtxMotherBoard(Name, ProcessorSocket, Chipset, SupportableDdrType, Bios);
     }
 }

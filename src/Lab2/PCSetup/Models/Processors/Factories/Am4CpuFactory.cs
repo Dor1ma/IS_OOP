@@ -3,24 +3,29 @@ using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.VideoCards;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Processors.Factories;
 
-public class Am4CpuFactory : IProcessorFactory
+public class Am4CpuFactory : ProcessorFactory
 {
-    public Processor Create(
-        string model,
+    public Am4CpuFactory(
+        string name,
         double coreFrequency,
         int coreCount,
         IntegratedGpu? integratedVideoCore,
         int maximumDdrFrequency,
         int tdp,
         int powerConsumption)
+        : base(name, coreFrequency, coreCount, integratedVideoCore, maximumDdrFrequency, tdp, powerConsumption)
+    {
+    }
+
+    public override IPcComponent Create()
     {
         return new Am4Processor(
-            model,
-            coreFrequency,
-            coreCount,
-            integratedVideoCore,
-            maximumDdrFrequency,
-            tdp,
-            powerConsumption);
+            Name,
+            CoreFrequency,
+            CoreCount,
+            IntegratedVideoCore,
+            MaximumDdrFrequency,
+            Tdp,
+            PowerConsumption);
     }
 }

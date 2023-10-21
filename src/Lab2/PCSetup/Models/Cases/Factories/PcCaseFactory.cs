@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Motherboards;
+using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Services;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Models.Cases.Factories;
 
-public class PcCaseFactory
+public class PcCaseFactory : IPcComponentFactory
 {
     private readonly int _maximumVideoCardLength;
     private readonly ICollection<MotherBoard> _supportedFormFactors;
@@ -21,7 +22,7 @@ public class PcCaseFactory
         _maximumCoolerHeight = maximumCoolerHeight;
     }
 
-    public PcCase Create()
+    public IPcComponent Create()
     {
         return new PcCase(_name, _maximumVideoCardLength, _supportedFormFactors, _maximumCoolerHeight);
     }
