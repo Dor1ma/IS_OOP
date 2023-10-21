@@ -23,7 +23,7 @@ public class SecondLabTests
         string powerSupplyName,
         string storageName,
         string pcCaseName,
-        CheckerMessages expected)
+        ValidatorMessages expected)
     {
         var repository = new Repository();
         IPcComponent? processor = repository.GetComponent(processorName);
@@ -48,8 +48,8 @@ public class SecondLabTests
             .WithPowerSupply(powerSupply)
             .Build();
 
-        var checker = new Checker(personalComputer);
-        CheckerMessages actual = checker.Check();
+        var checker = new Validator(personalComputer);
+        ValidatorMessages actual = checker.Check();
 
         Assert.Equal(expected, actual);
     }
@@ -67,10 +67,10 @@ public class SecondLabTests
         private const string StorageName = "Kingston A400";
         private const string SecondPowerSupplyName = "KCAS";
         private const string PcCase = "LIAN LI Lancool 205 Mesh White";
-        private static CheckerMessages FirstTestMessage => CheckerMessages.Success;
-        private static CheckerMessages SecondTestMessage => CheckerMessages.InsufficientPowerSupplyCapacity;
-        private static CheckerMessages ThirdTestMessage => CheckerMessages.DisclaimerOfWarrantyLiability;
-        private static CheckerMessages FourthTestMessage => CheckerMessages.UnsupportableSocket;
+        private static ValidatorMessages FirstTestMessage => ValidatorMessages.Success;
+        private static ValidatorMessages SecondTestMessage => ValidatorMessages.InsufficientPowerSupplyCapacity;
+        private static ValidatorMessages ThirdTestMessage => ValidatorMessages.DisclaimerOfWarrantyLiability;
+        private static ValidatorMessages FourthTestMessage => ValidatorMessages.UnsupportableSocket;
 
         public static IEnumerable<object[]> GetData()
         {

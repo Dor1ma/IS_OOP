@@ -2,56 +2,56 @@ using Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Entities;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Services;
 
-public class Checker
+public class Validator
 {
     private readonly PersonalComputer _personalComputer;
     private int _currentPowerConsumption;
 
-    public Checker(PersonalComputer personalComputer)
+    public Validator(PersonalComputer personalComputer)
     {
         _personalComputer = personalComputer;
     }
 
-    public CheckerMessages Check()
+    public ValidatorMessages Check()
     {
-        CheckerMessages result = MotherBoardCheck();
-        if (result != CheckerMessages.Success)
+        ValidatorMessages result = MotherBoardCheck();
+        if (result != ValidatorMessages.Success)
         {
             return result;
         }
 
         result = ProcessorCheck();
-        if (result != CheckerMessages.Success)
+        if (result != ValidatorMessages.Success)
         {
             return result;
         }
 
         result = CoolingSystemCheck();
-        if (result != CheckerMessages.Success)
+        if (result != ValidatorMessages.Success)
         {
             return result;
         }
 
         result = VideoCardCheck();
-        if (result != CheckerMessages.Success)
+        if (result != ValidatorMessages.Success)
         {
             return result;
         }
 
         result = StorageCheck();
-        if (result != CheckerMessages.Success)
+        if (result != ValidatorMessages.Success)
         {
             return result;
         }
 
         result = PcCaseCheck();
-        if (result != CheckerMessages.Success)
+        if (result != ValidatorMessages.Success)
         {
             return result;
         }
 
         result = PowerSupplyCheck();
-        if (result != CheckerMessages.Success)
+        if (result != ValidatorMessages.Success)
         {
             return result;
         }
@@ -59,13 +59,13 @@ public class Checker
         return result;
     }
 
-    private CheckerMessages MotherBoardCheck()
+    private ValidatorMessages MotherBoardCheck()
     {
         if (_personalComputer.MotherBoard is not null && _personalComputer.Processor is not null)
         {
             if (!_personalComputer.Processor.Equals(_personalComputer.MotherBoard.ProcessorSocket))
             {
-                return CheckerMessages.UnsupportableSocket;
+                return ValidatorMessages.UnsupportableSocket;
             }
         }
 
@@ -73,10 +73,10 @@ public class Checker
         {
             if (!_personalComputer.MotherBoard.Bios.CheckSupportability(_personalComputer.Processor))
             {
-                return CheckerMessages.UnsupportableProcessor;
+                return ValidatorMessages.UnsupportableProcessor;
             }
 
-            return CheckerMessages.Success;
+            return ValidatorMessages.Success;
         }
 
         if (_personalComputer.Ram?.RamType is not null)
@@ -84,28 +84,28 @@ public class Checker
             if (_personalComputer.MotherBoard != null &&
                 !_personalComputer.Ram.RamType.Equals(_personalComputer.MotherBoard.SupportableDdrType))
             {
-                return CheckerMessages.UnsupportableDdrType;
+                return ValidatorMessages.UnsupportableDdrType;
             }
         }
 
-        return CheckerMessages.Success;
+        return ValidatorMessages.Success;
     }
 
-    private CheckerMessages ProcessorCheck()
+    private ValidatorMessages ProcessorCheck()
     {
         if (_personalComputer.Ram?.RamType.Xmp is not null && _personalComputer.Processor is not null
             && _personalComputer.Ram?.RamType.Xmp.Frequency is not null)
         {
             if (_personalComputer.Processor.MaximumDdrFrequency < _personalComputer.Ram?.RamType.Xmp.Frequency)
             {
-                return CheckerMessages.UnsupportableDdrFrequency;
+                return ValidatorMessages.UnsupportableDdrFrequency;
             }
         }
 
-        return CheckerMessages.Success;
+        return ValidatorMessages.Success;
     }
 
-    private CheckerMessages CoolingSystemCheck()
+    private ValidatorMessages CoolingSystemCheck()
     {
         if (_personalComputer.Cooler?.SupportableSockets is not null
                 && _personalComputer.MotherBoard?.ProcessorSocket is not null
@@ -114,7 +114,7 @@ public class Checker
             if (!_personalComputer.Cooler.CheckSupportability(_personalComputer.MotherBoard.ProcessorSocket)
                 || !_personalComputer.Cooler.CheckSupportability(_personalComputer.Processor))
             {
-                return CheckerMessages.UnsupportableSocket;
+                return ValidatorMessages.UnsupportableSocket;
             }
         }
 
@@ -122,56 +122,56 @@ public class Checker
         {
             if (_personalComputer.Processor.Tdp > _personalComputer.Cooler.MaximumTdp)
             {
-                return CheckerMessages.DisclaimerOfWarrantyLiability;
+                return ValidatorMessages.DisclaimerOfWarrantyLiability;
             }
         }
 
-        return CheckerMessages.Success;
+        return ValidatorMessages.Success;
     }
 
-    private CheckerMessages VideoCardCheck()
+    private ValidatorMessages VideoCardCheck()
     {
         if (_personalComputer.Processor?.IntegratedVideoCore is null && _personalComputer.DiscreteGpu is null)
         {
-            return CheckerMessages.MissingVideoCard;
+            return ValidatorMessages.MissingVideoCard;
         }
 
         if (_personalComputer.DiscreteGpu?.Length is not null && _personalComputer.PcCase?.MaximumVideoCardLength is not null)
         {
             if (_personalComputer.DiscreteGpu.Length > _personalComputer.PcCase.MaximumVideoCardLength)
             {
-                return CheckerMessages.VideoCardDoesNotFitInTheCase;
+                return ValidatorMessages.VideoCardDoesNotFitInTheCase;
             }
         }
 
-        return CheckerMessages.Success;
+        return ValidatorMessages.Success;
     }
 
-    private CheckerMessages StorageCheck()
+    private ValidatorMessages StorageCheck()
     {
         if (_personalComputer.Storage is null)
         {
-            return CheckerMessages.MissingStorage;
+            return ValidatorMessages.MissingStorage;
         }
 
-        return CheckerMessages.Success;
+        return ValidatorMessages.Success;
     }
 
-    private CheckerMessages PcCaseCheck()
+    private ValidatorMessages PcCaseCheck()
     {
         if (_personalComputer.PcCase?.SupportedFormFactors is not null
                 && _personalComputer.MotherBoard is not null)
         {
             if (!_personalComputer.PcCase.FormFactorChecker(_personalComputer.MotherBoard))
             {
-                return CheckerMessages.UnsupportableMotherBoardFormFactor;
+                return ValidatorMessages.UnsupportableMotherBoardFormFactor;
             }
         }
 
-        return CheckerMessages.Success;
+        return ValidatorMessages.Success;
     }
 
-    private CheckerMessages PowerSupplyCheck()
+    private ValidatorMessages PowerSupplyCheck()
     {
         if (_personalComputer.Processor?.PowerConsumption is not null && _personalComputer.Cooler?.PowerConsumption is not null
             && _personalComputer.Ram?.PowerConsumption is not null && _personalComputer.DiscreteGpu?.PowerConsumption is not null
@@ -184,10 +184,10 @@ public class Checker
             _currentPowerConsumption += _personalComputer.Storage.PowerConsumption;
             if (_currentPowerConsumption > _personalComputer.PowerSupply.PeakLoad)
             {
-                return CheckerMessages.InsufficientPowerSupplyCapacity;
+                return ValidatorMessages.InsufficientPowerSupplyCapacity;
             }
         }
 
-        return CheckerMessages.Success;
+        return ValidatorMessages.Success;
     }
 }

@@ -1,6 +1,6 @@
 namespace Itmo.ObjectOrientedProgramming.Lab2.PCSetup.Services;
 
-public enum CheckerMessages
+public enum ValidatorMessages
 {
     None,
     Success,
