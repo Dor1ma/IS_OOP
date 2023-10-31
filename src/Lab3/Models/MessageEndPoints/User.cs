@@ -2,19 +2,19 @@ using System.Collections.Generic;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Models.MessageEndPoints;
 
-public class User : MessageEndPoint
+public class User : IMessageEndPoint
 {
-    private readonly ICollection<Message> _receivedMessages = new List<Message>();
+    public ICollection<Message> Messages { get; } = new List<Message>();
 
-    public void ReceiveMessage(Message message)
+    public void Save(Message message)
     {
         message.MarkAsUnread();
-        _receivedMessages.Add(message);
+        Messages.Add(message);
     }
 
     public void MarkAllAsRead()
     {
-        foreach (Message message in _receivedMessages)
+        foreach (Message message in Messages)
         {
             message.MarkAsRead();
         }
@@ -22,7 +22,7 @@ public class User : MessageEndPoint
 
     public void MarkAllAsUnread()
     {
-        foreach (Message message in _receivedMessages)
+        foreach (Message message in Messages)
         {
             message.MarkAsUnread();
         }

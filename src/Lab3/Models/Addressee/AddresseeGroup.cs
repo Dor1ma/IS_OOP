@@ -1,9 +1,21 @@
+using System.Collections.Generic;
+
 namespace Itmo.ObjectOrientedProgramming.Lab3.Models.Addressee;
 
 public class AddresseeGroup : IAddressee
 {
-    public void SendMessage(Message message)
+    private readonly ICollection<IAddressee> _addressees = new List<IAddressee>();
+
+    public void Receive(Message message)
     {
-        throw new System.NotImplementedException();
+        foreach (IAddressee addressee in _addressees)
+        {
+            addressee.Receive(message);
+        }
+    }
+
+    public void AddAddressee(IAddressee addressee)
+    {
+        _addressees.Add(addressee);
     }
 }

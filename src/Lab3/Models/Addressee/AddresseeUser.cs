@@ -1,9 +1,12 @@
+using Itmo.ObjectOrientedProgramming.Lab3.Models.MessageEndPoints;
+
 namespace Itmo.ObjectOrientedProgramming.Lab3.Models.Addressee;
 
 public class AddresseeUser : IAddressee
 {
-    public void SendMessage(Message message)
+    private readonly User _user = new User();
+    public void Receive(Message message)
     {
-        throw new System.NotImplementedException();
+        _user.Save(message);
     }
 }
