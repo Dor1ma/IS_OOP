@@ -1,6 +1,6 @@
 using Itmo.ObjectOrientedProgramming.Lab3.Models.Addressee;
 
-namespace Itmo.ObjectOrientedProgramming.Lab3.Models;
+namespace Itmo.ObjectOrientedProgramming.Lab3.Entities;
 
 public class Topic
 {

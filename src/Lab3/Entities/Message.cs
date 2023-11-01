@@ -1,4 +1,6 @@
-namespace Itmo.ObjectOrientedProgramming.Lab3.Models;
+using Itmo.ObjectOrientedProgramming.Lab3.Models;
+
+namespace Itmo.ObjectOrientedProgramming.Lab3.Entities;
 
 public class Message
 {
