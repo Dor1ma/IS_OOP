@@ -5,7 +5,8 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Models.MessageEndPoints;
 
 public class Display : IMessageEndPoint
 {
-    public ICollection<Message> Messages { get; } = new List<Message>();
+    private const int MessagesCapacity = 1;
+    public ICollection<Message> Messages { get; } = new List<Message>(MessagesCapacity);
     public static void ShowTextByColor(Message message, Color color)
     {
         Console.WriteLine(message.Body, color);
@@ -13,6 +14,7 @@ public class Display : IMessageEndPoint
 
     public void Save(Message message)
     {
+        Messages.Clear();
         Messages.Add(message);
     }
 }
