@@ -4,7 +4,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Entities;
 
 public class Topic
 {
-    public Topic(string title, IAddressee addressee, Message message)
+    public Topic(string title, IAddressee? addressee, Message? message)
     {
         Title = title;
         Addressee = addressee;
@@ -12,6 +12,6 @@ public class Topic
     }
 
     public string Title { get; private set; }
-    public IAddressee Addressee { get; private set; }
-    public Message Message { get; private set; }
+    public IAddressee? Addressee { get; private set; }
+    public Message? Message { get; private set; }
 }
