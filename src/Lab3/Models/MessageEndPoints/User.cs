@@ -13,12 +13,19 @@ public class User : IMessageEndPoint
         Messages.Add(message);
     }
 
-    public void MarkAllAsRead()
+    public MarkingResults MarkAllAsRead()
     {
         foreach (Message message in Messages)
         {
+            if (message.Status is Status.Read)
+            {
+                return MarkingResults.CannotMarkAsReadThisMessageBecauseItIsAlreadyRead;
+            }
+
             message.MarkAsRead();
         }
+
+        return MarkingResults.Success;
     }
 
     public void MarkAllAsUnread()
