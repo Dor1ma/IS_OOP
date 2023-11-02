@@ -14,13 +14,13 @@ public class AddresseeMessenger : IAddressee
         _logger = logger;
     }
 
-    public IMessageEndPoint Addressee { get; } = new Messenger();
+    public IMessageEndPoint ConcreteAddressee { get; } = new Messenger();
 
     public void Receive(Message message)
     {
         if (_filter == PriorityLevels.None || message.PriorityLevel == _filter)
         {
-            Addressee.Save(message);
+            ConcreteAddressee.Save(message);
             _logger.LogInformation($"Messenger received its message: {message.Body}");
         }
     }

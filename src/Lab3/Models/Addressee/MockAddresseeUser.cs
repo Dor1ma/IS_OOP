@@ -8,13 +8,13 @@ public class MockAddresseeUser : IAddressee
 {
     private PriorityLevels _filter = PriorityLevels.None;
     public MockLogger Logger { get; private set; } = new();
-    public IMessageEndPoint Addressee { get; } = new User();
+    public IMessageEndPoint ConcreteAddressee { get; } = new User();
 
     public void Receive(Message message)
     {
         if (_filter == PriorityLevels.None || message.PriorityLevel == _filter)
         {
-            Addressee.Save(message);
+            ConcreteAddressee.Save(message);
             Logger.LogInformation($"User received its message: {message.Body}");
         }
     }

@@ -5,7 +5,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Models.Addressee;
 
 public interface IAddressee
 {
-    public IMessageEndPoint Addressee { get; }
+    public IMessageEndPoint ConcreteAddressee { get; }
     void Receive(Message message);
     void SetupFilter(PriorityLevels priorityLevel);
 }

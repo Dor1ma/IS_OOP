@@ -13,12 +13,12 @@ public class AddresseeGroup : IAddressee
 
     public AddresseeGroup(IMessageEndPoint firstAddressee, ILogger logger)
     {
-        Addressee = firstAddressee;
-        _addressees.Add(Addressee);
+        ConcreteAddressee = firstAddressee;
+        _addressees.Add(ConcreteAddressee);
         _logger = logger;
     }
 
-    public IMessageEndPoint Addressee { get; }
+    public IMessageEndPoint ConcreteAddressee { get; }
 
     public void Receive(Message message)
     {
