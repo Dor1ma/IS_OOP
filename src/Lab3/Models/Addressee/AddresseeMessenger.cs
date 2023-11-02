@@ -6,7 +6,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Models.Addressee;
 
 public class AddresseeMessenger : IAddressee
 {
-    private readonly Messenger _messenger = new Messenger();
+    private readonly Messenger _messenger = new();
     private readonly ILogger _logger;
     private PriorityLevels _filter = PriorityLevels.None;
 

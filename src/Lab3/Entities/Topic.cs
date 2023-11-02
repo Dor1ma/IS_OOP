@@ -14,4 +14,14 @@ public class Topic
     public string Title { get; private set; }
     public IAddressee? Addressee { get; private set; }
     public Message? Message { get; private set; }
+
+    public void GetNewMessage(Message message)
+    {
+        Message = message;
+    }
+
+    public void SendMessageToAddressee()
+    {
+        if (Message is not null) Addressee?.Receive(Message);
+    }
 }

@@ -6,6 +6,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Models.Addressee;
 
 public class AddresseeUser : IAddressee
 {
+    private readonly User _user = new();
     private readonly ILogger _logger;
     private PriorityLevels _filter = PriorityLevels.None;
 
@@ -14,12 +15,11 @@ public class AddresseeUser : IAddressee
         _logger = logger;
     }
 
-    public User User { get; } = new User();
     public void Receive(Message message)
     {
         if (_filter == PriorityLevels.None || message.PriorityLevel == _filter)
         {
-            User.Save(message);
+            _user.Save(message);
             _logger.LogInformation($"User received its message: {message.Body}");
         }
     }
