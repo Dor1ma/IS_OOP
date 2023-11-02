@@ -29,6 +29,11 @@ public class AddresseeGroup : IAddressee
                 addressee.Save(message);
                 _logger.LogInformation($"A group of addressees received its message: {message.Body}");
             }
+            else
+            {
+                _logger.LogInformation($"A group of addressees didn't receive message: {message.Body}" +
+                                       $"Reason: filter mismatch");
+            }
         }
     }
 

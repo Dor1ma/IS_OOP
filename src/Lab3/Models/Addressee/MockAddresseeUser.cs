@@ -17,6 +17,11 @@ public class MockAddresseeUser : IAddressee
             ConcreteAddressee.Save(message);
             Logger.LogInformation($"User received its message: {message.Body}");
         }
+        else
+        {
+            Logger.LogInformation($"User didn't receive message: {message.Body}" +
+                                   $"Reason: filter mismatch");
+        }
     }
 
     public void SetupFilter(PriorityLevels priorityLevel)

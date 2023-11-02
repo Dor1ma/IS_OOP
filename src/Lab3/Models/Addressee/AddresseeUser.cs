@@ -23,6 +23,11 @@ public class AddresseeUser : IAddressee
             ConcreteAddressee.Save(message);
             _logger.LogInformation($"User received its message: {message.Body}");
         }
+        else
+        {
+            _logger.LogInformation($"User didn't receive message: {message.Body}" +
+                                   $"Reason: filter mismatch");
+        }
     }
 
     public void SetupFilter(PriorityLevels priorityLevel)
