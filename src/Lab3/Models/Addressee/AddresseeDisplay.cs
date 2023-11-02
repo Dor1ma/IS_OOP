@@ -6,7 +6,6 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Models.Addressee;
 
 public class AddresseeDisplay : IAddressee
 {
-    private readonly Display _display = new();
     private readonly ILogger _logger;
     private PriorityLevels _filter = PriorityLevels.None;
 
@@ -15,11 +14,13 @@ public class AddresseeDisplay : IAddressee
         _logger = logger;
     }
 
+    public IMessageEndPoint Addressee { get; } = new Display();
+
     public void Receive(Message message)
     {
         if (_filter == PriorityLevels.None || message.PriorityLevel == _filter)
         {
-            _display.Save(message);
+            Addressee.Save(message);
             _logger.LogInformation($"Display received its message {message.Body}");
         }
     }

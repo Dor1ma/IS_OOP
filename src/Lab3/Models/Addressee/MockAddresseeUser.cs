@@ -6,14 +6,15 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Models.Addressee;
 
 public class MockAddresseeUser : IAddressee
 {
-    private readonly User _user = new();
     private PriorityLevels _filter = PriorityLevels.None;
     public MockLogger Logger { get; private set; } = new();
+    public IMessageEndPoint Addressee { get; } = new User();
+
     public void Receive(Message message)
     {
         if (_filter == PriorityLevels.None || message.PriorityLevel == _filter)
         {
-            _user.Save(message);
+            Addressee.Save(message);
             Logger.LogInformation($"User received its message: {message.Body}");
         }
     }

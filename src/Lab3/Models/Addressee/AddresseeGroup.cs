@@ -1,27 +1,32 @@
 using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab3.Entities;
+using Itmo.ObjectOrientedProgramming.Lab3.Models.MessageEndPoints;
 using Itmo.ObjectOrientedProgramming.Lab3.Services;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Models.Addressee;
 
 public class AddresseeGroup : IAddressee
 {
-    private readonly ICollection<IAddressee> _addressees = new List<IAddressee>();
+    private readonly ICollection<IMessageEndPoint> _addressees = new List<IMessageEndPoint>();
     private readonly ILogger _logger;
     private PriorityLevels _filter = PriorityLevels.None;
 
-    public AddresseeGroup(ILogger logger)
+    public AddresseeGroup(IMessageEndPoint firstAddressee, ILogger logger)
     {
+        Addressee = firstAddressee;
+        _addressees.Add(Addressee);
         _logger = logger;
     }
 
+    public IMessageEndPoint Addressee { get; }
+
     public void Receive(Message message)
     {
-        foreach (IAddressee addressee in _addressees)
+        foreach (IMessageEndPoint addressee in _addressees)
         {
             if (_filter == PriorityLevels.None || message.PriorityLevel == _filter)
             {
-                addressee.Receive(message);
+                addressee.Save(message);
                 _logger.LogInformation($"A group of addressees received its message: {message.Body}");
             }
         }
@@ -32,7 +37,7 @@ public class AddresseeGroup : IAddressee
         _filter = priorityLevel;
     }
 
-    public void AddAddressee(IAddressee addressee)
+    public void AddAddressee(IMessageEndPoint addressee)
     {
         _addressees.Add(addressee);
     }
