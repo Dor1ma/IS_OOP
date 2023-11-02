@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab3.Entities;
 using Itmo.ObjectOrientedProgramming.Lab3.Models;
 using Itmo.ObjectOrientedProgramming.Lab3.Models.Addressee;
+using Itmo.ObjectOrientedProgramming.Lab3.Services;
 using Xunit;
 namespace Itmo.ObjectOrientedProgramming.Lab3.Tests;
 
@@ -18,13 +20,24 @@ public class MainTests
             .WithBody(body)
             .WithPriority(priorityLevel)
             .Build();
-        var addressee = new AddresseeUser();
+        var logger = new MockLogger();
+        var addressee = new AddresseeUser(logger);
+        var topicBuilder = new TopicBuilder();
+        string title = "First test topic";
+        Topic topic = topicBuilder
+            .WithTitle(title)
+            .WithAddressee(addressee)
+            .WithMessage(message)
+            .Build();
 
-        addressee.Receive(message);
+        topic.SendMessageToAddressee();
 
-        foreach (Message localMessage in addressee.User.Messages)
+        if (topic.Addressee is not null)
         {
-            Assert.Equal(expected, localMessage.Status);
+            foreach (Message localMessage in topic.Addressee.ConcreteAddressee.Messages)
+            {
+                Assert.Equal(expected, localMessage.Status);
+            }
         }
     }
 
@@ -38,15 +51,103 @@ public class MainTests
             .WithBody(body)
             .WithPriority(priorityLevel)
             .Build();
-        var addressee = new AddresseeUser();
+        var logger = new MockLogger();
+        var addressee = new AddresseeUser(logger);
+        var topicBuilder = new TopicBuilder();
+        string title = "Second test topic";
+        Topic topic = topicBuilder
+            .WithTitle(title)
+            .WithAddressee(addressee)
+            .WithMessage(message)
+            .Build();
 
-        addressee.Receive(message);
+        topic.SendMessageToAddressee();
 
-        foreach (Message localMessage in addressee.User.Messages)
+        if (topic.Addressee is not null)
         {
-            localMessage.MarkAsRead();
-            Assert.Equal(expected, localMessage.Status);
+            foreach (Message localMessage in topic.Addressee.ConcreteAddressee.Messages)
+            {
+                localMessage.MarkAsRead();
+                Assert.Equal(expected, localMessage.Status);
+            }
         }
+    }
+
+    [Theory]
+    [MemberData(nameof(TestDataGenerator.GetFourthTestData), MemberType = typeof(TestDataGenerator))]
+    public void CheckIfSendedMessageWhichDoesNotMatchToTheFilterIsNotReceived(
+        string header,
+        string body,
+        PriorityLevels messagePriority,
+        PriorityLevels addresseeFilter,
+        string expected)
+    {
+        var messageBuilder = new MessageBuilder();
+        Message message = messageBuilder
+            .WithHeader(header)
+            .WithBody(body)
+            .WithPriority(messagePriority)
+            .Build();
+        var addressee = new MockAddresseeUser();
+        var topicBuilder = new TopicBuilder();
+        string title = "Fourth test topic";
+        Topic topic = topicBuilder
+            .WithTitle(title)
+            .WithAddressee(addressee)
+            .WithMessage(message)
+            .Build();
+
+        topic.Addressee?.SetupFilter(addresseeFilter);
+        topic.SendMessageToAddressee();
+        MockAddresseeUser mockAddresseeUser;
+        MockLogger mockLogger;
+        bool result = false;
+        if (topic.Addressee is not null)
+        {
+            mockAddresseeUser = (MockAddresseeUser)topic.Addressee;
+            mockLogger = mockAddresseeUser.Logger;
+            result = expected.Equals(mockLogger.Message, StringComparison.Ordinal);
+        }
+
+        Assert.True(result);
+    }
+
+    [Theory]
+    [MemberData(nameof(TestDataGenerator.GetFifthTestData), MemberType = typeof(TestDataGenerator))]
+    public void CheckIfLogIsWrittenIfMessageReceived(
+        string header,
+        string body,
+        PriorityLevels priorityLevel,
+        string expected)
+    {
+        var messageBuilder = new MessageBuilder();
+        Message message = messageBuilder
+            .WithHeader(header)
+            .WithBody(body)
+            .WithPriority(priorityLevel)
+            .Build();
+        var addressee = new MockAddresseeUser();
+        var topicBuilder = new TopicBuilder();
+        string title = "Fifth test topic";
+        Topic topic = topicBuilder
+            .WithTitle(title)
+            .WithAddressee(addressee)
+            .WithMessage(message)
+            .Build();
+
+        topic.SendMessageToAddressee();
+
+        MockAddresseeUser mockAddresseeUser;
+        MockLogger mockLogger;
+        bool result = false;
+        if (topic.Addressee is not null)
+        {
+            mockAddresseeUser = (MockAddresseeUser)topic.Addressee;
+            mockLogger = mockAddresseeUser.Logger;
+            result = expected.Equals(mockLogger.Message, StringComparison.Ordinal);
+        }
+
+        Assert.True(result);
     }
 
     private class TestDataGenerator : IEnumerable<object[]>
@@ -54,8 +155,15 @@ public class MainTests
         private const string MessageHeader = "I am first test header";
         private const string MessageBody = "I am first test message body";
         private const PriorityLevels Priority = PriorityLevels.None;
-        private const Status FirstTestExpected = Status.Unread;
+        private const PriorityLevels FourthTestMessagePriority = PriorityLevels.LowLevelPriority;
+        private const PriorityLevels FourthTestAddresseeFilter = PriorityLevels.HighLevelPriority;
         private const Status SecondTestExpected = Status.Read;
+        private const Status FirstTestExpected = Status.Unread;
+
+        private const string FourthTestExpected = $"User didn't receive message: {MessageBody}" +
+                                                  $"Reason: filter mismatch";
+
+        private const string FifthTestExpected = $"User received its message: {MessageBody}";
         public static IEnumerable<object[]> GetFirstTestData()
         {
             yield return new object[]
@@ -75,6 +183,29 @@ public class MainTests
                 MessageBody,
                 Priority,
                 SecondTestExpected,
+            };
+        }
+
+        public static IEnumerable<object[]> GetFourthTestData()
+        {
+            yield return new object[]
+            {
+                MessageHeader,
+                MessageBody,
+                FourthTestMessagePriority,
+                FourthTestAddresseeFilter,
+                FourthTestExpected,
+            };
+        }
+
+        public static IEnumerable<object[]> GetFifthTestData()
+        {
+            yield return new object[]
+            {
+                MessageHeader,
+                MessageBody,
+                Priority,
+                FifthTestExpected,
             };
         }
 
