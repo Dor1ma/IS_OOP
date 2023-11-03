@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab3.Entities;
 using Itmo.ObjectOrientedProgramming.Lab3.Models;
 using Itmo.ObjectOrientedProgramming.Lab3.Models.Addressee;
+using Itmo.ObjectOrientedProgramming.Lab3.Models.MessageEndPoints;
 using Itmo.ObjectOrientedProgramming.Lab3.Services;
 using Xunit;
 namespace Itmo.ObjectOrientedProgramming.Lab3.Tests;
@@ -70,6 +71,43 @@ public class MainTests
                 localMessage.MarkAsRead();
                 Assert.Equal(expected, localMessage.Status);
             }
+        }
+    }
+
+    [Theory]
+    [MemberData(nameof(TestDataGenerator.GetThirdTestData), MemberType = typeof(TestDataGenerator))]
+    public void CheckIfMarkingAMessageWhichIsAlreadyReadAsReadReturningACorrespondingError(
+        string header,
+        string body,
+        PriorityLevels priorityLevel,
+        MarkingResults expected)
+    {
+        var messageBuilder = new MessageBuilder();
+        Message message = messageBuilder
+            .WithHeader(header)
+            .WithBody(body)
+            .WithPriority(priorityLevel)
+            .Build();
+        var logger = new MockLogger();
+        var addressee = new AddresseeUser(logger);
+        var topicBuilder = new TopicBuilder();
+        string title = "Third test topic";
+        User user;
+        MarkingResults result;
+        Topic topic = topicBuilder
+            .WithTitle(title)
+            .WithAddressee(addressee)
+            .WithMessage(message)
+            .Build();
+
+        topic.SendMessageToAddressee();
+
+        if (topic.Addressee is not null)
+        {
+            user = (User)topic.Addressee.ConcreteAddressee;
+            _ = user.MarkAllAsRead();
+            result = user.MarkAllAsRead();
+            Assert.Equal(expected, result);
         }
     }
 
@@ -150,20 +188,68 @@ public class MainTests
         Assert.True(result);
     }
 
+    [Theory]
+    [MemberData(nameof(TestDataGenerator.GetSixthTestData), MemberType = typeof(TestDataGenerator))]
+    public void MessengerReceivingItsMessageCheck(
+        string header,
+        string body,
+        PriorityLevels priorityLevel,
+        string expected)
+    {
+        var messageBuilder = new MessageBuilder();
+        Message message = messageBuilder
+            .WithHeader(header)
+            .WithBody(body)
+            .WithPriority(priorityLevel)
+            .Build();
+        var logger = new MockLogger();
+        var addressee = new MockAddresseeMessenger(logger);
+        var topicBuilder = new TopicBuilder();
+        string title = "Fifth test topic";
+        Topic topic = topicBuilder
+            .WithTitle(title)
+            .WithAddressee(addressee)
+            .WithMessage(message)
+            .Build();
+
+        topic.SendMessageToAddressee();
+
+        MockAddresseeMessenger mockAddresseeMessenger;
+        MockMessenger mockMessenger;
+        bool result = false;
+        if (topic.Addressee is not null)
+        {
+            mockAddresseeMessenger = (MockAddresseeMessenger)topic.Addressee;
+            mockMessenger = (MockMessenger)mockAddresseeMessenger.ConcreteAddressee;
+            Message oneMessageToCheck;
+            foreach (Message concreteMessage in mockAddresseeMessenger.ConcreteAddressee.Messages)
+            {
+                oneMessageToCheck = concreteMessage;
+                mockMessenger.ShowText(oneMessageToCheck);
+            }
+
+            result = expected.Equals(mockMessenger.ShowingResult, StringComparison.Ordinal);
+        }
+
+        Assert.True(result);
+    }
+
     private class TestDataGenerator : IEnumerable<object[]>
     {
-        private const string MessageHeader = "I am first test header";
-        private const string MessageBody = "I am first test message body";
+        private const string MessageHeader = "I am test header";
+        private const string MessageBody = "I am test message body";
         private const PriorityLevels Priority = PriorityLevels.None;
         private const PriorityLevels FourthTestMessagePriority = PriorityLevels.LowLevelPriority;
         private const PriorityLevels FourthTestAddresseeFilter = PriorityLevels.HighLevelPriority;
-        private const Status SecondTestExpected = Status.Read;
         private const Status FirstTestExpected = Status.Unread;
+        private const Status SecondTestExpected = Status.Read;
+        private const MarkingResults ThirdTestExpected = MarkingResults.CannotMarkAsReadThisMessageBecauseItIsAlreadyRead;
 
         private const string FourthTestExpected = $"User didn't receive message: {MessageBody}" +
                                                   $"Reason: filter mismatch";
 
         private const string FifthTestExpected = $"User received its message: {MessageBody}";
+        private const string SixthTestExpected = $"{MessageBody}" + " MESSENGER";
         public static IEnumerable<object[]> GetFirstTestData()
         {
             yield return new object[]
@@ -183,6 +269,17 @@ public class MainTests
                 MessageBody,
                 Priority,
                 SecondTestExpected,
+            };
+        }
+
+        public static IEnumerable<object[]> GetThirdTestData()
+        {
+            yield return new object[]
+            {
+                MessageHeader,
+                MessageBody,
+                Priority,
+                ThirdTestExpected,
             };
         }
 
@@ -206,6 +303,17 @@ public class MainTests
                 MessageBody,
                 Priority,
                 FifthTestExpected,
+            };
+        }
+
+        public static IEnumerable<object[]> GetSixthTestData()
+        {
+            yield return new object[]
+            {
+                MessageHeader,
+                MessageBody,
+                Priority,
+                SixthTestExpected,
             };
         }
 
