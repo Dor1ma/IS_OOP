@@ -20,5 +20,6 @@ public class LoggerDecorator : IAddressee
     public void Receive(Message message)
     {
         _addressee.Receive(message);
+        _logger.LogInformation(message);
     }
 }
