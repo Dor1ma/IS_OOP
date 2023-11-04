@@ -13,16 +13,5 @@ public class Message
 
     public string Header { get; private set; }
     public string Body { get; private set; }
-    public Status? Status { get; private set; }
     public PriorityLevels PriorityLevel { get; private set; }
-
-    public void MarkAsUnread()
-    {
-        Status = Models.Status.Unread;
-    }
-
-    public void MarkAsRead()
-    {
-        Status = Models.Status.Read;
-    }
 }

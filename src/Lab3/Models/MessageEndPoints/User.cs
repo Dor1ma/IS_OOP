@@ -5,24 +5,35 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Models.MessageEndPoints;
 
 public class User : IMessageEndPoint
 {
+    private ICollection<Message> _readMessages = new List<Message>();
     public ICollection<Message> Messages { get; } = new List<Message>();
 
     public void Save(Message message)
     {
-        message.MarkAsUnread();
         Messages.Add(message);
+    }
+
+    public MarkingResults MarkConcreteAsRead(Message message)
+    {
+        if (_readMessages.Contains(message))
+        {
+            return MarkingResults.CannotMarkAsReadThisMessageBecauseItIsAlreadyRead;
+        }
+
+        _readMessages.Add(message);
+        return MarkingResults.Success;
     }
 
     public MarkingResults MarkAllAsRead()
     {
         foreach (Message message in Messages)
         {
-            if (message.Status is Status.Read)
+            if (_readMessages.Contains(message))
             {
                 return MarkingResults.CannotMarkAsReadThisMessageBecauseItIsAlreadyRead;
             }
 
-            message.MarkAsRead();
+            _readMessages.Add(message);
         }
 
         return MarkingResults.Success;
@@ -30,9 +41,9 @@ public class User : IMessageEndPoint
 
     public void MarkAllAsUnread()
     {
-        foreach (Message message in Messages)
+        foreach (Message message in _readMessages)
         {
-            message.MarkAsUnread();
+            _readMessages.Remove(message);
         }
     }
 }
