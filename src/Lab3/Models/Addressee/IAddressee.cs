@@ -7,5 +7,4 @@ public interface IAddressee
 {
     public IMessageEndPoint ConcreteAddressee { get; }
     void Receive(Message message);
-    void SetupFilter(PriorityLevels priorityLevel);
 }
