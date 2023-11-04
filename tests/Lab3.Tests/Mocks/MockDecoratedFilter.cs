@@ -5,27 +5,24 @@ using Itmo.ObjectOrientedProgramming.Lab3.Models.MessageEndPoints;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Tests.Mocks;
 
-public class MockAddresseeUser : IAddressee
+public class MockDecoratedFilter : IAddressee
 {
-    private PriorityLevels _filter = PriorityLevels.None;
-    public MockLogger Logger { get; private set; } = new();
-    public IMessageEndPoint ConcreteAddressee { get; } = new User();
+    private readonly PriorityLevels _filter;
 
+    public MockDecoratedFilter(IAddressee addressee, PriorityLevels filter)
+    {
+        Addressee = addressee;
+        _filter = filter;
+        ConcreteAddressee = Addressee.ConcreteAddressee;
+    }
+
+    public IAddressee Addressee { get; private set; }
+    public IMessageEndPoint ConcreteAddressee { get; }
     public void Receive(Message message)
     {
         if (_filter == PriorityLevels.None || message.PriorityLevel == _filter)
         {
             ConcreteAddressee.Save(message);
-            Logger.LogInformation(message);
         }
-        else
-        {
-            Logger.LogInformation(message);
-        }
-    }
-
-    public void SetupFilter(PriorityLevels priorityLevel)
-    {
-        _filter = priorityLevel;
     }
 }

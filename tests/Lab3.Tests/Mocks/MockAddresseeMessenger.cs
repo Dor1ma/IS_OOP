@@ -23,12 +23,11 @@ public class MockAddresseeMessenger : IAddressee
         if (_filter == PriorityLevels.None || message.PriorityLevel == _filter)
         {
             ConcreteAddressee.Save(message);
-            _logger.LogInformation($"Messenger received its message: {message.Body}");
+            _logger.LogInformation(message);
         }
         else
         {
-            _logger.LogInformation($"Messenger didn't receive message: {message.Body}" +
-                                   $"Reason: filter mismatch");
+            _logger.LogInformation(message);
         }
     }
 
