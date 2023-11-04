@@ -1,6 +1,7 @@
 using System;
+using Itmo.ObjectOrientedProgramming.Lab3.Services;
 
-namespace Itmo.ObjectOrientedProgramming.Lab3.Services;
+namespace Itmo.ObjectOrientedProgramming.Lab3.Tests.Mocks;
 
 public class MockLogger : ILogger
 {
