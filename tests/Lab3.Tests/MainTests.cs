@@ -23,7 +23,8 @@ public class MainTests
             .WithBody(body)
             .WithPriority(priorityLevel)
             .Build();
-        var addressee = new AddresseeUser();
+        var newUser = new User();
+        var addressee = new AddresseeUser(newUser);
         var topicBuilder = new TopicBuilder();
         string title = "First test topic";
         Topic topic = topicBuilder
@@ -36,7 +37,8 @@ public class MainTests
 
         if (topic.Addressee is not null)
         {
-            var user = (User)topic.Addressee.ConcreteAddressee;
+            var addresseeUser = (AddresseeUser)topic.Addressee;
+            IUser user = addresseeUser.ConcreteAddressee;
             Assert.Equal(expected, user.MarkConcreteAsRead(message));
         }
     }
@@ -51,7 +53,8 @@ public class MainTests
             .WithBody(body)
             .WithPriority(priorityLevel)
             .Build();
-        var addressee = new AddresseeUser();
+        var newUser = new User();
+        var addressee = new AddresseeUser(newUser);
         var topicBuilder = new TopicBuilder();
         string title = "Second test topic";
         Topic topic = topicBuilder
@@ -64,7 +67,8 @@ public class MainTests
 
         if (topic.Addressee is not null)
         {
-            var user = (User)topic.Addressee.ConcreteAddressee;
+            var addresseeUser = (AddresseeUser)topic.Addressee;
+            IUser user = addresseeUser.ConcreteAddressee;
             user.MarkAllAsRead();
             Assert.Equal(expected, user.MarkConcreteAsRead(message));
         }
@@ -84,10 +88,10 @@ public class MainTests
             .WithBody(body)
             .WithPriority(priorityLevel)
             .Build();
-        var addressee = new AddresseeUser();
+        var newUser = new User();
+        var addressee = new AddresseeUser(newUser);
         var topicBuilder = new TopicBuilder();
         string title = "Third test topic";
-        User user;
         MarkingResults result;
         Topic topic = topicBuilder
             .WithTitle(title)
@@ -99,7 +103,8 @@ public class MainTests
 
         if (topic.Addressee is not null)
         {
-            user = (User)topic.Addressee.ConcreteAddressee;
+            var addresseeUser = (AddresseeUser)topic.Addressee;
+            IUser user = addresseeUser.ConcreteAddressee;
             _ = user.MarkAllAsRead();
             result = user.MarkAllAsRead();
             Assert.Equal(expected, result);
@@ -159,7 +164,8 @@ public class MainTests
             .WithBody(body)
             .WithPriority(priorityLevel)
             .Build();
-        var addressee = new AddresseeUser();
+        var newUser = new User();
+        var addressee = new AddresseeUser(newUser);
         var decoratedAddressee = new MockDecoratedLogger(addressee, new MockLogger());
         var topicBuilder = new TopicBuilder();
         string title = "Fifth test topic";
