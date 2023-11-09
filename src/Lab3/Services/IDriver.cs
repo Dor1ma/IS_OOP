@@ -6,5 +6,6 @@ public interface IDriver
 {
     void Clear();
     void ColorSetup(ConsoleColor color);
+    void SaveText(string text);
     void WriteText();
 }

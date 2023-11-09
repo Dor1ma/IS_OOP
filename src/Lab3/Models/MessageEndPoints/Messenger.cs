@@ -4,7 +4,7 @@ using Itmo.ObjectOrientedProgramming.Lab3.Entities;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Models.MessageEndPoints;
 
-public class Messenger : IMessageEndPoint
+public class Messenger : IMessenger
 {
     private const string Postscript = " MESSENGER";
     public ICollection<Message> Messages { get; } = new List<Message>();

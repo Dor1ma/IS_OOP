@@ -5,10 +5,15 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Models.Addressee;
 
 public class AddresseeDisplay : IAddressee
 {
-    public IMessageEndPoint ConcreteAddressee { get; } = new Display();
+    public AddresseeDisplay(IDisplay display)
+    {
+        Display = display;
+    }
+
+    public IDisplay Display { get; private set; }
 
     public void Receive(Message message)
     {
-        ConcreteAddressee.Save(message);
+        Display.Save(message);
     }
 }

@@ -1,28 +1,32 @@
 using System;
-using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab3.Entities;
+using Itmo.ObjectOrientedProgramming.Lab3.Services;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Models.MessageEndPoints;
 
-public class Display : IMessageEndPoint
+public class Display : IDisplay
 {
-    private const int MessagesCapacity = 1;
-    private string? _messageText;
-    public ICollection<Message> Messages { get; } = new List<Message>(MessagesCapacity);
+    private IDriver _displayDriver;
+    private Message? _message;
+
+    public Display(IDriver displayDriver)
+    {
+        _displayDriver = displayDriver;
+    }
+
     public void ShowTextByColor(ConsoleColor color)
     {
-        if (_messageText is not null)
-            Console.WriteLine(_messageText, color);
+        if (_message is not null)
+        {
+            _displayDriver.SaveText(_message.Body);
+            _displayDriver.ColorSetup(color);
+            _displayDriver.WriteText();
+            _displayDriver.Clear();
+        }
     }
 
     public void Save(Message message)
     {
-        Messages.Add(message);
-        _messageText = message.Body;
-    }
-
-    public void DeleteMessage()
-    {
-        Messages.Clear();
+        _message = message;
     }
 }

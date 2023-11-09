@@ -9,7 +9,7 @@ public class MockAddresseeUser : IAddressee
 {
     private PriorityLevels _filter = PriorityLevels.None;
     public MockLogger Logger { get; private set; } = new();
-    public IMessageEndPoint ConcreteAddressee { get; } = new User();
+    public IUser ConcreteAddressee { get; } = new User();
 
     public void Receive(Message message)
     {

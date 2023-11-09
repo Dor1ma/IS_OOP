@@ -3,7 +3,7 @@ using Itmo.ObjectOrientedProgramming.Lab3.Entities;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Models.MessageEndPoints;
 
-public class User : IMessageEndPoint
+public class User : IUser
 {
     private ICollection<Message> _readMessages = new List<Message>();
     public ICollection<Message> Messages { get; } = new List<Message>();

@@ -1,7 +1,6 @@
 using Itmo.ObjectOrientedProgramming.Lab3.Entities;
 using Itmo.ObjectOrientedProgramming.Lab3.Models;
 using Itmo.ObjectOrientedProgramming.Lab3.Models.Addressee;
-using Itmo.ObjectOrientedProgramming.Lab3.Models.MessageEndPoints;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Services;
 
@@ -14,15 +13,13 @@ public class FilterDecorator : IAddressee
     {
         _addressee = addressee;
         _filter = filter;
-        ConcreteAddressee = _addressee.ConcreteAddressee;
     }
 
-    public IMessageEndPoint ConcreteAddressee { get; }
     public void Receive(Message message)
     {
         if (_filter == PriorityLevels.None || message.PriorityLevel == _filter)
         {
-            ConcreteAddressee.Save(message);
+            _addressee.Receive(message);
         }
     }
 }

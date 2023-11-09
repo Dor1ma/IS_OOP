@@ -5,7 +5,12 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Models.Addressee;
 
 public class AddresseeMessenger : IAddressee
 {
-    public IMessageEndPoint ConcreteAddressee { get; } = new Messenger();
+    public AddresseeMessenger(IMessenger messenger)
+    {
+        ConcreteAddressee = messenger;
+    }
+
+    public IMessenger ConcreteAddressee { get; private set; }
 
     public void Receive(Message message)
     {

@@ -1,21 +1,14 @@
 using System;
-using Itmo.ObjectOrientedProgramming.Lab3.Models.MessageEndPoints;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Services;
 
 public class DisplayDriver : IDriver
 {
-    private readonly Display _display;
+    private string _output = string.Empty;
     private ConsoleColor _color = Console.ForegroundColor;
-
-    public DisplayDriver(Display display)
-    {
-        _display = display;
-    }
-
     public void Clear()
     {
-        _display.DeleteMessage();
+        _output = string.Empty;
     }
 
     public void ColorSetup(ConsoleColor color)
@@ -23,8 +16,13 @@ public class DisplayDriver : IDriver
         _color = color;
     }
 
+    public void SaveText(string text)
+    {
+        _output = text;
+    }
+
     public void WriteText()
     {
-        _display.ShowTextByColor(_color);
+        Console.WriteLine(_output, _color);
     }
 }
