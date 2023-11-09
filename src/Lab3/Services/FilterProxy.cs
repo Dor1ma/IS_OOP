@@ -4,12 +4,12 @@ using Itmo.ObjectOrientedProgramming.Lab3.Models.Addressee;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Services;
 
-public class FilterDecorator : IAddressee
+public class FilterProxy : IAddressee
 {
     private readonly IAddressee _addressee;
     private readonly PriorityLevels _filter;
 
-    public FilterDecorator(IAddressee addressee, PriorityLevels filter)
+    public FilterProxy(IAddressee addressee, PriorityLevels filter)
     {
         _addressee = addressee;
         _filter = filter;
