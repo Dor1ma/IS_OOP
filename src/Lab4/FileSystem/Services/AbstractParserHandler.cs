@@ -2,17 +2,16 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Services;
 
 public abstract class AbstractParserHandler : IParserHandler
 {
-    private IParserHandler? _parserHandler;
-
+    protected IParserHandler? ParserHandler { get; private set; }
     public void SetNext(IParserHandler handler)
     {
-        if (_parserHandler is not null)
+        if (ParserHandler is not null)
         {
-            _parserHandler.SetNext(handler);
+            ParserHandler.SetNext(handler);
         }
         else
         {
-            _parserHandler = handler;
+            ParserHandler = handler;
         }
     }
 
