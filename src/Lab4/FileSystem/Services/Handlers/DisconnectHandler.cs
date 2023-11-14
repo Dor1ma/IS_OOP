@@ -1,4 +1,6 @@
-namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Services;
+using Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Entities;
+
+namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Services.Handlers;
 
 public class DisconnectHandler : AbstractParserHandler
 {
@@ -13,7 +15,7 @@ public class DisconnectHandler : AbstractParserHandler
         }
         else
         {
-            ParserHandler?.Handle(request);
+            NextParserHandler?.Handle(request);
         }
     }
 }

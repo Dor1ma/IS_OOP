@@ -1,4 +1,6 @@
-namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Services;
+using Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Entities;
+
+namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Services.Handlers;
 
 public class ConnectHandler : AbstractParserHandler
 {
@@ -17,7 +19,7 @@ public class ConnectHandler : AbstractParserHandler
         }
         else
         {
-            ParserHandler?.Handle(request);
+            NextParserHandler?.Handle(request);
         }
     }
 }

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Services;
+namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Entities;
 
 public class Request
 {
