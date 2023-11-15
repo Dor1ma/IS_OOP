@@ -12,7 +12,7 @@ public class FileRenameHandler : AbstractParserHandler
     private string? _name;
     public override void Handle(Request request)
     {
-        if (request.GetElement(ComparableIndex) == ComparableCommand)
+        if (Equals(request.GetElement(ComparableIndex), ComparableCommand))
         {
             _path = request.GetElement(PathIndex);
             _name = request.GetElement(NameIndex);

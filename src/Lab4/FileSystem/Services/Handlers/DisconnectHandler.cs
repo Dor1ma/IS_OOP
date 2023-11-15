@@ -9,7 +9,7 @@ public class DisconnectHandler : AbstractParserHandler
     private string? _value;
     public override void Handle(Request request)
     {
-        if (request.GetElement(CommandIndex) == Comparable)
+        if (Equals(request.GetElement(CommandIndex), Comparable))
         {
             _value = request.GetElement(CommandIndex);
         }

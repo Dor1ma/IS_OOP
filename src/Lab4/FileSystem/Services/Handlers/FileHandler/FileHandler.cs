@@ -24,7 +24,7 @@ public class FileHandler : AbstractParserHandler
     private IParserHandler? SubParserHandler { get; }
     public override void Handle(Request request)
     {
-        if (request.GetElement(MainComparableIndex) == Comparable)
+        if (Equals(request.GetElement(MainComparableIndex), Comparable))
         {
             SubParserHandler?.Handle(request);
         }

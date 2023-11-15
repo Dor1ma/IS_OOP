@@ -12,7 +12,7 @@ public class FileShowHandler : AbstractParserHandler
     private string? _mode;
     public override void Handle(Request request)
     {
-        if (request.GetElement(ComparableIndex) == ComparableCommand)
+        if (Equals(request.GetElement(ComparableIndex), ComparableCommand))
         {
             _path = request.GetElement(PathIndex);
             _mode = request.GetElement(ModeIndex);

@@ -12,7 +12,7 @@ public class ConnectHandler : AbstractParserHandler
     private string? _mode;
     public override void Handle(Request request)
     {
-        if (request.GetElement(CommandIndex) == ToCompare)
+        if (Equals(request.GetElement(CommandIndex), ToCompare))
         {
             _address = request.GetElement(AddressIndex);
             _mode = request.GetElement(ModeIndex);

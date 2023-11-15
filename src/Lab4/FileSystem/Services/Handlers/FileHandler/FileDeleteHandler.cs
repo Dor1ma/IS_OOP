@@ -10,7 +10,7 @@ public class FileDeleteHandler : AbstractParserHandler
     private string? _path;
     public override void Handle(Request request)
     {
-        if (request.GetElement(ComparableIndex) == ComparableCommand)
+        if (Equals(request.GetElement(ComparableIndex), ComparableCommand))
         {
             _path = request.GetElement(PathIndex);
         }
