@@ -9,16 +9,8 @@ public class ConnectCommand : ICommand
         _newValue = newValue;
     }
 
-    public string? Value { get; private set; }
-
     public void Execute(ref string address)
     {
-        Value = address;
-        Update();
-    }
-
-    private void Update()
-    {
-        Value = _newValue;
+        address = _newValue;
     }
 }
