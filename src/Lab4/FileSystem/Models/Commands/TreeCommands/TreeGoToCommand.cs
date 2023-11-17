@@ -1,4 +1,4 @@
-namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Models.Commands.Tree;
+namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Models.Commands.TreeCommands;
 
 public class TreeGoToCommand : ICommand
 {
