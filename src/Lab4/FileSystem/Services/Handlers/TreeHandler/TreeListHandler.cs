@@ -1,4 +1,6 @@
 using Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Entities;
+using Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Models;
+using Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Models.Commands.Tree;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Services.Handlers.TreeHandler;
 
@@ -7,16 +9,20 @@ public class TreeListHandler : AbstractParserHandler
     private const string ComparableCommand = "list";
     private const int ComparableIndex = 1;
     private const int DepthIndex = 3;
-    private string? _depth;
-    public override void Handle(Request request)
+    private int? _depth;
+    private ICommand? _treeListCommand;
+    public override ICommand? Handle(Request request)
     {
         if (request.GetElement(ComparableIndex) == ComparableCommand)
         {
-            _depth = request.GetElement(DepthIndex);
+            string stringDepth = request.GetElement(DepthIndex);
+            _depth = int.Parse(stringDepth, System.Globalization.CultureInfo.InvariantCulture);
+            _treeListCommand = new TreeListCommand((int)_depth);
+            return _treeListCommand;
         }
         else
         {
-            NextParserHandler?.Handle(request);
+            return NextParserHandler?.Handle(request);
         }
     }
 }

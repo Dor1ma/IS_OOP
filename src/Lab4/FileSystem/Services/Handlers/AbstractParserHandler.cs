@@ -1,4 +1,5 @@
 using Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Entities;
+using Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Services.Handlers;
 
@@ -17,5 +18,5 @@ public abstract class AbstractParserHandler : IParserHandler
         }
     }
 
-    public abstract void Handle(Request request);
+    public abstract ICommand? Handle(Request request);
 }

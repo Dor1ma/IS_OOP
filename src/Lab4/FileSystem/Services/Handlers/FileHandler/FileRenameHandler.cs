@@ -1,4 +1,6 @@
 using Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Entities;
+using Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Models;
+using Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Models.Commands.FileCommands;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Services.Handlers.FileHandler;
 
@@ -10,16 +12,19 @@ public class FileRenameHandler : AbstractParserHandler
     private const int NameIndex = 3;
     private string? _path;
     private string? _name;
-    public override void Handle(Request request)
+    private ICommand? _fileRenameCommand;
+    public override ICommand? Handle(Request request)
     {
         if (Equals(request.GetElement(ComparableIndex), ComparableCommand))
         {
             _path = request.GetElement(PathIndex);
             _name = request.GetElement(NameIndex);
+            _fileRenameCommand = new FileRenameCommand(_path, _name);
+            return _fileRenameCommand;
         }
         else
         {
-            NextParserHandler?.Handle(request);
+            return NextParserHandler?.Handle(request);
         }
     }
 }

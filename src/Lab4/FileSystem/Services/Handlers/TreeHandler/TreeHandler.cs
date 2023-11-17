@@ -1,4 +1,5 @@
 using Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Entities;
+using Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Services.Handlers.TreeHandler;
 
@@ -16,15 +17,15 @@ public class TreeHandler : AbstractParserHandler
     }
 
     private IParserHandler SubHandler { get; }
-    public override void Handle(Request request)
+    public override ICommand? Handle(Request request)
     {
         if (request.GetElement(CommandIndex) == Comparable)
         {
-            SubHandler.Handle(request);
+            return SubHandler.Handle(request);
         }
         else
         {
-            NextParserHandler?.Handle(request);
+            return NextParserHandler?.Handle(request);
         }
     }
 }

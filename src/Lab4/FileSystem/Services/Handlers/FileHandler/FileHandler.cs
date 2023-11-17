@@ -1,4 +1,5 @@
 using Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Entities;
+using Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Services.Handlers.FileHandler;
 
@@ -22,15 +23,15 @@ public class FileHandler : AbstractParserHandler
     }
 
     private IParserHandler? SubParserHandler { get; }
-    public override void Handle(Request request)
+    public override ICommand? Handle(Request request)
     {
         if (Equals(request.GetElement(MainComparableIndex), Comparable))
         {
-            SubParserHandler?.Handle(request);
+            return SubParserHandler?.Handle(request);
         }
         else
         {
-            NextParserHandler?.Handle(request);
+            return NextParserHandler?.Handle(request);
         }
     }
 }
