@@ -1,6 +1,6 @@
 using Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Entities;
 using Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Models;
-using Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Models.Commands.Tree;
+using Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Models.Commands.TreeCommands;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Services.Handlers.TreeHandler;
 

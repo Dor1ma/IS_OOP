@@ -2,11 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Models.Commands.Tree;
+namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Models.Commands.TreeCommands;
 
 public class TreeListCommand : ICommand
 {
     private readonly int _depth;
+    private string? _address;
 
     public TreeListCommand(int depth)
     {
@@ -15,69 +16,33 @@ public class TreeListCommand : ICommand
 
     public void Execute(ref string address)
     {
-        Walk(address, _depth);
+        _address = address;
+        Walk();
     }
 
-    private static void Walk(string root, int depth)
+    private void Walk()
     {
-        var dirs = new Stack<string>(depth);
-        if (!Directory.Exists(root))
+        try
         {
-            Console.WriteLine("Non-existent directory");
+            if (_address != null)
+            {
+                var dirs = new List<string>(Directory.EnumerateDirectories(_address));
+
+                foreach (string dir in dirs)
+                {
+                    Console.WriteLine($"{dir.Substring(dir.LastIndexOf(Path.DirectorySeparatorChar) + 1)}");
+                }
+
+                Console.WriteLine($"{dirs.Count} Amount of directories.");
+            }
         }
-
-        dirs.Push(root);
-        while (dirs.Count > 0)
+        catch (UnauthorizedAccessException ex)
         {
-            string currentDir = dirs.Pop();
-            List<string> subDirs;
-            try
-            {
-                subDirs = new List<string>(Directory.GetDirectories(currentDir));
-            }
-            catch (UnauthorizedAccessException e)
-            {
-                Console.WriteLine(e.Message);
-                continue;
-            }
-            catch (DirectoryNotFoundException e)
-            {
-                Console.WriteLine(e.Message);
-                continue;
-            }
-
-            List<string> files;
-            try
-            {
-                files = new List<string>(Directory.GetFiles(currentDir));
-            }
-            catch (UnauthorizedAccessException e)
-            {
-                Console.WriteLine(e.Message);
-                continue;
-            }
-            catch (DirectoryNotFoundException e)
-            {
-                Console.WriteLine(e.Message);
-                continue;
-            }
-
-            foreach (string file in files)
-            {
-                try
-                {
-                    var fileInfo = new FileInfo(file);
-                    Console.WriteLine("{0}: {1}, {2}", fileInfo.Name, fileInfo.Length, fileInfo.CreationTime);
-                }
-                catch (FileNotFoundException e)
-                {
-                    Console.WriteLine(e.Message);
-                    continue;
-                }
-            }
-
-            foreach (string str in subDirs)
-                dirs.Push(str);
+            Console.WriteLine(ex.Message);
+        }
+        catch (PathTooLongException ex)
+        {
+            Console.WriteLine(ex.Message);
         }
     }
 }

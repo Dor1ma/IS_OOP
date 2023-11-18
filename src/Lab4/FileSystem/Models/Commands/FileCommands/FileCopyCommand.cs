@@ -18,7 +18,7 @@ public class FileCopyCommand : ICommand
         string sourceFullPath = Path.Combine(address, _sourcePath);
         string destinationFullPath = Path.Combine(address, _destinationPath);
 
-        if (File.Exists(sourceFullPath) && File.Exists(destinationFullPath))
+        if (File.Exists(sourceFullPath))
         {
             File.Copy(sourceFullPath, destinationFullPath);
         }

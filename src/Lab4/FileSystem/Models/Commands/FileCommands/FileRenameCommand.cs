@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Models.Commands.FileCommands;
@@ -15,17 +16,9 @@ public class FileRenameCommand : ICommand
 
     public void Execute(ref string address)
     {
-        string fullPath = Path.Combine(address, _path + _name);
+        string pathforFile = Path.Combine(address, _path);
+        string destinationDirectory = pathforFile.Replace(Path.GetFileNameWithoutExtension(pathforFile), _name, StringComparison.Ordinal);
 
-        if (File.Exists(fullPath))
-        {
-            int copyCount = 1;
-            while (File.Exists(fullPath))
-            {
-                string newName = fullPath + "copy" + copyCount;
-                File.Move(fullPath, newName);
-                fullPath = newName;
-            }
-        }
+        File.Move(pathforFile, destinationDirectory);
     }
 }
