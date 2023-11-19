@@ -17,6 +17,6 @@ public class TreeListCommand : ICommand
 
     public void Execute(ref string address)
     {
-        _concreteStrategy?.TreeList(ref address, _depth);
+        _concreteStrategy?.TreeList(ref address, _depth, string.Empty);
     }
 }

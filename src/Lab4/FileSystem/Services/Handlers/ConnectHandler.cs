@@ -7,7 +7,6 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Services.Handlers;
 public class ConnectHandler : AbstractParserHandler
 {
     private const string ToCompare = "connect";
-    private const string ModeValue = "local";
     private const int CommandIndex = 0;
     private const int AddressIndex = 1;
     private const int ModeIndex = 3;
@@ -17,18 +16,13 @@ public class ConnectHandler : AbstractParserHandler
     {
         if (Equals(request.GetElement(CommandIndex), ToCompare))
         {
-            _connectCommand = new ConnectCommand(request.GetElement(AddressIndex));
             _mode = request.GetElement(ModeIndex);
-            if (Equals(_mode, ModeValue))
-            {
-                return _connectCommand;
-            }
+            _connectCommand = new ConnectCommand(request.GetElement(AddressIndex), _mode);
+            return _connectCommand;
         }
         else
         {
             return NextParserHandler?.Handle(request);
         }
-
-        return null;
     }
 }

@@ -23,26 +23,27 @@ public class LocalStrategy : IStrategy
         address = path;
     }
 
-    public void TreeList(ref string address, int depth)
+    public void TreeList(ref string address, int depth, string indent)
     {
-        try
+        if (depth < 0)
         {
-            var dirs = new List<string>(Directory.EnumerateDirectories(address));
-
-            foreach (string dir in dirs)
-            {
-                Console.WriteLine($"{dir.Substring(dir.LastIndexOf(Path.DirectorySeparatorChar) + 1)}");
-            }
-
-            Console.WriteLine($"{dirs.Count} Amount of directories.");
+            return;
         }
-        catch (UnauthorizedAccessException ex)
+
+        var files = new List<string>(Directory.GetFiles(address));
+
+        foreach (string file in files)
         {
-            Console.WriteLine(ex.Message);
+            Console.WriteLine($"{indent}// {Path.GetFileName(file)}");
         }
-        catch (PathTooLongException ex)
+
+        var subDirectories = new List<string>(Directory.GetDirectories(address));
+
+        foreach (string directory in subDirectories)
         {
-            Console.WriteLine(ex.Message);
+            Console.WriteLine($"{indent}$ {Path.GetFileName(directory)}");
+            string refDirectory = directory;
+            TreeList(ref refDirectory, depth - 1, indent + "--- ");
         }
     }
 
@@ -86,11 +87,17 @@ public class LocalStrategy : IStrategy
 
     public void FileShow(ref string address, string path, string mode)
     {
-        string fullPath = Path.Combine(address, path);
-
-        if (File.Exists(fullPath))
+        const string consoleMode = "console";
+        IPrintMethod printMethod;
+        if (mode == consoleMode)
         {
-            Console.WriteLine($"Showing info of file {fullPath} in mode {mode}");
+            printMethod = new ConsolePrintMethod();
+            string fullPath = Path.Combine(address, path);
+
+            if (File.Exists(fullPath))
+            {
+                printMethod.PrintText($"Showing info of file {fullPath} in mode {mode}");
+            }
         }
     }
 }

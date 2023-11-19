@@ -5,11 +5,13 @@ public class ConnectCommand : ICommand
     private readonly string _newValue;
     private IStrategy? _concreteStrategy;
 
-    public ConnectCommand(string newValue)
+    public ConnectCommand(string newValue, string mode)
     {
         _newValue = newValue;
+        Mode = mode;
     }
 
+    public string Mode { get; private set; }
     public void SetUpStrategy(IStrategy strategy)
     {
         _concreteStrategy = strategy;
