@@ -123,7 +123,7 @@ public class MainTests
             {
                 Address,
                 Mode,
-                new ConnectCommand(Address),
+                new ConnectCommand(Address, Mode),
             };
         }
 
