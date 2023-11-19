@@ -9,6 +9,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Entities;
 
 public class ConsoleApplication : IEntryPoint
 {
+    // private IStrategy? _strategy;
     public void Start()
     {
         var connectHandler = new ConnectHandler();
@@ -27,6 +28,11 @@ public class ConsoleApplication : IEntryPoint
             {
                 var request = new Request(stringRequest);
                 ICommand? command = connectHandler.Handle(request);
+
+                /*if (command is ConnectCommand)
+                {
+                    var connectCommand = (ConnectCommand)command;
+                }*/
 
                 if (command is null)
                 {

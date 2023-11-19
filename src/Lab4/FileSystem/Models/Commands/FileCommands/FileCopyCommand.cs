@@ -1,11 +1,10 @@
-using System.IO;
-
 namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Models.Commands.FileCommands;
 
 public class FileCopyCommand : ICommand
 {
     private readonly string _sourcePath;
     private readonly string _destinationPath;
+    private IStrategy? _concreteStrategy;
 
     public FileCopyCommand(string sourcePath, string destinationPath)
     {
@@ -13,14 +12,13 @@ public class FileCopyCommand : ICommand
         _destinationPath = destinationPath;
     }
 
+    public void SetUpStrategy(IStrategy strategy)
+    {
+        _concreteStrategy = strategy;
+    }
+
     public void Execute(ref string address)
     {
-        string sourceFullPath = Path.Combine(address, _sourcePath);
-        string destinationFullPath = Path.Combine(address, _destinationPath);
-
-        if (File.Exists(sourceFullPath))
-        {
-            File.Copy(sourceFullPath, destinationFullPath);
-        }
+        _concreteStrategy?.FileCopy(ref address, _sourcePath, _destinationPath);
     }
 }
