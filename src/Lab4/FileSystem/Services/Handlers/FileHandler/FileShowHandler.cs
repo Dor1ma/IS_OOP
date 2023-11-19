@@ -13,7 +13,7 @@ public class FileShowHandler : AbstractParserHandler
     private string? _path;
     private string? _mode;
     private ICommand? _fileShowCommand;
-    public override ICommand? Handle(Request request)
+    public override ICommand? Handle(ConsoleRequest request)
     {
         if (Equals(request.GetElement(ComparableIndex), ComparableCommand))
         {

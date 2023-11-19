@@ -12,7 +12,7 @@ public class ConnectHandler : AbstractParserHandler
     private const int ModeIndex = 3;
     private string? _mode;
     private ICommand? _connectCommand;
-    public override ICommand? Handle(Request request)
+    public override ICommand? Handle(ConsoleRequest request)
     {
         if (Equals(request.GetElement(CommandIndex), ToCompare))
         {

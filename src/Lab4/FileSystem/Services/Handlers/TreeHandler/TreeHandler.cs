@@ -17,7 +17,7 @@ public class TreeHandler : AbstractParserHandler
     }
 
     private IParserHandler SubHandler { get; }
-    public override ICommand? Handle(Request request)
+    public override ICommand? Handle(ConsoleRequest request)
     {
         if (request.GetElement(CommandIndex) == Comparable)
         {

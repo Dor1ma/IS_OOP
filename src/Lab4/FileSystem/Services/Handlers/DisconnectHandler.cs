@@ -9,7 +9,7 @@ public class DisconnectHandler : AbstractParserHandler
     private const string Comparable = "disconnect";
     private const int CommandIndex = 0;
     private readonly ICommand _disconnectCommand = new DisconnectCommand();
-    public override ICommand? Handle(Request request)
+    public override ICommand? Handle(ConsoleRequest request)
     {
         if (Equals(request.GetElement(CommandIndex), Comparable))
         {

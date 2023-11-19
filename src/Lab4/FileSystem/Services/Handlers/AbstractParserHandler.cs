@@ -18,5 +18,5 @@ public abstract class AbstractParserHandler : IParserHandler
         }
     }
 
-    public abstract ICommand? Handle(Request request);
+    public abstract ICommand? Handle(ConsoleRequest request);
 }

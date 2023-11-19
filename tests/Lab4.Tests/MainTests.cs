@@ -27,7 +27,7 @@ public class MainTests
         treeHandler.SetNext(fileHandler);
         connectHandler.SetNext(disconnectHandler);
         string stringRequest = "connect " + address + " -m " + mode;
-        var request = new Request(stringRequest);
+        var request = new ConsoleRequest(stringRequest);
 
         ICommand? command = connectHandler.Handle(request);
         var concreteCommand = (ConnectCommand?)command;
@@ -55,8 +55,8 @@ public class MainTests
         connectHandler.SetNext(disconnectHandler);
         string firstStringRequest = "connect C:\\ -m local";
         string secondStringRequest = "file move Temp/Temp2/test.txt Temp/Temp3";
-        var request = new Request(firstStringRequest);
-        var secondRequest = new Request(secondStringRequest);
+        var request = new ConsoleRequest(firstStringRequest);
+        var secondRequest = new ConsoleRequest(secondStringRequest);
 
         connectHandler.Handle(request);
         var command = (FileMoveCommand?)connectHandler.Handle(secondRequest);
@@ -89,8 +89,8 @@ public class MainTests
         connectHandler.SetNext(disconnectHandler);
         string firstStringRequest = "connect C:\\ -m local";
         string secondStringRequest = "file copy Temp/Temp2/test.txt Temp/Temp3";
-        var request = new Request(firstStringRequest);
-        var secondRequest = new Request(secondStringRequest);
+        var request = new ConsoleRequest(firstStringRequest);
+        var secondRequest = new ConsoleRequest(secondStringRequest);
 
         connectHandler.Handle(request);
         var command = (FileCopyCommand?)connectHandler.Handle(secondRequest);

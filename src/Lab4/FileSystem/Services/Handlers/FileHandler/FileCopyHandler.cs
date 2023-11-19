@@ -13,7 +13,7 @@ public class FileCopyHandler : AbstractParserHandler
     private string? _sourcePath;
     private string? _destinationPath;
     private ICommand? _fileCopyCommand;
-    public override ICommand? Handle(Request request)
+    public override ICommand? Handle(ConsoleRequest request)
     {
         if (Equals(request.GetElement(ComparableIndex), ComparableCommand))
         {

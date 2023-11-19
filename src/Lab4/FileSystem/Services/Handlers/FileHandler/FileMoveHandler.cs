@@ -13,7 +13,7 @@ public class FileMoveHandler : AbstractParserHandler
     private string? _sourcePath;
     private string? _destinationPath;
     private ICommand? _fileMoveCommand;
-    public override ICommand? Handle(Request request)
+    public override ICommand? Handle(ConsoleRequest request)
     {
         if (Equals(request.GetElement(ComparableIndex), ComparableCommand))
         {

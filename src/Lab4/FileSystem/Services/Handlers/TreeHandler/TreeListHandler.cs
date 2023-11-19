@@ -11,7 +11,7 @@ public class TreeListHandler : AbstractParserHandler
     private const int DepthIndex = 3;
     private int? _depth;
     private ICommand? _treeListCommand;
-    public override ICommand? Handle(Request request)
+    public override ICommand? Handle(ConsoleRequest request)
     {
         if (request.GetElement(ComparableIndex) == ComparableCommand)
         {

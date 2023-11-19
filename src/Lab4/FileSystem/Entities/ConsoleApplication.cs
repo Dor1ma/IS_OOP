@@ -27,7 +27,7 @@ public class ConsoleApplication : IEntryPoint
             string? stringRequest = Console.ReadLine();
             if (stringRequest is not null)
             {
-                var request = new Request(stringRequest);
+                var request = new ConsoleRequest(stringRequest);
                 ICommand? command = connectHandler.Handle(request);
 
                 if (command is ConnectCommand)

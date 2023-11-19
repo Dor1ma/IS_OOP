@@ -23,7 +23,7 @@ public class FileHandler : AbstractParserHandler
     }
 
     private IParserHandler? SubParserHandler { get; }
-    public override ICommand? Handle(Request request)
+    public override ICommand? Handle(ConsoleRequest request)
     {
         if (Equals(request.GetElement(MainComparableIndex), Comparable))
         {

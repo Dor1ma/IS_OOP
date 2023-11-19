@@ -2,11 +2,11 @@ using System.Collections.Generic;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Entities;
 
-public class Request
+public class ConsoleRequest : IRequest
 {
     private readonly IList<string> _request;
 
-    public Request(string request)
+    public ConsoleRequest(string request)
     {
         _request = request.Split(' ');
     }

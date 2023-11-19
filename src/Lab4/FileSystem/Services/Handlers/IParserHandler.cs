@@ -6,5 +6,5 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Services.Handlers;
 public interface IParserHandler
 {
     void SetNext(IParserHandler handler);
-    ICommand? Handle(Request request);
+    ICommand? Handle(ConsoleRequest request);
 }

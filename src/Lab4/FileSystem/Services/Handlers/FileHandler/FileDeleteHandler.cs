@@ -11,7 +11,7 @@ public class FileDeleteHandler : AbstractParserHandler
     private const int PathIndex = 2;
     private string? _path;
     private ICommand? _fileDeleteCommand;
-    public override ICommand? Handle(Request request)
+    public override ICommand? Handle(ConsoleRequest request)
     {
         if (Equals(request.GetElement(ComparableIndex), ComparableCommand))
         {

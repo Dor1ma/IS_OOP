@@ -11,7 +11,7 @@ public class TreeGoToHandler : AbstractParserHandler
     private const int PathIndex = 2;
     private string? _path;
     private ICommand? _treeGoToCommand;
-    public override ICommand? Handle(Request request)
+    public override ICommand? Handle(ConsoleRequest request)
     {
         if (request.GetElement(ComparableIndex) == ComparableCommand)
         {
