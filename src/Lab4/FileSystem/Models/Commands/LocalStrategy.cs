@@ -96,7 +96,11 @@ public class LocalStrategy : IStrategy
 
             if (File.Exists(fullPath))
             {
-                printMethod.PrintText($"Showing info of file {fullPath} in mode {mode}");
+                var readText = new List<string>(File.ReadAllLines(fullPath));
+                foreach (string s in readText)
+                {
+                    printMethod.PrintText(s);
+                }
             }
         }
     }
