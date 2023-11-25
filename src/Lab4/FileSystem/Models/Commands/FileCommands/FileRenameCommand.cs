@@ -4,7 +4,6 @@ public class FileRenameCommand : ICommand
 {
     private readonly string _path;
     private readonly string _name;
-    private IStrategy? _concreteStrategy;
 
     public FileRenameCommand(string path, string name)
     {
@@ -14,7 +13,6 @@ public class FileRenameCommand : ICommand
 
     public void Execute(ref string address, IStrategy strategy)
     {
-        _concreteStrategy = strategy;
-        _concreteStrategy?.FileRename(ref address, _path, _name);
+        strategy.FileRename(ref address, _path, _name);
     }
 }

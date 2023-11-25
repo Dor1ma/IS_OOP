@@ -6,6 +6,7 @@ public class DisconnectCommand : ICommand
 
     public void Execute(ref string address, IStrategy strategy)
     {
+        strategy.Disconnect(ref address);
         _concreteStrategy = strategy;
         _concreteStrategy?.Disconnect(ref address);
     }

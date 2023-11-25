@@ -4,7 +4,6 @@ public class FileShowCommand : ICommand
 {
     private readonly string _path;
     private readonly string _mode;
-    private IStrategy? _concreteStrategy;
 
     public FileShowCommand(string path, string mode)
     {
@@ -14,7 +13,6 @@ public class FileShowCommand : ICommand
 
     public void Execute(ref string address, IStrategy strategy)
     {
-        _concreteStrategy = strategy;
-        _concreteStrategy?.FileShow(ref address, _path, _mode);
+        strategy.FileShow(ref address, _path, _mode);
     }
 }

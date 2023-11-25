@@ -4,7 +4,6 @@ public class FileMoveCommand : ICommand
 {
     private readonly string _sourcePath;
     private readonly string _destinationPath;
-    private IStrategy? _concreteStrategy;
 
     public FileMoveCommand(string sourcePath, string destinationPath)
     {
@@ -14,7 +13,6 @@ public class FileMoveCommand : ICommand
 
     public void Execute(ref string address, IStrategy strategy)
     {
-        _concreteStrategy = strategy;
-        _concreteStrategy?.FileMove(ref address, _sourcePath, _destinationPath);
+        strategy.FileMove(ref address, _sourcePath, _destinationPath);
     }
 }

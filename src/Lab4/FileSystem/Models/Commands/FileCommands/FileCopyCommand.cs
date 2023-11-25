@@ -4,7 +4,6 @@ public class FileCopyCommand : ICommand
 {
     private readonly string _sourcePath;
     private readonly string _destinationPath;
-    private IStrategy? _concreteStrategy;
 
     public FileCopyCommand(string sourcePath, string destinationPath)
     {
@@ -14,7 +13,6 @@ public class FileCopyCommand : ICommand
 
     public void Execute(ref string address, IStrategy strategy)
     {
-        _concreteStrategy = strategy;
-        _concreteStrategy?.FileCopy(ref address, _sourcePath, _destinationPath);
+        strategy.FileCopy(ref address, _sourcePath, _destinationPath);
     }
 }
