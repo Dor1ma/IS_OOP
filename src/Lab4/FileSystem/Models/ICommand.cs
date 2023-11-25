@@ -4,6 +4,5 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Models;
 
 public interface ICommand
 {
-    void SetUpStrategy(IStrategy strategy);
-    void Execute(ref string address);
+    void Execute(ref string address, IStrategy strategy);
 }

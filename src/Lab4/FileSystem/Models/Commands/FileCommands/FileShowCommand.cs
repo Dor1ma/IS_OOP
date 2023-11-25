@@ -12,13 +12,9 @@ public class FileShowCommand : ICommand
         _mode = mode;
     }
 
-    public void SetUpStrategy(IStrategy strategy)
+    public void Execute(ref string address, IStrategy strategy)
     {
         _concreteStrategy = strategy;
-    }
-
-    public void Execute(ref string address)
-    {
         _concreteStrategy?.FileShow(ref address, _path, _mode);
     }
 }

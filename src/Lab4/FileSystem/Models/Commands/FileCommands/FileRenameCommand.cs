@@ -12,13 +12,9 @@ public class FileRenameCommand : ICommand
         _name = name;
     }
 
-    public void SetUpStrategy(IStrategy strategy)
+    public void Execute(ref string address, IStrategy strategy)
     {
         _concreteStrategy = strategy;
-    }
-
-    public void Execute(ref string address)
-    {
         _concreteStrategy?.FileRename(ref address, _path, _name);
     }
 }

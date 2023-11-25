@@ -9,7 +9,6 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystem.Entities;
 
 public class ConsoleApplication : IEntryPoint
 {
-    private const string Mode = "local";
     private IStrategy? _strategy;
     public void Start()
     {
@@ -33,10 +32,7 @@ public class ConsoleApplication : IEntryPoint
                 if (command is ConnectCommand)
                 {
                     var connectCommand = (ConnectCommand)command;
-                    if (connectCommand.Mode == Mode)
-                    {
-                        _strategy = new LocalStrategy();
-                    }
+                    _strategy = connectCommand.Strategy;
                 }
 
                 if (command is null)
@@ -51,8 +47,7 @@ public class ConsoleApplication : IEntryPoint
 
                 if (_strategy is not null)
                 {
-                    command?.SetUpStrategy(_strategy);
-                    command?.Execute(ref address);
+                    command?.Execute(ref address, _strategy);
                 }
             }
         }
