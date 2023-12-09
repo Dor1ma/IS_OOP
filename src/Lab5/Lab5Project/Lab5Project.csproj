@@ -7,4 +7,15 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Itmo.Dev.Platform.Postgres" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+      <PackageReference Include="Npgsql" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Lab5Project.Application\Lab5Project.Application.csproj" />
+      <ProjectReference Include="..\Lab5Project.Infrastructure\Lab5Project.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>

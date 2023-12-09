@@ -7,10 +7,4 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <ItemGroup>
-      <PackageReference Include="Itmo.Dev.Platform.Postgres" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
-      <PackageReference Include="Npgsql" />
-    </ItemGroup>
-
 </Project>

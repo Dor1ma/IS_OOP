@@ -8,9 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Itmo.Dev.Platform.Postgres" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
-      <PackageReference Include="Npgsql" />
+      <ProjectReference Include="..\Lab5Project.Application.Models\Lab5Project.Application.Models.csproj" />
     </ItemGroup>
 
 </Project>
