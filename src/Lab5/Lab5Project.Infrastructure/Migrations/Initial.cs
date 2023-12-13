@@ -18,7 +18,7 @@ public class Initial : SqlMigration
     (
         account_number bigint primary key generated always as identity ,
         username text not null ,
-        pin bigint not null ,
+        pin int not null ,
         amount numeric not null
     );
 

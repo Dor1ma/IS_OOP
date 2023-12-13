@@ -18,12 +18,12 @@ public class UsersRepository : IUsersRepository
         _connectionProvider = connectionProvider;
     }
 
-    public User? GetUserAccountAmountByPin(string userName, int pin)
+    public User? GetUserAccount(string username, int pin)
     {
         const string sql = """
                            select account_number, username, pin, amount
                            from users
-                           where username = :userName and pin = :pin;
+                           where username = :user_name and pin = :pin;
                            """;
 
         using NpgsqlConnection connection = Task
@@ -32,7 +32,7 @@ public class UsersRepository : IUsersRepository
             .GetResult();
 
         using var command = new NpgsqlCommand(sql, connection);
-        command.Parameters.AddWithValue("username", userName);
+        command.Parameters.AddWithValue("user_name", username);
         command.Parameters.AddWithValue("pin", pin);
 
         using NpgsqlDataReader reader = command.ExecuteReader();
@@ -45,11 +45,38 @@ public class UsersRepository : IUsersRepository
         return new User(
             AccountNumber: reader.GetInt64(FirstIndex),
             Username: reader.GetString(SecondIndex),
-            Pin: reader.GetInt64(ThirdIndex),
+            Pin: reader.GetInt16(ThirdIndex),
             Amount: reader.GetDecimal(FourthIndex));
     }
 
-    public void CreateUserAccount(User user)
+    public decimal? GetUserAccountAmountByPin(long accountNumber, int pin)
+    {
+        const string sql = """
+                           select amount
+                           from users
+                           where account_number = :account_number and pin = :pin;
+                           """;
+
+        using NpgsqlConnection connection = Task
+            .Run(async () =>
+                await _connectionProvider.GetConnectionAsync(default).ConfigureAwait(false)).GetAwaiter()
+            .GetResult();
+
+        using var command = new NpgsqlCommand(sql, connection);
+        command.Parameters.AddWithValue("account_number", accountNumber);
+        command.Parameters.AddWithValue("pin", pin);
+
+        using NpgsqlDataReader reader = command.ExecuteReader();
+
+        if (reader.Read() is false)
+        {
+            return null;
+        }
+
+        return reader.GetDecimal(FirstIndex);
+    }
+
+    public void CreateUserAccount(string username, int pin)
     {
         const string sql = """
                            INSERT INTO users (username, pin, amount)
@@ -61,9 +88,8 @@ public class UsersRepository : IUsersRepository
             .GetResult();
 
         using var command = new NpgsqlCommand(sql, connection);
-        command.Parameters.AddWithValue("username", user.Username);
-        command.Parameters.AddWithValue("pin", user.Pin);
-        command.Parameters.AddWithValue("amount", user.Amount);
+        command.Parameters.AddWithValue("username", username);
+        command.Parameters.AddWithValue("pin", pin);
         command.ExecuteReader();
     }
 
