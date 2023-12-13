@@ -8,6 +8,12 @@ public class Initial : SqlMigration
 {
     protected override string GetUpSql(IServiceProvider serviceProvider) =>
     """
+    create type operation_type as enum
+    (
+        'Increase',
+        'Decrease'
+    );
+    
     create table users
     (
         account_number bigint primary key generated always as identity ,
@@ -23,11 +29,11 @@ public class Initial : SqlMigration
         password text not null
     );
 
-    create table operarations_history
+    create table operations_history
     (
         operation_number bigint primary key generated always as identity ,
-        account_number text not null ,
-        opeation_type text not null ,
+        account_number bigint not null ,
+        operation_type operation_type not null ,
         value numeric not null
     );
     """;

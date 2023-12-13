@@ -18,32 +18,6 @@ public class UsersRepository : IUsersRepository
         _connectionProvider = connectionProvider;
     }
 
-    public IEnumerable<User> GetAllUsers()
-    {
-        const string sql = """
-                           select account_number, user_name, pin, amount
-                           from users
-                           """;
-
-        using NpgsqlConnection connection = Task
-            .Run(async () =>
-                await _connectionProvider.GetConnectionAsync(default).ConfigureAwait(false)).GetAwaiter()
-            .GetResult();
-
-        using var command = new NpgsqlCommand(sql, connection);
-
-        using NpgsqlDataReader reader = command.ExecuteReader();
-
-        while (reader.Read())
-        {
-            yield return new User(
-                reader.GetInt64(0),
-                reader.GetString(1),
-                reader.GetInt64(2),
-                reader.GetDecimal(3));
-        }
-    }
-
     public User? GetUserAccountAmountByPin(string userName, int pin)
     {
         const string sql = """
@@ -62,16 +36,17 @@ public class UsersRepository : IUsersRepository
         command.Parameters.AddWithValue("pin", pin);
 
         using NpgsqlDataReader reader = command.ExecuteReader();
-        if (reader.Read())
+
+        if (reader.Read() is false)
         {
-            return new User(
-                reader.GetInt64(FirstIndex),
-                reader.GetString(SecondIndex),
-                reader.GetInt64(ThirdIndex),
-                reader.GetDecimal(FourthIndex));
+            return null;
         }
 
-        return null;
+        return new User(
+            AccountNumber: reader.GetInt64(FirstIndex),
+            Username: reader.GetString(SecondIndex),
+            Pin: reader.GetInt64(ThirdIndex),
+            Amount: reader.GetDecimal(FourthIndex));
     }
 
     public void CreateUserAccount(User user)
