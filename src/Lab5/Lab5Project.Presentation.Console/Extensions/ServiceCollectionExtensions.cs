@@ -1,6 +1,7 @@
 using Lab5Project.Presentation.Console.Scenarios.Admin.Login;
 using Lab5Project.Presentation.Console.Scenarios.User.CreateAccount;
 using Lab5Project.Presentation.Console.Scenarios.User.Login;
+using Lab5Project.Presentation.Console.Scenarios.User.OperationsHistory;
 using Lab5Project.Presentation.Console.Scenarios.User.Replenishment;
 using Lab5Project.Presentation.Console.Scenarios.User.ShowBalance;
 using Lab5Project.Presentation.Console.Scenarios.User.Withdrawal;
@@ -21,6 +22,7 @@ public static class ServiceCollectionExtensions
         collection.AddScoped<IScenarioProvider, ReplenishmentScenarioProvider>();
         collection.AddScoped<IScenarioProvider, WithdrawalScenarioProvider>();
         collection.AddScoped<IScenarioProvider, ShowBalanceScenarioProvider>();
+        collection.AddScoped<IScenarioProvider, OperationsHistoryScenarioProvider>();
 
         return collection;
     }

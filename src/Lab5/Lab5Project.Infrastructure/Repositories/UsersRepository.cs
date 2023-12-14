@@ -26,10 +26,15 @@ public class UsersRepository : IUsersRepository
                            where username = @user_name and pin = @pin;
                            """;
 
-        using NpgsqlConnection connection = Task
-            .Run(async () =>
-                await _connectionProvider.GetConnectionAsync(default).ConfigureAwait(false)).GetAwaiter()
-            .GetResult();
+        using var connection = new NpgsqlConnection(new NpgsqlConnectionStringBuilder
+        {
+            Host = "localhost",
+            Port = 6432,
+            Username = "postgres",
+            Password = "postgres",
+            SslMode = SslMode.Prefer,
+        }.ConnectionString);
+        connection.Open();
 
         using var command = new NpgsqlCommand(sql, connection);
         command.Parameters.AddWithValue("user_name", username);
@@ -57,10 +62,15 @@ public class UsersRepository : IUsersRepository
                            where account_number = @account_number and pin = @pin;
                            """;
 
-        using NpgsqlConnection connection = Task
-            .Run(async () =>
-                await _connectionProvider.GetConnectionAsync(default).ConfigureAwait(false)).GetAwaiter()
-            .GetResult();
+        using var connection = new NpgsqlConnection(new NpgsqlConnectionStringBuilder
+        {
+            Host = "localhost",
+            Port = 6432,
+            Username = "postgres",
+            Password = "postgres",
+            SslMode = SslMode.Prefer,
+        }.ConnectionString);
+        connection.Open();
 
         using var command = new NpgsqlCommand(sql, connection);
         command.Parameters.AddWithValue("account_number", accountNumber);
@@ -82,16 +92,21 @@ public class UsersRepository : IUsersRepository
                            INSERT INTO users (username, pin, amount)
                            VALUES (@username, @pin, @amount);
                            """;
-        using NpgsqlConnection connection = Task
-            .Run(async () =>
-                await _connectionProvider.GetConnectionAsync(default).ConfigureAwait(false)).GetAwaiter()
-            .GetResult();
+        using var connection = new NpgsqlConnection(new NpgsqlConnectionStringBuilder
+        {
+            Host = "localhost",
+            Port = 6432,
+            Username = "postgres",
+            Password = "postgres",
+            SslMode = SslMode.Prefer,
+        }.ConnectionString);
+        connection.Open();
 
         using var command = new NpgsqlCommand(sql, connection);
         command.Parameters.AddWithValue("username", username);
         command.Parameters.AddWithValue("pin", pin);
         command.Parameters.AddWithValue("amount", 0);
-        command.ExecuteReader();
+        command.ExecuteNonQuery();
     }
 
     public void DecreaseAccountAmountByPin(long accountNumber, int pin, decimal amount)
@@ -101,16 +116,22 @@ public class UsersRepository : IUsersRepository
                            SET amount = amount - @amount
                            WHERE account_number = @accountNumber AND pin = @pin;
                            """;
-        using NpgsqlConnection connection = Task
-            .Run(async () =>
-                await _connectionProvider.GetConnectionAsync(default).ConfigureAwait(false)).GetAwaiter()
-            .GetResult();
+
+        using var connection = new NpgsqlConnection(new NpgsqlConnectionStringBuilder
+        {
+            Host = "localhost",
+            Port = 6432,
+            Username = "postgres",
+            Password = "postgres",
+            SslMode = SslMode.Prefer,
+        }.ConnectionString);
+        connection.Open();
 
         using var command = new NpgsqlCommand(sql, connection);
-        command.Parameters.AddWithValue("account_number", accountNumber);
-        command.Parameters.AddWithValue("pin", pin);
-        command.Parameters.AddWithValue("amount", amount);
-        command.ExecuteReader();
+        command.Parameters.AddWithValue("@accountNumber", accountNumber);
+        command.Parameters.AddWithValue("@pin", pin);
+        command.Parameters.AddWithValue("@amount", amount);
+        command.ExecuteNonQuery();
     }
 
     public void IncreaseAccountAmountByPin(long accountNumber, int pin, decimal amount)
@@ -120,19 +141,21 @@ public class UsersRepository : IUsersRepository
                            SET amount = amount + @amount
                            WHERE account_number = @accountNumber AND pin = @pin;
                            """;
-        NpgsqlConnection connection = Task
-            .Run(async () =>
-                await _connectionProvider.GetConnectionAsync(default).ConfigureAwait(false)).GetAwaiter()
-            .GetResult();
 
+        using var connection = new NpgsqlConnection(new NpgsqlConnectionStringBuilder
+        {
+            Host = "localhost",
+            Port = 6432,
+            Username = "postgres",
+            Password = "postgres",
+            SslMode = SslMode.Prefer,
+        }.ConnectionString);
         connection.Open();
 
         using var command = new NpgsqlCommand(sql, connection);
-        command.Parameters.AddWithValue("account_number", accountNumber);
-        command.Parameters.AddWithValue("pin", pin);
-        command.Parameters.AddWithValue("amount", amount);
-        command.ExecuteReader();
-
-        connection.Close();
+        command.Parameters.AddWithValue("@accountNumber", accountNumber);
+        command.Parameters.AddWithValue("@pin", pin);
+        command.Parameters.AddWithValue("@amount", amount);
+        command.ExecuteNonQuery();
     }
 }

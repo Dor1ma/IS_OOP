@@ -24,10 +24,15 @@ public class AdminsRepository : IAdminsRepository
                            where admin_name = :name and password = :password;
                            """;
 
-        using NpgsqlConnection connection = Task
-            .Run(async () =>
-                await _connectionProvider.GetConnectionAsync(default).ConfigureAwait(false)).GetAwaiter()
-            .GetResult();
+        using var connection = new NpgsqlConnection(new NpgsqlConnectionStringBuilder
+        {
+            Host = "localhost",
+            Port = 6432,
+            Username = "postgres",
+            Password = "postgres",
+            SslMode = SslMode.Prefer,
+        }.ConnectionString);
+        connection.Open();
 
         using var command = new NpgsqlCommand(sql, connection);
         command.Parameters.AddWithValue("admin_name", name);

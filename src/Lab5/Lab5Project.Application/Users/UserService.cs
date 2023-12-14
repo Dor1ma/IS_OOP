@@ -60,6 +60,8 @@ internal class UserService : IUserService
 
         _repository.DecreaseAccountAmountByPin(
             _currentUserManager.User.AccountNumber, _currentUserManager.User.Pin, decreaseValue);
+        _operationsHistoryRepository.AddNewDecreaseOperationData(
+            _currentUserManager.User.AccountNumber, decreaseValue);
     }
 
     public void Replenishment(decimal increaseValue)
@@ -71,6 +73,8 @@ internal class UserService : IUserService
 
         _repository.IncreaseAccountAmountByPin(
             _currentUserManager.User.AccountNumber, _currentUserManager.User.Pin, increaseValue);
+        _operationsHistoryRepository.AddNewIncreaseOperationData(
+            _currentUserManager.User.AccountNumber, increaseValue);
     }
 
     public IEnumerable<Operation>? GetOperationsHistory()

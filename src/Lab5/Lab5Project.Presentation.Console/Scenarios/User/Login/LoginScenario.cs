@@ -33,13 +33,5 @@ public class LoginScenario : IWelcomeScenario
         AnsiConsole.WriteLine(message);
         AnsiConsole.WriteLine("Now, choose needed option");
         _scenarioRunner.Run();
-
-        /*SelectionPrompt<IScenario> selector = new SelectionPrompt<IScenario>()
-            .Title("Select action")
-            .AddChoices(scenarios)
-            .UseConverter(x => x.Name);
-
-        IScenario scenario = AnsiConsole.Prompt(selector);
-        scenario.Run();*/
     }
 }

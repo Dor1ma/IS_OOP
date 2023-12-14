@@ -12,10 +12,58 @@ public class OperationsHistoryRepository : IOperationsHistoryRepository
     private const int SecondIndex = 1;
     private const int ThirdIndex = 2;
     private readonly IPostgresConnectionProvider _connectionProvider;
-
+    private decimal _value = 1;
     public OperationsHistoryRepository(IPostgresConnectionProvider connectionProvider)
     {
         _connectionProvider = connectionProvider;
+    }
+
+    public void AddNewIncreaseOperationData(long accountNumber, decimal value)
+    {
+        const string sql = """
+                           INSERT INTO operations_history (account_number, operation_type, value)
+                           VALUES (@accountNumber, @operationType, @value);
+                           """;
+        using var connection = new NpgsqlConnection(new NpgsqlConnectionStringBuilder
+        {
+            Host = "localhost",
+            Port = 6432,
+            Username = "postgres",
+            Password = "postgres",
+            SslMode = SslMode.Prefer,
+        }.ConnectionString);
+        connection.Open();
+
+        _value = value;
+        using var command = new NpgsqlCommand(sql, connection);
+        command.Parameters.AddWithValue("accountNumber", accountNumber);
+        command.Parameters.AddWithValue("operationType", OperationType.Increase.ToString());
+        command.Parameters.AddWithValue("value", _value);
+        command.ExecuteNonQuery();
+    }
+
+    public void AddNewDecreaseOperationData(long accountNumber, decimal value)
+    {
+        const string sql = """
+                           INSERT INTO operations_history (account_number, operation_type, value)
+                           VALUES (@accountNumber, @operationType, @value);
+                           """;
+        using var connection = new NpgsqlConnection(new NpgsqlConnectionStringBuilder
+        {
+            Host = "localhost",
+            Port = 6432,
+            Username = "postgres",
+            Password = "postgres",
+            SslMode = SslMode.Prefer,
+        }.ConnectionString);
+        connection.Open();
+
+        _value = value;
+        using var command = new NpgsqlCommand(sql, connection);
+        command.Parameters.AddWithValue("accountNumber", accountNumber);
+        command.Parameters.AddWithValue("operationType", OperationType.Decrease.ToString());
+        command.Parameters.AddWithValue("value", _value);
+        command.ExecuteNonQuery();
     }
 
     public IEnumerable<Operation> GetAllOperationsForUserByAccountNumber(long accountNumber)
@@ -25,10 +73,15 @@ public class OperationsHistoryRepository : IOperationsHistoryRepository
                            from operations_history
                            """;
 
-        using NpgsqlConnection connection = Task
-            .Run(async () =>
-                await _connectionProvider.GetConnectionAsync(default).ConfigureAwait(false)).GetAwaiter()
-            .GetResult();
+        using var connection = new NpgsqlConnection(new NpgsqlConnectionStringBuilder
+        {
+            Host = "localhost",
+            Port = 6432,
+            Username = "postgres",
+            Password = "postgres",
+            SslMode = SslMode.Prefer,
+        }.ConnectionString);
+        connection.Open();
 
         using var command = new NpgsqlCommand(sql, connection);
 
@@ -38,7 +91,7 @@ public class OperationsHistoryRepository : IOperationsHistoryRepository
         {
             yield return new Operation(
                 AccountNumber: reader.GetInt64(FirstIndex),
-                OperationType: reader.GetFieldValue<OperationType>(SecondIndex),
+                OperationType: reader.GetString(SecondIndex),
                 Value: reader.GetInt64(ThirdIndex));
         }
     }
