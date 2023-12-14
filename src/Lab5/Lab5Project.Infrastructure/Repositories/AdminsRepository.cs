@@ -21,7 +21,7 @@ public class AdminsRepository : IAdminsRepository
         const string sql = """
                            select admin_name, password
                            from admins
-                           where admin_name = :name and password = :password;
+                           where admin_name = @name and password = @password;
                            """;
 
         using var connection = new NpgsqlConnection(new NpgsqlConnectionStringBuilder
@@ -35,7 +35,7 @@ public class AdminsRepository : IAdminsRepository
         connection.Open();
 
         using var command = new NpgsqlCommand(sql, connection);
-        command.Parameters.AddWithValue("admin_name", name);
+        command.Parameters.AddWithValue("name", name);
         command.Parameters.AddWithValue("password", password);
 
         using NpgsqlDataReader reader = command.ExecuteReader();

@@ -32,6 +32,10 @@ public class LoginScenario : IWelcomeScenario
 
         AnsiConsole.WriteLine(message);
         AnsiConsole.WriteLine("Now, choose needed option");
-        _scenarioRunner.Run();
+
+        while (true)
+        {
+            _scenarioRunner.Run();
+        }
     }
 }
