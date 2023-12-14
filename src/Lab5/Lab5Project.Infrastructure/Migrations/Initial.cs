@@ -36,6 +36,8 @@ public class Initial : SqlMigration
         operation_type operation_type not null ,
         value numeric not null
     );
+    
+    insert into admins (admin_name, password) values ('admin', 'admin');
     """;
 
     protected override string GetDownSql(IServiceProvider serviceProvider) =>
