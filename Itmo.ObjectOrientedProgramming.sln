@@ -55,13 +55,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab5Project.Application", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab5Project.Infrastructure", "src\Lab5\Lab5Project.Infrastructure\Lab5Project.Infrastructure.csproj", "{01C31606-2450-47AA-A855-AE2781B9E700}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab5Project.Presentation", "src\Lab5\Lab5Project.Presentation\Lab5Project.Presentation.csproj", "{32434057-3006-4FD9-A09C-1C7425629E07}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab5Project.Application.Abstractions", "src\Lab5\Lab5Project.Application.Abstractions\Lab5Project.Application.Abstractions.csproj", "{7651A294-9044-4F36-BF9C-85E1DC9780C6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab5Project.Application.Contracts", "src\Lab5\Lab5Project.Application.Contracts\Lab5Project.Application.Contracts.csproj", "{790E59F9-EAAC-40F5-9E61-5C4CEAD88C2A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab5Project.Application.Models", "src\Lab5\Lab5Project.Application.Models\Lab5Project.Application.Models.csproj", "{A7D6D6CA-973A-40D2-85CE-638F6098C30E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab5Project.Presentation.Console", "src\Lab5\Lab5Project.Presentation.Console\Lab5Project.Presentation.Console.csproj", "{45B2A96A-79D9-4E3B-B4B7-A6F784743A07}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -88,10 +88,10 @@ Global
 		{E78B9F06-62B5-4974-A125-565EE1B57453} = {7578CCF8-00E0-4A83-8C63-D13F75D99FC4}
 		{978F0373-8AA4-4E5E-AB18-BFA01B3B42D4} = {37256C9C-B64B-4322-8CCC-39E4EC9BA4FB}
 		{01C31606-2450-47AA-A855-AE2781B9E700} = {3F4ACA86-CBB6-4400-BA6E-4EDDA3BEB4E0}
-		{32434057-3006-4FD9-A09C-1C7425629E07} = {5536816B-B722-4B81-B781-EB2FCF7267BF}
 		{7651A294-9044-4F36-BF9C-85E1DC9780C6} = {37256C9C-B64B-4322-8CCC-39E4EC9BA4FB}
 		{790E59F9-EAAC-40F5-9E61-5C4CEAD88C2A} = {37256C9C-B64B-4322-8CCC-39E4EC9BA4FB}
 		{A7D6D6CA-973A-40D2-85CE-638F6098C30E} = {37256C9C-B64B-4322-8CCC-39E4EC9BA4FB}
+		{45B2A96A-79D9-4E3B-B4B7-A6F784743A07} = {5536816B-B722-4B81-B781-EB2FCF7267BF}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{EABA4888-E6C1-4ACC-856E-FBD34CEA3EDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -142,10 +142,6 @@ Global
 		{01C31606-2450-47AA-A855-AE2781B9E700}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01C31606-2450-47AA-A855-AE2781B9E700}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01C31606-2450-47AA-A855-AE2781B9E700}.Release|Any CPU.Build.0 = Release|Any CPU
-		{32434057-3006-4FD9-A09C-1C7425629E07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{32434057-3006-4FD9-A09C-1C7425629E07}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{32434057-3006-4FD9-A09C-1C7425629E07}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{32434057-3006-4FD9-A09C-1C7425629E07}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7651A294-9044-4F36-BF9C-85E1DC9780C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7651A294-9044-4F36-BF9C-85E1DC9780C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7651A294-9044-4F36-BF9C-85E1DC9780C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -158,5 +154,9 @@ Global
 		{A7D6D6CA-973A-40D2-85CE-638F6098C30E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7D6D6CA-973A-40D2-85CE-638F6098C30E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7D6D6CA-973A-40D2-85CE-638F6098C30E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45B2A96A-79D9-4E3B-B4B7-A6F784743A07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45B2A96A-79D9-4E3B-B4B7-A6F784743A07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45B2A96A-79D9-4E3B-B4B7-A6F784743A07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45B2A96A-79D9-4E3B-B4B7-A6F784743A07}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

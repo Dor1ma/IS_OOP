@@ -16,6 +16,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Lab5Project.Application\Lab5Project.Application.csproj" />
       <ProjectReference Include="..\Lab5Project.Infrastructure\Lab5Project.Infrastructure.csproj" />
+      <ProjectReference Include="..\Lab5Project.Presentation.Console\Lab5Project.Presentation.Console.csproj" />
     </ItemGroup>
 
 </Project>

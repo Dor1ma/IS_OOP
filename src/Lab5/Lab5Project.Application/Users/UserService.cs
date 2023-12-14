@@ -69,7 +69,7 @@ internal class UserService : IUserService
             return;
         }
 
-        _repository.DecreaseAccountAmountByPin(
+        _repository.IncreaseAccountAmountByPin(
             _currentUserManager.User.AccountNumber, _currentUserManager.User.Pin, increaseValue);
     }
 

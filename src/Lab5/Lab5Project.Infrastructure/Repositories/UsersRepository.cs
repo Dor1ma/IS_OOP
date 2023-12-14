@@ -23,7 +23,7 @@ public class UsersRepository : IUsersRepository
         const string sql = """
                            select account_number, username, pin, amount
                            from users
-                           where username = :user_name and pin = :pin;
+                           where username = @user_name and pin = @pin;
                            """;
 
         using NpgsqlConnection connection = Task
@@ -54,7 +54,7 @@ public class UsersRepository : IUsersRepository
         const string sql = """
                            select amount
                            from users
-                           where account_number = :account_number and pin = :pin;
+                           where account_number = @account_number and pin = @pin;
                            """;
 
         using NpgsqlConnection connection = Task
@@ -80,7 +80,7 @@ public class UsersRepository : IUsersRepository
     {
         const string sql = """
                            INSERT INTO users (username, pin, amount)
-                           VALUES (:username, :pin, :amount);
+                           VALUES (@username, @pin, @amount);
                            """;
         using NpgsqlConnection connection = Task
             .Run(async () =>
@@ -90,6 +90,7 @@ public class UsersRepository : IUsersRepository
         using var command = new NpgsqlCommand(sql, connection);
         command.Parameters.AddWithValue("username", username);
         command.Parameters.AddWithValue("pin", pin);
+        command.Parameters.AddWithValue("amount", 0);
         command.ExecuteReader();
     }
 
@@ -97,8 +98,8 @@ public class UsersRepository : IUsersRepository
     {
         const string sql = """
                            UPDATE users
-                           SET amount = amount - :amount
-                           WHERE account_number = :accountNumber AND pin = :pin;
+                           SET amount = amount - @amount
+                           WHERE account_number = @accountNumber AND pin = @pin;
                            """;
         using NpgsqlConnection connection = Task
             .Run(async () =>
@@ -116,18 +117,22 @@ public class UsersRepository : IUsersRepository
     {
         const string sql = """
                            UPDATE users
-                           SET amount = amount + :amount
-                           WHERE account_number = :accountNumber AND pin = :pin;
+                           SET amount = amount + @amount
+                           WHERE account_number = @accountNumber AND pin = @pin;
                            """;
-        using NpgsqlConnection connection = Task
+        NpgsqlConnection connection = Task
             .Run(async () =>
                 await _connectionProvider.GetConnectionAsync(default).ConfigureAwait(false)).GetAwaiter()
             .GetResult();
+
+        connection.Open();
 
         using var command = new NpgsqlCommand(sql, connection);
         command.Parameters.AddWithValue("account_number", accountNumber);
         command.Parameters.AddWithValue("pin", pin);
         command.Parameters.AddWithValue("amount", amount);
         command.ExecuteReader();
+
+        connection.Close();
     }
 }
