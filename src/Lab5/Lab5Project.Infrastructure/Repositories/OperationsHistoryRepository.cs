@@ -1,4 +1,3 @@
-using Itmo.Dev.Platform.Postgres.Connection;
 using Lab5Project.Application.Abstractions.Repositories;
 using Lab5Project.Application.Contracts.Users;
 using Lab5Project.Application.Models;
@@ -11,12 +10,7 @@ public class OperationsHistoryRepository : IOperationsHistoryRepository
     private const int FirstIndex = 0;
     private const int SecondIndex = 1;
     private const int ThirdIndex = 2;
-    private readonly IPostgresConnectionProvider _connectionProvider;
     private decimal _value = 1;
-    public OperationsHistoryRepository(IPostgresConnectionProvider connectionProvider)
-    {
-        _connectionProvider = connectionProvider;
-    }
 
     public void AddNewIncreaseOperationData(long accountNumber, decimal value)
     {

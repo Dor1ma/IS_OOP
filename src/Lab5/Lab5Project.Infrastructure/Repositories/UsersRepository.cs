@@ -1,4 +1,3 @@
-using Itmo.Dev.Platform.Postgres.Connection;
 using Lab5Project.Application.Abstractions.Repositories;
 using Lab5Project.Application.Models.Users;
 using Npgsql;
@@ -11,12 +10,6 @@ public class UsersRepository : IUsersRepository
     private const int SecondIndex = 1;
     private const int ThirdIndex = 2;
     private const int FourthIndex = 3;
-    private readonly IPostgresConnectionProvider _connectionProvider;
-
-    public UsersRepository(IPostgresConnectionProvider connectionProvider)
-    {
-        _connectionProvider = connectionProvider;
-    }
 
     public User? GetUserAccount(string username, int pin)
     {

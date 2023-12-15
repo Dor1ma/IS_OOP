@@ -1,4 +1,3 @@
-using Itmo.Dev.Platform.Postgres.Connection;
 using Lab5Project.Application.Abstractions.Repositories;
 using Lab5Project.Application.Models.Admins;
 using Npgsql;
@@ -9,12 +8,6 @@ public class AdminsRepository : IAdminsRepository
 {
     private const int FirstIndex = 0;
     private const int SecondIndex = 1;
-    private readonly IPostgresConnectionProvider _connectionProvider;
-
-    public AdminsRepository(IPostgresConnectionProvider connectionProvider)
-    {
-        _connectionProvider = connectionProvider;
-    }
 
     public Admin? GetAdminByNameAndPassword(string name, string password)
     {
