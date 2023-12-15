@@ -1,4 +1,3 @@
-using Itmo.Dev.Platform.Postgres.Connection;
 using Lab5Project.Application.Abstractions.Repositories;
 using Lab5Project.Application.Models.Users;
 
@@ -6,13 +5,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab5.Tests.Mocks;
 
 public class MockUsersRepository : IUsersRepository
 {
-    private readonly IPostgresConnectionProvider _connectionProvider;
     private IStorage _storage = new TestsStorage();
-
-    public MockUsersRepository(IPostgresConnectionProvider connectionProvider)
-    {
-        _connectionProvider = connectionProvider;
-    }
 
     public User? GetUserAccount(string username, int pin)
     {
