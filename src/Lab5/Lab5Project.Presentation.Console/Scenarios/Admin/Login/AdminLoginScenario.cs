@@ -24,12 +24,11 @@ public class AdminLoginScenario : IWelcomeScenario
 
         string message = result switch
         {
-            LoginResult.Success => "Successful login",
-            LoginResult.NotFound => "User not found or incorrect data",
+            LoginResult.Success => "Successful login as admin",
+            LoginResult.NotFound => "Admin not found or incorrect data",
             _ => throw new ArgumentOutOfRangeException(nameof(result)),
         };
 
         AnsiConsole.WriteLine(message);
-        AnsiConsole.WriteLine("No, choose needed option");
     }
 }

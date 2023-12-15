@@ -23,12 +23,15 @@ public class LoginScenario : IWelcomeScenario
 
         LoginResult result = _userService.LoginResult(username, pin);
 
-        string message = result switch
+        string message;
+        if (result == LoginResult.NotFound || result == LoginResult.None)
         {
-            LoginResult.Success => "Successful login",
-            LoginResult.NotFound => "User not found or incorrect data",
-            _ => throw new ArgumentOutOfRangeException(nameof(result)),
-        };
+            message = "User not found or incorrect data";
+            AnsiConsole.WriteLine(message);
+            Environment.Exit(0);
+        }
+
+        message = "Successful login";
 
         AnsiConsole.WriteLine(message);
         AnsiConsole.WriteLine("Now, choose needed option");
