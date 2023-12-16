@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Itmo.Dev.Platform.Postgres" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+        <PackageReference Include="Npgsql" />
+        <ProjectReference Include="..\Lab5Project.Application.Contracts\Lab5Project.Application.Contracts.csproj" />
+        <ProjectReference Include="..\Lab5Project.Application.Abstractions\Lab5Project.Application.Abstractions.csproj" />
+    </ItemGroup>
+
+</Project>
